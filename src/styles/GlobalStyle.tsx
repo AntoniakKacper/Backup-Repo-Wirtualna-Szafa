@@ -22,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     }
 
+    a{
+        text-decoration: none;
+    }
+
     body {
         font-size: 1rem;
         font-family: 'Montserrat', sans-serif;
