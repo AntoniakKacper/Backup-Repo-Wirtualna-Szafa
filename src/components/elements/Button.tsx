@@ -1,4 +1,3 @@
-// import styled from "styled-components";
 import { styled } from '../../config/theme';
 
 const Button = styled.button`

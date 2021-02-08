@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
-// import { auth, database } from "../../../database/firebase";
-// import styled from "styled-components";
+
+import { AuthContext } from "../../../AuthProvider";
+
 import { styled } from '../../../config/theme';
 import { makeStyles } from "@material-ui/core/styles";
+
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Header } from "../../Header";
 
+import LinearProgress from '@material-ui/core/LinearProgress';
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -19,10 +23,10 @@ import Button from "../../elements/Button";
 import Links from "../../elements/Links";
 
 import { flexCenterXY } from "../../../styles/shared-style";
+import { auth, database } from "../../../database/firebase";
 
-interface User {
+interface UserData {
   email: string;
-  login: string;
   password: string;
 }
 
@@ -55,32 +59,89 @@ const Form = styled.form`
   padding-bottom: 100px;
 `;
 
-const StyledLink = styled.a`
-  color: ${(props) => props.theme.color.opium};
-`
-
 export const Login: React.FC = () => {
   const classes = useStyles();
+  const authContext = useContext(AuthContext);
+  const {loadingAuthState} = useContext(AuthContext);
+  const history = useHistory();
 
-  const [user, setUser] = useState(null);
-  //const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [values, setValues] = useState<UserData>({
+    email: "",
+    password: "",
+  })
 
   const [showPassword, setShowPassword] = useState(false);
+  
+  const handleChange = (event: any) => {
+    setValues((values) => ({
+      ...values,
+      [event.target.name]: event.target.value
+    }));
+  }
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    auth.signInWithEmailAndPassword(values.email, values.password).then((userCredentials) => {
+      authContext.setCurrentUser(userCredentials);
+      history.push("/home");
+    }).catch((error) => console.log(error.message));
+  }
+
+  useEffect(() => {
+    auth.getRedirectResult().then((result) => {
+      if(!result || !result.user || !auth.currentUser){
+        return;
+      }
+
+      return setUserProfile().then(() => {
+        history.push("/home");
+      }).catch((error) => console.log(error.message))
+    })
+  }, [])
+
+  const setUserProfile = async () => {
+    if(await isUserExisits()){
+      return ;
+    }
+
+    const user = auth.currentUser!;
+    console.log(user);
+    database.collection("Users").doc(user.uid).set({
+      //Sprawdzic czy istnieje juz taka nazwa uzytkownika
+      username: user.displayName
+    }).then(() => {
+      console.log("Username saved");
+      return;
+    }).catch((error) => console.log(error.message))
+  }
+
+  const isUserExisits = async() => {
+    const doc = await database.collection("Users").doc(auth.currentUser!.uid).get();
+    return doc.exists;
+  }
+
+  if (loadingAuthState) {
+    return (
+        <div>
+            <LinearProgress color="secondary" />
+        </div>  
+    );
+  }
 
   return (
     <>
       <Header />
       <Wrapper>
-      <Form>
+      <Form onSubmit={handleSubmit}>
           <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel color="secondary">Email</InputLabel>
             <Input
               color="secondary"
               type="email"
               placeholder="email@email.com"
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              onChange={handleChange}
             />
           </FormControl>
 
@@ -88,8 +149,9 @@ export const Login: React.FC = () => {
             <InputLabel color="secondary">Password</InputLabel>
             <Input
               type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={values.password}
+              name="password"
+              onChange={handleChange}
               color="secondary"
               endAdornment={
                 <InputAdornment position="end">
@@ -105,15 +167,15 @@ export const Login: React.FC = () => {
           </FormControl>
 
           
+        <Button type="submit">Sign in</Button>
         </Form>
 
-        <Button>Sign in</Button>
         <Links>
           <Link to="/register">
-            <StyledLink>Register</StyledLink>
+            Register
           </Link>
           <Link to="/forgotPassword">
-            <StyledLink>Forgot Password?</StyledLink>
+            Forgot Password?
           </Link>
         </Links>
       </Wrapper>
