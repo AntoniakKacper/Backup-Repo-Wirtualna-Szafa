@@ -18,7 +18,6 @@ export const MyField: React.FC<FieldAttributes<{}>> = ({
     return (
       <>
         <TextField
-          type={showPassword ? "text" : "password"}
           placeholder={placeholder}
           {...field}
           color="primary"
@@ -26,6 +25,7 @@ export const MyField: React.FC<FieldAttributes<{}>> = ({
           fullWidth={true}
           helperText={errorText}
           error={!!errorText}
+          type={showPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">

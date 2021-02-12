@@ -40,7 +40,7 @@ const SigninSchema = Yup.object().shape({
     .matches(REGEX_PASSWORD, "Password does not meet requirements."),
 });
 
-export const MyForm: React.FC<MyFormProps> = ({ onSubmit }) => {
+export const SignInForm: React.FC<MyFormProps> = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{ email: "", password: "" }}

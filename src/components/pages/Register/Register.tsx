@@ -18,6 +18,7 @@ import { flexCenterXY } from "../../../styles/shared-style";
 //import Button from "../../elements/Button";
 import Links from "../../elements/Links";
 import { Header } from "../../Header";
+import { SignUpForm } from "../../elements/SignUpForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -111,83 +112,11 @@ export const Register = () => {
     <>
       <Header />
       <Wrapper>
-        <Form onSubmit={handleSubmit}>
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel color="secondary">Login</InputLabel>
-            <Input
-              color="secondary"
-              type="text"
-              placeholder="login"
-              name="username"
-              onChange={handleChange}
-            />
-          </FormControl>
-
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel color="secondary">Email</InputLabel>
-            <Input
-              color="secondary"
-              type="email"
-              placeholder="email@email.com"
-              name="email"
-              onChange={handleChange}
-            />
-          </FormControl>
-
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel color="secondary">Password</InputLabel>
-            <Input
-              type={showPassword ? "text" : "password"}
-              value={values.password}
-              name="password"
-              onChange={handleChange}
-              color="secondary"
-              endAdornment={
-                <InputAdornment position="end">
-                  {" "}
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel
-              htmlFor="standard-adornment-confirmPassword"
-              color="secondary"
-            >
-              Confirm Password
-            </InputLabel>
-            <Input
-              type={showConfirmedPassword ? "text" : "password"}
-              value={values.confirmedPassword}
-              name="confirmedPassword"
-              onChange={handleChange}
-              color="secondary"
-              endAdornment={
-                <InputAdornment position="end">
-                  {" "}
-                  <IconButton
-                    onClick={() =>
-                      setShowConfirmedPassword(!showConfirmedPassword)
-                    }
-                  >
-                    {showConfirmedPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <Button
-            disabled={!matchPassword}
-            variant="outlined"
-            color="secondary"
-          >
-            Sign in
-          </Button>
-        </Form>
+        <SignUpForm
+          onSubmit={({ email, password }) => {
+            console.log(email, password);
+          }}
+        />
 
         <Links>
           <Link to="/login">Back to login</Link>

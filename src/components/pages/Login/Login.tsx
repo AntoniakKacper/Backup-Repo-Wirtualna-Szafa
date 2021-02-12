@@ -1,15 +1,6 @@
 //import Button from "../../elements/Button";
-import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputLabel from "@material-ui/core/InputLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import clsx from "clsx";
 import React, { useContext, useEffect, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
@@ -18,7 +9,7 @@ import { styled } from "../../../config/theme";
 import { auth, database } from "../../../database/firebase";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
-import { MyForm } from "../../elements/MyForm";
+import { SignInForm } from "../../elements/SignInForm";
 import { Header } from "../../Header";
 
 interface UserData {
@@ -26,37 +17,12 @@ interface UserData {
   password: string;
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: "25ch",
-  },
-}));
-
 const Wrapper = styled.div`
   ${flexCenterXY}
   flex-direction: column;
 `;
 
-const Form = styled.form`
-  ${flexCenterXY}
-  width: 100%;
-  flex-direction: column;
-  padding-top: 150px;
-  padding-bottom: 100px;
-`;
-
 export const Login: React.FC = () => {
-  const classes = useStyles();
   const authContext = useContext(AuthContext);
   const { loadingAuthState } = useContext(AuthContext);
   const history = useHistory();
@@ -65,8 +31,6 @@ export const Login: React.FC = () => {
     email: "",
     password: "",
   });
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event: any) => {
     setValues((values) => ({
@@ -141,47 +105,11 @@ export const Login: React.FC = () => {
     <>
       <Header />
       <Wrapper>
-        <MyForm
+        <SignInForm
           onSubmit={({ email, password }) => {
             console.log(email, password);
           }}
         />
-        {/* <Form onSubmit={handleSubmit}>
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel color="secondary">Email</InputLabel>
-            <Input
-              color="secondary"
-              type="email"
-              placeholder="email@email.com"
-              name="email"
-              onChange={handleChange}
-            />
-          </FormControl>
-
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel color="secondary">Password</InputLabel>
-            <Input
-              type={showPassword ? "text" : "password"}
-              value={values.password}
-              name="password"
-              onChange={handleChange}
-              color="secondary"
-              endAdornment={
-                <InputAdornment position="end">
-                  {" "}
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-
-          <Button variant="outlined" color="secondary" type="submit">
-            Sign in
-          </Button>
-        </Form> */}
-
         <Links>
           <Link to="/register">Register</Link>
           <Link to="/forgotPassword">Forgot Password?</Link>
