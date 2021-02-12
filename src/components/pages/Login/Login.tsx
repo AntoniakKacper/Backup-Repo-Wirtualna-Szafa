@@ -1,29 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
-import clsx from "clsx";
-
-import { AuthContext } from "../../../AuthProvider";
-
-import { styled } from '../../../config/theme';
-import { makeStyles } from "@material-ui/core/styles";
-
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-
-import { Header } from "../../Header";
-
-import LinearProgress from '@material-ui/core/LinearProgress';
+//import Button from "../../elements/Button";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { makeStyles } from "@material-ui/core/styles";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Button from "../../elements/Button";
-import Links from "../../elements/Links";
-
-import { flexCenterXY } from "../../../styles/shared-style";
+import clsx from "clsx";
+import React, { useContext, useEffect, useState } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider";
+import { styled } from "../../../config/theme";
 import { auth, database } from "../../../database/firebase";
+import { flexCenterXY } from "../../../styles/shared-style";
+import Links from "../../elements/Links";
+import { MyForm } from "../../elements/MyForm";
+import { Header } from "../../Header";
 
 interface UserData {
   email: string;
@@ -62,70 +58,82 @@ const Form = styled.form`
 export const Login: React.FC = () => {
   const classes = useStyles();
   const authContext = useContext(AuthContext);
-  const {loadingAuthState} = useContext(AuthContext);
+  const { loadingAuthState } = useContext(AuthContext);
   const history = useHistory();
-
 
   const [values, setValues] = useState<UserData>({
     email: "",
     password: "",
-  })
+  });
 
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const handleChange = (event: any) => {
     setValues((values) => ({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     }));
-  }
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(values.email, values.password).then((userCredentials) => {
-      authContext.setCurrentUser(userCredentials);
-      history.push("/home");
-    }).catch((error) => console.log(error.message));
-  }
+    auth
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then((userCredentials) => {
+        authContext.setCurrentUser(userCredentials);
+        history.push("/home");
+      })
+      .catch((error) => console.log(error.message));
+  };
 
   useEffect(() => {
     auth.getRedirectResult().then((result) => {
-      if(!result || !result.user || !auth.currentUser){
+      if (!result || !result.user || !auth.currentUser) {
         return;
       }
 
-      return setUserProfile().then(() => {
-        history.push("/home");
-      }).catch((error) => console.log(error.message))
-    })
-  }, [])
+      return setUserProfile()
+        .then(() => {
+          history.push("/home");
+        })
+        .catch((error) => console.log(error.message));
+    });
+  }, []);
 
   const setUserProfile = async () => {
-    if(await isUserExisits()){
-      return ;
+    if (await isUserExisits()) {
+      return;
     }
 
     const user = auth.currentUser!;
     console.log(user);
-    database.collection("Users").doc(user.uid).set({
-      //Sprawdzic czy istnieje juz taka nazwa uzytkownika
-      username: user.displayName
-    }).then(() => {
-      console.log("Username saved");
-      return;
-    }).catch((error) => console.log(error.message))
-  }
+    database
+      .collection("Users")
+      .doc(user.uid)
+      .set({
+        //Sprawdzic czy istnieje juz taka nazwa uzytkownika
+        username: user.displayName,
+      })
+      .then(() => {
+        console.log("Username saved");
+        return;
+      })
+      .catch((error) => console.log(error.message));
+  };
 
-  const isUserExisits = async() => {
-    const doc = await database.collection("Users").doc(auth.currentUser!.uid).get();
+  const isUserExisits = async () => {
+    const doc = await database
+      .collection("Users")
+      .doc(auth.currentUser!.uid)
+      .get();
     return doc.exists;
-  }
+  };
 
   if (loadingAuthState) {
     return (
-        <div>
-            <LinearProgress color="secondary" />
-        </div>  
+      <div>
+        <LinearProgress color="secondary" />
+      </div>
     );
   }
 
@@ -133,7 +141,12 @@ export const Login: React.FC = () => {
     <>
       <Header />
       <Wrapper>
-      <Form onSubmit={handleSubmit}>
+        <MyForm
+          onSubmit={({ email, password }) => {
+            console.log(email, password);
+          }}
+        />
+        {/* <Form onSubmit={handleSubmit}>
           <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel color="secondary">Email</InputLabel>
             <Input
@@ -156,9 +169,7 @@ export const Login: React.FC = () => {
               endAdornment={
                 <InputAdornment position="end">
                   {" "}
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
@@ -166,17 +177,14 @@ export const Login: React.FC = () => {
             />
           </FormControl>
 
-          
-        <Button type="submit">Sign in</Button>
-        </Form>
+          <Button variant="outlined" color="secondary" type="submit">
+            Sign in
+          </Button>
+        </Form> */}
 
         <Links>
-          <Link to="/register">
-            Register
-          </Link>
-          <Link to="/forgotPassword">
-            Forgot Password?
-          </Link>
+          <Link to="/register">Register</Link>
+          <Link to="/forgotPassword">Forgot Password?</Link>
         </Links>
       </Wrapper>
     </>

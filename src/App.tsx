@@ -1,11 +1,7 @@
-import {ApplicationRoutes} from './config/ApplicationRoutes';
-
-
+import { ApplicationRoutes } from "./config/ApplicationRoutes";
 
 const App: React.FC = () => {
-  return (
-      <ApplicationRoutes/>
-  );
-}
+  return <ApplicationRoutes />;
+};
 
 export default App;

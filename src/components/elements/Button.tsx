@@ -1,6 +1,11 @@
-import { styled } from '../../config/theme';
+import React from "react";
+import { styled } from "../../config/theme";
 
-const Button = styled.button`
+interface ButtonProps {
+  children: React.ReactNode;
+}
+
+const StyledButton = styled.button`
   appearance: none;
   font-size: 20px;
   color: ${(props) => props.theme.color.wildWatermelon};
@@ -16,4 +21,7 @@ const Button = styled.button`
   }
 `;
 
-export default Button;
+export const Button = (props: ButtonProps) => {
+  const { children } = props;
+  return <StyledButton>{children}</StyledButton>;
+};
