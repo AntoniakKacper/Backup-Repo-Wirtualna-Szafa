@@ -52,7 +52,11 @@ export const SignInForm: React.FC<MyFormProps> = ({ onSubmit }) => {
       {({ values }) => (
         <StyledForm>
           <MyField name="email" placeholder="Email"></MyField>
-          <MyField name="password" placeholder="Password" />
+          <MyField
+            name="password"
+            placeholder="Password"
+            passwordDecoration={true}
+          />
           <StyledButton variant="outlined" color="secondary" type="submit">
             Sign in
           </StyledButton>

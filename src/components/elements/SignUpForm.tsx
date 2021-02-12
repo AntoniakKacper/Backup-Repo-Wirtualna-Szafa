@@ -59,8 +59,16 @@ export const SignUpForm: React.FC<MyFormProps> = ({ onSubmit }) => {
         <StyledForm>
           <MyField name="login" placeholder="Login"></MyField>
           <MyField name="email" placeholder="Email"></MyField>
-          <MyField name="password" placeholder="Password" />
-          <MyField name="confirmPassword" placeholder="Confirm password" />
+          <MyField
+            name="password"
+            placeholder="Password"
+            passwordDecoration={true}
+          />
+          <MyField
+            name="confirmPassword"
+            placeholder="Confirm password"
+            passwordDecoration={true}
+          />
           <StyledButton variant="outlined" color="secondary" type="submit">
             Sign in
           </StyledButton>

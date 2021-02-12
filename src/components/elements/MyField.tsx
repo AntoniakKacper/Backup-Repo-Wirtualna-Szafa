@@ -6,7 +6,12 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import TextField from "@material-ui/core/TextField";
 
-export const MyField: React.FC<FieldAttributes<{}>> = ({
+interface Props {
+  passwordDecoration?: boolean;
+}
+
+export const MyField: React.FC<FieldAttributes<{}> & Props> = ({
+  passwordDecoration,
   placeholder,
   ...props
 }) => {
@@ -14,7 +19,7 @@ export const MyField: React.FC<FieldAttributes<{}>> = ({
   const [field, meta] = useField<{}>(props);
   const errorText = meta.error && meta.touched ? meta.error : "";
 
-  if (props.name === "password") {
+  if (passwordDecoration) {
     return (
       <>
         <TextField
