@@ -1,5 +1,4 @@
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider";
@@ -11,34 +10,10 @@ import Links from "../../elements/Links";
 import { Header } from "../../Header";
 import { SignUpForm } from "../../elements/SignUpForm";
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: "25ch",
-  },
-}));
-
 //Styled components
 const Wrapper = styled.div`
   ${flexCenterXY}
   flex-direction: column;
-`;
-
-const Form = styled.form`
-  ${flexCenterXY}
-  width: 100%;
-  flex-direction: column;
-  padding-top: 150px;
-  padding-bottom: 100px;
 `;
 
 interface RegisterFormValues {
@@ -50,7 +25,6 @@ interface RegisterFormValues {
 
 export const Register = () => {
   const authContext = useContext(AuthContext);
-  const classes = useStyles();
 
   const [values, setValues] = useState<RegisterFormValues>({
     username: "",
@@ -58,11 +32,6 @@ export const Register = () => {
     password: "",
     confirmedPassword: "",
   });
-
-  const [matchPassword, setMatchPassword] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
 
   const history = useHistory();
 
@@ -93,11 +62,6 @@ export const Register = () => {
           .catch((error) => console.log(error.message));
       });
   };
-  useEffect(() => {
-    values.password === values.confirmedPassword
-      ? setMatchPassword(true)
-      : setMatchPassword(false);
-  }, [values.password, values.confirmedPassword]);
 
   return (
     <>

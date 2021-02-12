@@ -1,6 +1,5 @@
 //import Button from "../../elements/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";

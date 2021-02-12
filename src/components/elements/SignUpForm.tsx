@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form } from "formik";
 import Button from "@material-ui/core/Button";
 import { styled } from "../../config/theme";
@@ -45,6 +45,13 @@ const SigninSchema = Yup.object().shape({
     .required("Confirm password")
     .matches(REGEX_PASSWORD, "Password does not meet requirements."),
 });
+
+// Check if passwords matches
+// useEffect(() => {
+//     password === confirmedPassword
+//       ? setMatchPassword(true)
+//       : setMatchPassword(false);
+//   }, [password, confirmedPassword]);
 
 export const SignUpForm: React.FC<MyFormProps> = ({ onSubmit }) => {
   return (
