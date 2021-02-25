@@ -31,6 +31,7 @@ export const MyField: React.FC<FieldAttributes<{}> & Props> = ({
           helperText={errorText}
           error={!!errorText}
           type={showPassword ? "text" : "password"}
+          autoComplete="on"
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">
@@ -47,14 +48,15 @@ export const MyField: React.FC<FieldAttributes<{}> & Props> = ({
     return (
       <>
         <TextField
-          placeholder={placeholder}
-          label={!!errorText ? "Error" : placeholder}
+          placeholder={!!errorText ? "" : placeholder}
+          label={!!!errorText && placeholder}
           {...field}
           fullWidth={true}
           helperText={errorText}
           error={!!errorText}
           type="input"
           color="primary"
+          autoComplete="on"
         />
       </>
     );

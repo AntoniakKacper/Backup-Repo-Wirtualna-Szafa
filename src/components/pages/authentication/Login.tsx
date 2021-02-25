@@ -1,19 +1,25 @@
 //import Button from "../../elements/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { Formik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider";
 import { styled } from "../../../config/theme";
-import { auth, database } from "../../../database/firebase";
+import firebase, { auth, database } from "../../../database/firebase";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
-import { SignInForm } from "../../elements/SignInForm";
+import { SigninSchema } from "../../pages/authentication/Schema";
 import { Header } from "../../Header";
+import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
+import { MyField } from "../../elements/MyField";
 
-interface UserData {
+interface SignInFormValues {
   email: string;
   password: string;
+}
+interface MyFormProps {
+  onSubmit: (values: SignInFormValues) => void;
 }
 
 const Wrapper = styled.div`
@@ -21,28 +27,15 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Login: React.FC = () => {
+export const Login: React.FC<MyFormProps> = () => {
   const authContext = useContext(AuthContext);
   const { loadingAuthState } = useContext(AuthContext);
   const history = useHistory();
 
-  const [values, setValues] = useState<UserData>({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (event: any) => {
-    setValues((values) => ({
-      ...values,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
+  const handleSubmit = (values: SignInFormValues) => {
     auth
       .signInWithEmailAndPassword(values.email, values.password)
-      .then((userCredentials) => {
+      .then((userCredentials: firebase.auth.UserCredential) => {
         authContext.setCurrentUser(userCredentials);
         history.push("/home");
       })
@@ -104,11 +97,27 @@ export const Login: React.FC = () => {
     <>
       <Header />
       <Wrapper>
-        <SignInForm
-          onSubmit={({ email, password }) => {
-            console.log(email, password);
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={SigninSchema}
+          onSubmit={(values) => {
+            handleSubmit(values);
           }}
-        />
+        >
+          {() => (
+            <StyledForm>
+              <MyField name="email" placeholder="Email"></MyField>
+              <MyField
+                name="password"
+                placeholder="Password"
+                passwordDecoration={true}
+              />
+              <StyledButton variant="outlined" color="secondary" type="submit">
+                Sign in
+              </StyledButton>
+            </StyledForm>
+          )}
+        </Formik>
         <Links>
           <Link to="/register">Register</Link>
           <Link to="/forgotPassword">Forgot Password?</Link>
