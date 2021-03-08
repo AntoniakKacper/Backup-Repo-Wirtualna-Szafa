@@ -10,6 +10,7 @@ import { Login } from "../components/pages/authentication/Login";
 import { Register } from "../components/pages/authentication/Register";
 import { ForgotPassword } from "../components/pages/authentication/ForgotPassword";
 import { Home } from "../components/pages/Home/Home";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const ApplicationRoutes: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ export const ApplicationRoutes: React.FC = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/forgotPassword" component={ForgotPassword} />
-          <Route path="/home" component={Home} />
+          <PrivateRoute path="/home" component={Home} />
         </Switch>
       </Router>
     </ThemeProvider>

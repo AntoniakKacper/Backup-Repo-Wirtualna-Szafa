@@ -1,5 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+//import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { styled } from "../config/theme";
 
 import { ReactComponent as LogoSVG } from "../images/Logo.svg";
 
@@ -11,11 +13,22 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
+const Name = styled(Link)`
+  font-size: 32px;
+  font-weight: bold;
+  color: black;
+  &:hover {
+    color: ${(props) => props.theme.color.opium};
+  }
+`;
+
 export const Header: React.FC = () => {
   return (
     <Wrapper>
-      <h1>Wardrobe</h1>
-      <LogoSVG height="50px" width="50px" />
+      <Name to="/">Wardrobe</Name>
+      <Link to="/">
+        <LogoSVG height="50px" width="50px" />
+      </Link>
     </Wrapper>
   );
 };

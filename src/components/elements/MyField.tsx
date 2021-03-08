@@ -4,7 +4,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import TextField from "@material-ui/core/TextField";
+import { StyledInput } from "../styledComponents/AuthStyles";
 
 interface Props {
   passwordDecoration?: boolean;
@@ -22,11 +22,11 @@ export const MyField: React.FC<FieldAttributes<{}> & Props> = ({
   if (passwordDecoration) {
     return (
       <>
-        <TextField
+        <StyledInput
           placeholder={placeholder}
           {...field}
           color="primary"
-          label={!!errorText ? "Error" : placeholder}
+          label={placeholder}
           fullWidth={true}
           helperText={errorText}
           error={!!errorText}
@@ -47,9 +47,9 @@ export const MyField: React.FC<FieldAttributes<{}> & Props> = ({
   } else {
     return (
       <>
-        <TextField
-          placeholder={!!errorText ? "" : placeholder}
-          label={!!!errorText && placeholder}
+        <StyledInput
+          placeholder={placeholder}
+          label={placeholder}
           {...field}
           fullWidth={true}
           helperText={errorText}

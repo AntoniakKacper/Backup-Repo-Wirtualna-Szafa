@@ -1,5 +1,5 @@
-import { Formik, useFormikContext } from "formik";
-import React, { useContext, useEffect, useState } from "react";
+import { Formik } from "formik";
+import React, { useContext, useState } from "react";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider";
@@ -12,6 +12,9 @@ import { Header } from "../../Header";
 import { RegisterFormValues } from "../../../models/auth.model";
 import { SignupSchema } from "../../pages/authentication/Schema";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 //Styled components
 const Wrapper = styled.div`
@@ -22,21 +25,34 @@ const Wrapper = styled.div`
 export const Register: React.FC = () => {
   const authContext = useContext(AuthContext);
 
+  //const [exists, setExists] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [users] = useCollection(database.collection("Users"));
+
   const history = useHistory();
 
-  //Zrobic z tego sprawdzanie na biezaco bez klikania
+  const Alert = (props: AlertProps) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  };
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   const checkIfUsernameExists = (values: RegisterFormValues) => {
-    const db = database;
-    return db
-      .collection("Users")
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => doc.data().username === values.username);
-      });
+    return users?.docs.find((user) => user.data().username === values.username)
+      ?.exists;
   };
 
   const handleSubmit = (values: RegisterFormValues) => {
-    !checkIfUsernameExists(values) &&
+    if (checkIfUsernameExists(values)) {
+      setErrorMessage("This username is already taken");
+      setOpen(true);
+    } else {
       auth
         .createUserWithEmailAndPassword(values.email, values.password)
         .then((userCredential: firebase.auth.UserCredential) => {
@@ -50,10 +66,18 @@ export const Register: React.FC = () => {
             })
             .then(() => {
               history.push("/home");
-              console.log("Gitara bangla");
+              console.log("Zalogowano");
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+              setErrorMessage(error.message);
+              setOpen(true);
+            });
+        })
+        .catch((error: firebase.auth.Error) => {
+          setErrorMessage(error.message);
+          setOpen(true);
         });
+    }
   };
 
   return (
@@ -95,6 +119,11 @@ export const Register: React.FC = () => {
         <Links>
           <Link to="/login">Back to login</Link>
         </Links>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
       </Wrapper>
     </>
   );

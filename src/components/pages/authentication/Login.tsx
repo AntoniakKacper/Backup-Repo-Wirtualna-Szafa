@@ -13,6 +13,8 @@ import { SigninSchema } from "../../pages/authentication/Schema";
 import { Header } from "../../Header";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
 import { MyField } from "../../elements/MyField";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
 interface SignInFormValues {
   email: string;
@@ -31,15 +33,32 @@ export const Login: React.FC<MyFormProps> = () => {
   const authContext = useContext(AuthContext);
   const { loadingAuthState } = useContext(AuthContext);
   const history = useHistory();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const Alert = (props: AlertProps) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  };
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleSubmit = (values: SignInFormValues) => {
     auth
       .signInWithEmailAndPassword(values.email, values.password)
       .then((userCredentials: firebase.auth.UserCredential) => {
         authContext.setCurrentUser(userCredentials);
+        //localStorage.setItem("user", userCredentials);
         history.push("/home");
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setOpen(true);
+      });
   };
 
   useEffect(() => {
@@ -52,7 +71,10 @@ export const Login: React.FC<MyFormProps> = () => {
         .then(() => {
           history.push("/home");
         })
-        .catch((error) => console.log(error.message));
+        .catch((error) => {
+          setErrorMessage(error.message);
+          setOpen(true);
+        });
     });
   }, []);
 
@@ -67,14 +89,16 @@ export const Login: React.FC<MyFormProps> = () => {
       .collection("Users")
       .doc(user.uid)
       .set({
-        //Sprawdzic czy istnieje juz taka nazwa uzytkownika
         username: user.displayName,
       })
       .then(() => {
         console.log("Username saved");
         return;
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setOpen(true);
+      });
   };
 
   const isUserExisits = async () => {
@@ -122,6 +146,11 @@ export const Login: React.FC<MyFormProps> = () => {
           <Link to="/register">Register</Link>
           <Link to="/forgotPassword">Forgot Password?</Link>
         </Links>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
       </Wrapper>
     </>
   );
