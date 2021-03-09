@@ -4,10 +4,26 @@ import { AuthContext } from "../AuthProvider";
 
 interface PrivateRouteProps extends RouteProps {}
 
-export const PrivateRoute: React.FC<PrivateRouteProps> = ({ ...rest }) => {
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  children,
+  ...rest
+}) => {
   const auth = useContext(AuthContext);
-  if (auth.currentUser! === null) {
-    return <Redirect to="/" />;
-  }
-  return <Route {...rest} />;
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        auth.authenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
 };

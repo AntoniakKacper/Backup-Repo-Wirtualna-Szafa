@@ -4,3 +4,11 @@ export interface RegisterFormValues {
   password: string;
   confirmedPassword: string;
 }
+
+export interface User {
+  username: string;
+  email: string;
+  password: string;
+  isAuthenticated: boolean;
+  token: string;
+}

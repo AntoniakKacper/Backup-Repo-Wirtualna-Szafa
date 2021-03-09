@@ -8,7 +8,7 @@ import { styled } from "../../../config/theme";
 import firebase, { auth, database } from "../../../database/firebase";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
-import { SigninSchema } from "../../pages/auth/Schema";
+import { SigninSchema } from "./Schema";
 import { Header } from "../../Header";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
 import { MyField } from "../../elements/MyField";

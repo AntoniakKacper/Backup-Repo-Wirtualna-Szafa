@@ -16,11 +16,16 @@ export const AuthProvider = ({ children }: any) => {
   const [loadingAuthState, setLoadingAuthState] = useState(true);
 
   useEffect(() => {
-    auth.onAuthStateChanged((userCredentials: any) => {
-      //console.log(userCredentials);
-      setCurrentUser(userCredentials);
-      setLoadingAuthState(false);
-    });
+    const unsubscribe = auth.onAuthStateChanged(
+      (userCredentials: firebase.User | null) => {
+        setCurrentUser(userCredentials);
+        console.log(userCredentials);
+        setLoadingAuthState(false);
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (

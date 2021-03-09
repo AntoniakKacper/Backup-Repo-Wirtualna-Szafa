@@ -1,13 +1,11 @@
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { auth, database } from "../../../database/firebase";
 import { Header } from "../../Header";
-import Button from "@material-ui/core/Button";
 
 export const Home: React.FC = () => {
-  const [userName, setUserName] = useState();
-
-  const history = useHistory();
+  const [userName, setUserName] = useState("default");
 
   useEffect(() => {
     auth.currentUser! &&
@@ -22,18 +20,16 @@ export const Home: React.FC = () => {
         .catch((error) => console.log(error));
   }, []);
 
-  const handleClick = (event: any) => {
-    event.preventDefault();
-    auth.signOut().then(() => {
-      history.push("/login");
-    });
-  };
-
   return (
     <div>
       <Header />
+      <Avatar />
       <h1>Homepage</h1> {userName}
-      <Button onClick={handleClick} color="secondary" variant="contained">
+      <Button
+        onClick={() => auth.signOut()}
+        color="secondary"
+        variant="contained"
+      >
         Logout
       </Button>
     </div>

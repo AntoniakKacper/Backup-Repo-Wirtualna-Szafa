@@ -10,7 +10,7 @@ import Links from "../../elements/Links";
 import { MyField } from "../../elements/MyField";
 import { Header } from "../../Header";
 import { RegisterFormValues } from "../../../models/auth.model";
-import { SignupSchema } from "../../pages/authentication/Schema";
+import { SignupSchema } from "./Schema";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
