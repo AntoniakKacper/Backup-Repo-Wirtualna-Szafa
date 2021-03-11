@@ -1,11 +1,11 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { Formik } from "formik";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider";
 import { styled } from "../../../config/theme";
-import firebase, { auth, database } from "../../../database/firebase";
+import firebase, { auth } from "../../../database/firebase";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
 import { SigninSchema } from "./Schema";
@@ -36,61 +36,6 @@ export const Login: React.FC<MyFormProps> = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
 
-  const isUserExisits = async () => {
-    const doc = await database
-      .collection("Users")
-      .doc(auth.currentUser!.uid)
-      .get();
-    return doc.exists;
-  };
-
-  const setUserProfile = async () => {
-    if (await isUserExisits()) {
-      return;
-    }
-
-    const user = auth.currentUser!;
-    console.log(user);
-    database
-      .collection("Users")
-      .doc(user.uid)
-      .set({
-        username: user.displayName,
-      })
-      .then(() => {
-        console.log("Username saved");
-        return;
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-        setOpen(true);
-      });
-  };
-
-  useEffect(() => {
-    let isSubscribed = true;
-
-    auth.getRedirectResult().then((result) => {
-      if (isSubscribed) {
-        if (!result || !result.user || !auth.currentUser) {
-          return;
-        }
-
-        return setUserProfile()
-          .then(() => {
-            history.push("/home");
-          })
-          .catch((error) => {
-            setErrorMessage(error.message);
-            setOpen(true);
-          });
-      }
-    });
-    return () => {
-      isSubscribed = false;
-    };
-  }, []);
-
   const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   };
@@ -108,9 +53,8 @@ export const Login: React.FC<MyFormProps> = () => {
       .signInWithEmailAndPassword(values.email, values.password)
       .then((userCredentials: firebase.auth.UserCredential) => {
         authContext.setCurrentUser(userCredentials);
-        console.log(userCredentials.user?.refreshToken);
         localStorage.setItem(
-          "userData",
+          "token",
           JSON.stringify(userCredentials.user?.refreshToken)
         );
         history.push("/home");

@@ -25,7 +25,6 @@ const Wrapper = styled.div`
 export const Register: React.FC = () => {
   const authContext = useContext(AuthContext);
 
-  //const [exists, setExists] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [users] = useCollection(database.collection("Users"));
@@ -48,6 +47,26 @@ export const Register: React.FC = () => {
       ?.exists;
   };
 
+  const createUserInDatabase = (
+    values: RegisterFormValues,
+    userCredential: firebase.auth.UserCredential
+  ) => {
+    const db = database;
+    db.collection("Users")
+      .doc(userCredential.user!.uid)
+      .set({
+        email: values.email,
+        username: values.username,
+      })
+      .then(() => {
+        history.push("/home");
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setOpen(true);
+      });
+  };
+
   const handleSubmit = (values: RegisterFormValues) => {
     if (checkIfUsernameExists(values)) {
       setErrorMessage("This username is already taken");
@@ -57,21 +76,7 @@ export const Register: React.FC = () => {
         .createUserWithEmailAndPassword(values.email, values.password)
         .then((userCredential: firebase.auth.UserCredential) => {
           authContext.setCurrentUser(userCredential);
-          const db = database;
-          db.collection("Users")
-            .doc(userCredential.user!.uid)
-            .set({
-              email: values.email,
-              username: values.username,
-            })
-            .then(() => {
-              history.push("/home");
-              console.log("Zalogowano");
-            })
-            .catch((error) => {
-              setErrorMessage(error.message);
-              setOpen(true);
-            });
+          createUserInDatabase(values, userCredential);
         })
         .catch((error: firebase.auth.Error) => {
           setErrorMessage(error.message);
