@@ -1,20 +1,23 @@
 import { Formik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../../../AuthProvider";
 import { styled } from "../../../config/theme";
-import firebase, { auth, database } from "../../../database/firebase";
+import { database } from "../../../database/firebase";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
 import { MyField } from "../../elements/MyField";
 import { Header } from "../../Header";
-import { RegisterFormValues } from "../../../models/auth.model";
+import { SignUpFormValues } from "../../../models/auth.model";
 import { SignupSchema } from "./Schema";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useCollection } from "react-firebase-hooks/firestore";
+
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../../../store/actions/authActions";
+import { RootState } from "../../../store";
 
 //Styled components
 const Wrapper = styled.div`
@@ -23,7 +26,10 @@ const Wrapper = styled.div`
 `;
 
 export const Register: React.FC = () => {
-  const authContext = useContext(AuthContext);
+  const action = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const { error } = useSelector((state: RootState) => state.auth);
+  const { authenticated } = useSelector((state: RootState) => state.auth);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -42,46 +48,21 @@ export const Register: React.FC = () => {
     setOpen(false);
   };
 
-  const checkIfUsernameExists = (values: RegisterFormValues) => {
+  const checkIfUsernameExists = (values: SignUpFormValues) => {
     return users?.docs.find((user) => user.data().username === values.username)
       ?.exists;
   };
 
-  const createUserInDatabase = (
-    values: RegisterFormValues,
-    userCredential: firebase.auth.UserCredential
-  ) => {
-    const db = database;
-    db.collection("Users")
-      .doc(userCredential.user!.uid)
-      .set({
-        email: values.email,
-        username: values.username,
-      })
-      .then(() => {
-        history.push("/home");
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-        setOpen(true);
-      });
-  };
-
-  const handleSubmit = (values: RegisterFormValues) => {
+  const handleSubmit = (values: SignUpFormValues) => {
     if (checkIfUsernameExists(values)) {
       setErrorMessage("This username is already taken");
+      //dispatch(setError());
       setOpen(true);
     } else {
-      auth
-        .createUserWithEmailAndPassword(values.email, values.password)
-        .then((userCredential: firebase.auth.UserCredential) => {
-          authContext.setCurrentUser(userCredential);
-          createUserInDatabase(values, userCredential);
-        })
-        .catch((error: firebase.auth.Error) => {
-          setErrorMessage(error.message);
-          setOpen(true);
-        });
+      setLoading(true);
+      history.push("/home");
+      action(signup(values, () => setLoading(false)));
+      console.log(authenticated);
     }
   };
 

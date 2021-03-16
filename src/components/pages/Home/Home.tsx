@@ -1,32 +1,24 @@
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import React, { useEffect, useState } from "react";
-import { auth, database } from "../../../database/firebase";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { RootState } from "../../../store";
+import { signout } from "../../../store/actions/authActions";
 import { Header } from "../../Header";
 
-export const Home: React.FC = () => {
-  const [userName, setUserName] = useState("default");
-
-  useEffect(() => {
-    auth.currentUser! &&
-      database
-        .collection("Users")
-        .doc(auth.currentUser!.uid)
-        .get()
-        .then((userCredentials) => {
-          const user = userCredentials.data();
-          user && setUserName(user["username"]);
-        })
-        .catch((error) => console.log(error));
-  }, []);
+interface HomePageState {}
+export const Home: React.FC<HomePageState> = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
 
   return (
     <div>
       <Header />
       <Avatar />
-      <h1>Homepage</h1> {userName}
+      <h1>Homepage</h1> {user?.username}
       <Button
-        onClick={() => auth.signOut()}
+        onClick={() => dispatch(signout())}
         color="secondary"
         variant="contained"
       >

@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { Redirect, Route, RouteProps } from "react-router-dom";
 import { RootState } from "../store";
 
-interface PrivateRouteProps extends RouteProps {
+interface PublicRouteProps extends RouteProps {
   component: any;
 }
 
-export const PrivateRoute: React.FC<PrivateRouteProps> = ({
+export const PublicRoute: React.FC<PublicRouteProps> = ({
   component: Component,
   ...rest
 }) => {
@@ -16,7 +16,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
     <Route
       {...rest}
       render={(props) =>
-        authenticated ? <Component {...props} /> : <Redirect to="/login" />
+        !authenticated ? <Component {...props} /> : <Redirect to="/home" />
       }
     />
   );

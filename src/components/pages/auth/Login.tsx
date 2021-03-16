@@ -1,20 +1,22 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Formik } from "formik";
-import React, { useContext, useState } from "react";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../../../AuthProvider";
-import { styled } from "../../../config/theme";
-import firebase, { auth } from "../../../database/firebase";
-import { flexCenterXY } from "../../../styles/shared-style";
-import Links from "../../elements/Links";
-import { SigninSchema } from "./Schema";
-import { Header } from "../../Header";
-import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
-import { MyField } from "../../elements/MyField";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import LogRocket from "logrocket";
+import { Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { styled } from "../../../config/theme";
+import { RootState } from "../../../store";
+import { setError, signin } from "../../../store/actions/authActions";
+import { flexCenterXY } from "../../../styles/shared-style";
+import Links from "../../elements/Links";
+import { MyField } from "../../elements/MyField";
+import { Header } from "../../Header";
+import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
+import { SigninSchema } from "./Schema";
+
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface SignInFormValues {
   email: string;
@@ -30,10 +32,9 @@ const Wrapper = styled.div`
 `;
 
 export const Login: React.FC<MyFormProps> = () => {
-  const authContext = useContext(AuthContext);
-  const { loadingAuthState } = useContext(AuthContext);
-  const history = useHistory();
-  const [errorMessage, setErrorMessage] = useState("");
+  const action = useDispatch();
+  const { error } = useSelector((state: RootState) => state.auth);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const Alert = (props: AlertProps) => {
@@ -48,30 +49,12 @@ export const Login: React.FC<MyFormProps> = () => {
   };
 
   const handleSubmit = (values: SignInFormValues) => {
-    LogRocket.init("nuvkai/wirtualna-szafa");
-    auth
-      .signInWithEmailAndPassword(values.email, values.password)
-      .then((userCredentials: firebase.auth.UserCredential) => {
-        authContext.setCurrentUser(userCredentials);
-        localStorage.setItem(
-          "token",
-          JSON.stringify(userCredentials.user?.refreshToken)
-        );
-        history.push("/home");
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-        setOpen(true);
-      });
+    setLoading(true);
+    action(signin(values, () => setLoading(false)));
+    if (error) {
+      action(setError(error));
+    }
   };
-
-  if (loadingAuthState) {
-    return (
-      <div>
-        <LinearProgress color="secondary" />
-      </div>
-    );
-  }
 
   return (
     <>
@@ -92,9 +75,19 @@ export const Login: React.FC<MyFormProps> = () => {
                 placeholder="Password"
                 passwordDecoration={true}
               />
-              <StyledButton variant="outlined" color="secondary" type="submit">
-                Sign in
-              </StyledButton>
+              {loading ? (
+                <StyledButton variant="outlined" color="secondary" disabled>
+                  <CircularProgress color="secondary" size={20} />
+                </StyledButton>
+              ) : (
+                <StyledButton
+                  variant="outlined"
+                  color="secondary"
+                  type="submit"
+                >
+                  Sign in
+                </StyledButton>
+              )}
             </StyledForm>
           )}
         </Formik>
@@ -102,9 +95,10 @@ export const Login: React.FC<MyFormProps> = () => {
           <Link to="/register">Register</Link>
           <Link to="/forgotPassword">Forgot Password?</Link>
         </Links>
+        {error && <h1>{error}</h1>}
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
-            {errorMessage}
+            {error}
           </Alert>
         </Snackbar>
       </Wrapper>
