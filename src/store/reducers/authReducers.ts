@@ -1,4 +1,6 @@
-import { AuthAction, AuthState, SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, NEED_VERIFICATION, SET_SUCCESS } from '../types';
+import { AppActions } from '../types/actionTypes';
+import { AuthState } from '../types/authTypes'
+import { SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, NEED_VERIFICATION, SET_SUCCESS } from '../types/actionTypes';
 
 const initialState: AuthState = {
   user: null,
@@ -10,7 +12,7 @@ const initialState: AuthState = {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (state = initialState, action: AuthAction) => {
+export default (state = initialState, action: AppActions) => {
   switch(action.type) {
     case SET_USER:
       return {
