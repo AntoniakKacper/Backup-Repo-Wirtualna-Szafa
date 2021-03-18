@@ -15,9 +15,9 @@ export interface AuthState {
   user: User | null;
   authenticated: boolean;
   loading: boolean;
-  error: string;
+  error: string | null;
   needVerification: boolean;
-  success: string;
+  success: string | null;
 }
 
 export interface SignUpData {
@@ -49,7 +49,7 @@ interface SignOutAction {
 
 interface SetErrorAction {
   type: typeof SET_ERROR;
-  payload: string;
+  payload: string | null;
 }
 
 interface NeedVerificationAction {

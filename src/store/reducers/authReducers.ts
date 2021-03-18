@@ -4,11 +4,12 @@ const initialState: AuthState = {
   user: null,
   authenticated: false,
   loading: false,
-  error: '',
+  error: null,
   needVerification: false,
-  success: ''
+  success: null
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action: AuthAction) => {
   switch(action.type) {
     case SET_USER:

@@ -1,4 +1,3 @@
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { Formik } from "formik";
@@ -35,7 +34,12 @@ export const Login: React.FC<MyFormProps> = () => {
   const action = useDispatch();
   const { error } = useSelector((state: RootState) => state.auth);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      error && action(setError(null));
+    };
+  }, [error, action]);
 
   const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -45,7 +49,7 @@ export const Login: React.FC<MyFormProps> = () => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    action(setError(null));
   };
 
   const handleSubmit = (values: SignInFormValues) => {
@@ -95,8 +99,8 @@ export const Login: React.FC<MyFormProps> = () => {
           <Link to="/register">Register</Link>
           <Link to="/forgotPassword">Forgot Password?</Link>
         </Links>
-        {error && <h1>{error}</h1>}
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+
+        <Snackbar open={!!error} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
             {error}
           </Alert>

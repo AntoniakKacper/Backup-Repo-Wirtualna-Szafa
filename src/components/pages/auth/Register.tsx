@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { styled } from "../../../config/theme";
@@ -16,8 +16,9 @@ import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../../store/actions/authActions";
+import { setError, signup } from "../../../store/actions/authActions";
 import { RootState } from "../../../store";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Styled components
 const Wrapper = styled.div`
@@ -30,9 +31,6 @@ export const Register: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { error } = useSelector((state: RootState) => state.auth);
   const { authenticated } = useSelector((state: RootState) => state.auth);
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [open, setOpen] = useState(false);
   const [users] = useCollection(database.collection("Users"));
 
   const history = useHistory();
@@ -41,11 +39,17 @@ export const Register: React.FC = () => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   };
 
+  useEffect(() => {
+    return () => {
+      error && setError(null);
+    };
+  }, [error, action]);
+
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    action(setError(null));
   };
 
   const checkIfUsernameExists = (values: SignUpFormValues) => {
@@ -54,13 +58,11 @@ export const Register: React.FC = () => {
   };
 
   const handleSubmit = (values: SignUpFormValues) => {
+    error && action(setError(error));
     if (checkIfUsernameExists(values)) {
-      setErrorMessage("This username is already taken");
-      //dispatch(setError());
-      setOpen(true);
+      action(setError("This username is already taken"));
     } else {
       setLoading(true);
-      history.push("/home");
       action(signup(values, () => setLoading(false)));
       console.log(authenticated);
     }
@@ -96,18 +98,28 @@ export const Register: React.FC = () => {
                 placeholder="Confirm password"
                 passwordDecoration={true}
               />
-              <StyledButton variant="outlined" color="secondary" type="submit">
-                Sign in
-              </StyledButton>
+              {loading ? (
+                <StyledButton variant="outlined" color="secondary" disabled>
+                  <CircularProgress color="secondary" size={20} />
+                </StyledButton>
+              ) : (
+                <StyledButton
+                  variant="outlined"
+                  color="secondary"
+                  type="submit"
+                >
+                  Sign up
+                </StyledButton>
+              )}
             </StyledForm>
           )}
         </Formik>
         <Links>
           <Link to="/login">Back to login</Link>
         </Links>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={!!error} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
-            {errorMessage}
+            {error}
           </Alert>
         </Snackbar>
       </Wrapper>

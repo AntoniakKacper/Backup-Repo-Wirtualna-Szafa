@@ -8,15 +8,15 @@ import { RootState } from '..';
 export const signup = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AuthAction> => {
   return async dispatch => {
     try {
-      const res = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
-      if(res.user) {
+      const result = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
+      if(result.user) {
         const userData: User = {
-            username: data.username,
+          username: data.username,
           email: data.email,
-          id: res.user.uid,
+          id: result.user.uid,
         };
-        await firebase.firestore().collection('/Users').doc(res.user.uid).set(userData);
-        await res.user.sendEmailVerification();
+        await firebase.firestore().collection('/Users').doc(result.user.uid).set(userData);
+        await result.user.sendEmailVerification();
         dispatch({
           type: NEED_VERIFICATION
         });
@@ -26,7 +26,6 @@ export const signup = (data: SignUpData, onError: () => void): ThunkAction<void,
         });
       }
     } catch (err) {
-      console.log(err);
       onError();
       dispatch({
         type: SET_ERROR,
@@ -70,7 +69,6 @@ export const signin = (data: SignInData, onError: () => void): ThunkAction<void,
     try {
       await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
     } catch (err) {
-      console.log(err);
       onError();
       dispatch(setError(err.message));
     }
@@ -94,7 +92,7 @@ export const signout = (): ThunkAction<void, RootState, null, AuthAction> => {
 }
 
 // Set error
-export const setError = (msg: string): ThunkAction<void, RootState, null, AuthAction> => {
+export const setError = (msg: string | null): ThunkAction<void, RootState, null, AuthAction> => {
   return dispatch => {
     dispatch({
       type: SET_ERROR,
