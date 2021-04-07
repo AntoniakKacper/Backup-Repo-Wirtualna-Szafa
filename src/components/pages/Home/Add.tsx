@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
@@ -22,7 +21,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const Add: React.FC<AddProps> = ({}) => {
+export const Add: React.FC<AddProps> = () => {
   return (
     <Wrapper>
       <Buttons>

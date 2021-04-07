@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { flexCenterXY } from "../../../styles/shared-style";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import { ReactComponent as Cap } from "../../../images/cap.svg";
 import { ReactComponent as Jacket } from "../../../images/jacket.svg";
@@ -14,6 +13,7 @@ import { ReactComponent as Dress } from "../../../images/dress.svg";
 import { ReactComponent as Skirt } from "../../../images/skirt.svg";
 import { ReactComponent as HighHeeles } from "../../../images/high-heel.svg";
 import { ReactComponent as Shorts } from "../../../images/shorts.svg";
+import { Category } from "./Category";
 
 interface AddClothesProps {}
 
@@ -30,27 +30,6 @@ const Categories = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 1em;
   margin-top: 25px;
-`;
-
-const Category = styled.div`
-  ${flexCenterXY}
-  min-height: 150px;
-  border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-  transition: 0.1s ease-in;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.8;
-    transition: 0.1s ease-in;
-    transform: scale(1.02);
-    &:hover span {
-      display: none;
-    }
-
-    &:before {
-      content: attr(data-item);
-    }
-  }
 `;
 
 export const AddClothes: React.FC<AddClothesProps> = () => {
@@ -106,11 +85,11 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
       <Categories>
         {CategoriesItems.map((item) => {
           return (
-            <Link to={`addItems/${item.category}`} key={item.category}>
-              <Category data-item={item.category}>
-                <span>{item.icon}</span>
-              </Category>
-            </Link>
+            <Category
+              category={item.category}
+              icon={item.icon}
+              key={item.category}
+            />
           );
         })}
       </Categories>
