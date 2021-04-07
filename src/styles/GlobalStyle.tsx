@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         font-size: 1rem;
+        font-weight: 600;
         font-family: 'Montserrat', sans-serif;
         -webkit-font-smoothing: antialiased;
         -webkit-osx-font-smoothing: greyscale;

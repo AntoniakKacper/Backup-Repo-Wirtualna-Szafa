@@ -62,7 +62,6 @@ export const Login: React.FC<MyFormProps> = () => {
 
   return (
     <>
-      <Header />
       <Wrapper>
         <Formik
           initialValues={{ email: "", password: "" }}

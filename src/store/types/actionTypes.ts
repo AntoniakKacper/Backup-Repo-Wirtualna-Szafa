@@ -6,6 +6,10 @@ export const SET_ERROR = 'SET_ERROR';
 export const SET_SUCCESS = 'SET_SUCCESS';
 export const NEED_VERIFICATION = 'NEED_VERIFICATION';
 
+export const SET_AVATAR = "SET_AVATAR";
+
+
+// AUTH ACTIONS
 interface SetUserAction {
     type: typeof SET_USER;
     payload: User;
@@ -34,6 +38,15 @@ interface SetUserAction {
     payload: string;
   }
 
+
+  // USER ACTIONS
+  interface SetAvatarAction {
+    type: typeof SET_AVATAR;
+    payload: string;
+  }
+
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
-export type AppActions = AuthActionsTypes;
+  export type UserActionsTypes = SetAvatarAction
+
+export type AppActions = AuthActionsTypes | UserActionsTypes;

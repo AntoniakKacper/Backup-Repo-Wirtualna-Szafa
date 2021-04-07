@@ -2,6 +2,7 @@ export interface User {
     username: string;
     email: string;
     id: string;
+    imageUrl: string;
   }
   
   export interface AuthState {
@@ -14,7 +15,7 @@ export interface User {
   }
   
   export interface SignUpData {
-  username: string;
+    username: string;
     email: string;
     password: string;
     confirmedPassword: string;

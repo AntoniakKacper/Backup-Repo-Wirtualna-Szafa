@@ -7,7 +7,6 @@ import { database } from "../../../database/firebase";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
 import { MyField } from "../../elements/MyField";
-import { Header } from "../../Header";
 import { SignUpFormValues } from "../../../models/auth.model";
 import { SignupSchema } from "./Schema";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
@@ -32,8 +31,6 @@ export const Register: React.FC = () => {
   const { error } = useSelector((state: RootState) => state.auth);
   const { authenticated } = useSelector((state: RootState) => state.auth);
   const [users] = useCollection(database.collection("Users"));
-
-  const history = useHistory();
 
   const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -64,13 +61,11 @@ export const Register: React.FC = () => {
     } else {
       setLoading(true);
       action(signup(values, () => setLoading(false)));
-      console.log(authenticated);
     }
   };
 
   return (
     <>
-      <Header />
       <Wrapper>
         <Formik
           initialValues={{

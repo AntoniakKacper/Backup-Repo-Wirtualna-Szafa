@@ -1,10 +1,9 @@
 import { ThunkAction } from 'redux-thunk';
-import { AppActions } from '../types/actionTypes';
-import { SignUpData, SignInData, User } from '../types/authTypes';
-
-import { SET_USER, SET_LOADING, SIGN_OUT, SET_ERROR, NEED_VERIFICATION, SET_SUCCESS } from '../types/actionTypes';
-import firebase from '../../database/firebase';
 import { RootState } from '..';
+import firebase from '../../database/firebase';
+import { AppActions, NEED_VERIFICATION, SET_ERROR, SET_LOADING, SET_SUCCESS, SET_USER, SIGN_OUT } from '../types/actionTypes';
+import { SignInData, SignUpData, User } from '../types/authTypes';
+
 
 // Create user
 export const signup = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AppActions> => {
@@ -16,6 +15,7 @@ export const signup = (data: SignUpData, onError: () => void): ThunkAction<void,
           username: data.username,
           email: data.email,
           id: result.user.uid,
+          imageUrl: ''
         };
         await firebase.firestore().collection('/Users').doc(result.user.uid).set(userData);
         await result.user.sendEmailVerification();
@@ -134,3 +134,8 @@ export const sendPasswordResetEmail = (email: string, successMsg: string): Thunk
     }
   }
 }
+
+
+
+
+
