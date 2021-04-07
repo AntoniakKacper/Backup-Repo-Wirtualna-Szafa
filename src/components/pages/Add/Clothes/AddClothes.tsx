@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { flexCenterXY } from "../../../styles/shared-style";
+import { flexCenterXY } from "../../../../styles/shared-style";
 
-import { ReactComponent as Cap } from "../../../images/cap.svg";
-import { ReactComponent as Jacket } from "../../../images/jacket.svg";
-import { ReactComponent as Tshirt } from "../../../images/tshirt.svg";
-import { ReactComponent as Sneakers } from "../../../images/sneakers.svg";
-import { ReactComponent as Watch } from "../../../images/watch.svg";
-import { ReactComponent as Pant } from "../../../images/pant.svg";
-import { ReactComponent as Hoodie } from "../../../images/hoodie.svg";
-import { ReactComponent as Dress } from "../../../images/dress.svg";
-import { ReactComponent as Skirt } from "../../../images/skirt.svg";
-import { ReactComponent as HighHeeles } from "../../../images/high-heel.svg";
-import { ReactComponent as Shorts } from "../../../images/shorts.svg";
+import { ReactComponent as Cap } from "../../../../images/cap.svg";
+import { ReactComponent as Jacket } from "../../../../images/jacket.svg";
+import { ReactComponent as Tshirt } from "../../../../images/tshirt.svg";
+import { ReactComponent as Sneakers } from "../../../../images/sneakers.svg";
+import { ReactComponent as Watch } from "../../../../images/watch.svg";
+import { ReactComponent as Pant } from "../../../../images/pant.svg";
+import { ReactComponent as Hoodie } from "../../../../images/hoodie.svg";
+import { ReactComponent as Dress } from "../../../../images/dress.svg";
+import { ReactComponent as Skirt } from "../../../../images/skirt.svg";
+import { ReactComponent as HighHeeles } from "../../../../images/high-heel.svg";
+import { ReactComponent as Shorts } from "../../../../images/shorts.svg";
 import { Category } from "./Category";
 
 interface AddClothesProps {}

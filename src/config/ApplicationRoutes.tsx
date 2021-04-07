@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { Item } from "../components/pages/Clothes/Item";
+import { Item } from "../components/pages/Add/Clothes/Item";
 import { BottomNavbar } from "../components/elements/BottomNavbar";
 import { Header } from "../components/Header";
 import { ForgotPassword } from "../components/pages/auth/ForgotPassword";
@@ -14,7 +14,7 @@ import { Home } from "../components/pages/Home/Home";
 import { Favorites } from "../components/pages/Home/Favorites";
 import { Profile } from "../components/pages/Home/Profile";
 import { Settings } from "../components/pages/Home/Settings";
-import { AddClothes } from "../components/pages/Clothes/AddClothes";
+import { AddClothes } from "../components/pages/Add/Clothes/AddClothes";
 import firebase from "../database/firebase";
 import { RootState } from "../store";
 import {

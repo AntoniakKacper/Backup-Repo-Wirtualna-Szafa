@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import styled from "styled-components";
-import { flexCenterXY } from "../../../styles/shared-style";
+import { flexCenterXY } from "../../../../styles/shared-style";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { storage } from "../../../database/firebase";
+import { storage } from "../../../../database/firebase";
 
 interface RouteParams extends RouteComponentProps<{ category: string }> {}
 

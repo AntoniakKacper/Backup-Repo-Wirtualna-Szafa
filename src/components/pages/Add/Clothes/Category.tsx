@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { flexCenterXY } from "../../../styles/shared-style";
+import { flexCenterXY } from "../../../../styles/shared-style";
 
 interface CategoryProps {
   category: string;
