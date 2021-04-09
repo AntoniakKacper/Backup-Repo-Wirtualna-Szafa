@@ -22,7 +22,6 @@ const CategoryTile = styled.div`
     &:hover span {
       display: none;
     }
-
     &:before {
       content: attr(data-item);
     }
@@ -31,7 +30,7 @@ const CategoryTile = styled.div`
 
 export const Category: React.FC<CategoryProps> = ({ category, icon }) => {
   return (
-    <Link to={`addItems/${category}`} key={category}>
+    <Link to={`itemsList/${category}`} key={category}>
       <CategoryTile data-item={category}>
         <span>{icon}</span>
       </CategoryTile>

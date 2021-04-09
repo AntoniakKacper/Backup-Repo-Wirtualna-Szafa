@@ -156,11 +156,7 @@ export const Header: React.FC = () => {
                     id="icon-button-file"
                     onChange={handleChange}
                   />
-                  <IconButton
-                    color="secondary"
-                    component="span"
-                    // onClick={handleUpload}
-                  >
+                  <IconButton color="secondary" component="span">
                     <PhotoCamera fontSize="large" />
                   </IconButton>
                 </label>

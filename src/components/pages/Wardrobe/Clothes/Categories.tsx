@@ -15,7 +15,7 @@ import { ReactComponent as HighHeeles } from "../../../../images/high-heel.svg";
 import { ReactComponent as Shorts } from "../../../../images/shorts.svg";
 import { Category } from "./Category";
 
-interface AddClothesProps {}
+interface CategroiesProps {}
 
 const Wrapper = styled.div`
   ${flexCenterXY}
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   padding: 20px 20px 96px 20px;
 `;
 
-const Categories = styled.div`
+const CategoriesContainer = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -32,7 +32,7 @@ const Categories = styled.div`
   margin-top: 25px;
 `;
 
-export const AddClothes: React.FC<AddClothesProps> = () => {
+export const Categories: React.FC<CategroiesProps> = () => {
   const CategoriesItems = [
     {
       category: "Cap",
@@ -81,8 +81,8 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
   ];
   return (
     <Wrapper>
-      <h2>Add Clothes</h2>
-      <Categories>
+      <h2>Categories</h2>
+      <CategoriesContainer>
         {CategoriesItems.map((item) => {
           return (
             <Category
@@ -92,7 +92,7 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
             />
           );
         })}
-      </Categories>
+      </CategoriesContainer>
     </Wrapper>
   );
 };

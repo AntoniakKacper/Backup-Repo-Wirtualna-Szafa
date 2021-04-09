@@ -9,6 +9,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import styled from "styled-components";
+import { ReactComponent as Tshirt } from "../../images/menuTshirt.svg";
 
 interface BottomNavbarProps {}
 
@@ -31,6 +32,11 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
       value: "home",
       label: "Home",
       icon: <HomeIcon />,
+    },
+    {
+      value: "wardrobe",
+      label: "Wardrobe",
+      icon: <Tshirt width="24px" height="24px" color="#757575" />,
     },
     {
       value: "add",

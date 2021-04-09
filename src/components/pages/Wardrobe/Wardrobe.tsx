@@ -5,7 +5,7 @@ import Fab from "@material-ui/core/Fab";
 
 import styled from "styled-components";
 
-interface AddProps {}
+interface WardrobeProps {}
 
 const Buttons = styled.div`
   display: flex;
@@ -21,18 +21,16 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const Add: React.FC<AddProps> = () => {
+export const Wardrobe: React.FC<WardrobeProps> = () => {
   return (
     <Wrapper>
       <Buttons>
         <Fab variant="extended" color="secondary">
-          <AddBoxIcon fontSize="large" />
-          Add outfit
+          My outfits
         </Fab>
-        <Link to="/addClothes">
+        <Link to="/categories">
           <Fab variant="extended" color="secondary">
-            <AddBoxIcon fontSize="large" />
-            Add clothes
+            My clothes
           </Fab>
         </Link>
       </Buttons>
