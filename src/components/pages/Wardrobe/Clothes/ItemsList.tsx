@@ -5,8 +5,6 @@ import { flexCenterXY } from "../../../../styles/shared-style";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { storage } from "../../../../database/firebase";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
 
 interface RouteParams extends RouteComponentProps<{ category: string }> {}
 
@@ -42,14 +40,6 @@ const Info = styled.p`
   color: #757575;
 `;
 
-const AddButton = styled(Fab)`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin-right: 30px;
-  margin-bottom: 80px;
-`;
-
 export const ItemsList: React.FC<RouteParams> = ({ match, location }) => {
   const [imageUrl, setImageUrl] = useState("");
 
@@ -74,11 +64,6 @@ export const ItemsList: React.FC<RouteParams> = ({ match, location }) => {
         <CategoryImage src={imageUrl} alt={match.params.category} />
         <Info>{`There are no items added`}</Info>
       </NoItemsAdded>
-      <Link to={`/addClothes/${match.params.category}`}>
-        <AddButton color="secondary" aria-label="add">
-          <AddIcon />
-        </AddButton>
-      </Link>
     </Wrapper>
   );
 };

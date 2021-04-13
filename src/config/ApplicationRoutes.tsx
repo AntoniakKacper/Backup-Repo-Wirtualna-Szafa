@@ -13,7 +13,6 @@ import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
 import { Home } from "../components/pages/Home/Home";
 import { Favorites } from "../components/pages/Home/Favorites";
 import { Profile } from "../components/pages/Home/Profile";
-import { Settings } from "../components/pages/Home/Settings";
 import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
 import firebase from "../database/firebase";
 import { RootState } from "../store";
@@ -26,7 +25,9 @@ import GlobalStyle from "../styles/GlobalStyle";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
-import { AddClothes } from "../components/pages/Wardrobe/Clothes/AddClothes";
+import { AddClothes } from "../components/pages/Add/Clothes/AddClothes";
+import { Add } from "../components/pages/Add/Add";
+import { AddItem } from "../components/pages/Add/Clothes/AddItem";
 
 export const ApplicationRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -72,14 +73,18 @@ export const ApplicationRoutes: React.FC = () => {
           <PublicRoute path="/forgotPassword" component={ForgotPassword} />
 
           <PrivateRoute path="/home" component={Home} />
-          <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/wardrobe" component={Wardrobe} />
-          <PrivateRoute path="/settings" component={Settings} />
-          <PrivateRoute path="/favorites" component={Favorites} />
-          <PrivateRoute path="/categories" component={Categories} />
 
+          <PrivateRoute path="/wardrobe" component={Wardrobe} />
+          <PrivateRoute path="/categories" component={Categories} />
           <PrivateRoute path="/itemsList/:category" component={ItemsList} />
-          <PrivateRoute path="/addClothes/:category" component={AddClothes} />
+
+          <PrivateRoute path="/add" component={Add} />
+          <PrivateRoute path="/addClothes" component={AddClothes} />
+          <PrivateRoute path="/addItem" component={AddItem} />
+
+          <PrivateRoute path="/favorites" component={Favorites} />
+
+          <PrivateRoute path="/profile" component={Profile} />
         </Switch>
         {authenticated && <BottomNavbar />}
       </Router>

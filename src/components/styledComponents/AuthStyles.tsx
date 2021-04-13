@@ -8,14 +8,19 @@ export const StyledForm = styled(Form)`
   ${flexCenterXY}
   width: 250px;
   flex-direction: column;
+
   padding-top: 100px;
   padding-bottom: 100px;
 `;
 
 export const StyledButton = styled(Button)`
-  margin-top: 50px;
+  && {
+    margin-top: 50px;
+  }
 `;
 
 export const StyledInput = styled(TextField)`
-  margin-bottom: 20px;
+  && {
+    margin-bottom: 40px;
+  }
 `;

@@ -11,7 +11,6 @@ import { setError, signin } from "../../../store/actions/authActions";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
 import { MyField } from "../../elements/MyField";
-import { Header } from "../../Header";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
 import { SigninSchema } from "./Schema";
 

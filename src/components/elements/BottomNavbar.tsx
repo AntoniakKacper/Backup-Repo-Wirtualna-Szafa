@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import SettingsIcon from "@material-ui/icons/Settings";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
@@ -47,12 +46,6 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
       value: "favorites",
       label: "Favorites",
       icon: <FavoriteIcon />,
-    },
-
-    {
-      value: "settings",
-      label: "Settings",
-      icon: <SettingsIcon />,
     },
   ];
 

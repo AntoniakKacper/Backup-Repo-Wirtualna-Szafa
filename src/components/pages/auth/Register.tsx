@@ -29,7 +29,6 @@ export const Register: React.FC = () => {
   const action = useDispatch();
   const [loading, setLoading] = useState(false);
   const { error } = useSelector((state: RootState) => state.auth);
-  const { authenticated } = useSelector((state: RootState) => state.auth);
   const [users] = useCollection(database.collection("Users"));
 
   const Alert = (props: AlertProps) => {
