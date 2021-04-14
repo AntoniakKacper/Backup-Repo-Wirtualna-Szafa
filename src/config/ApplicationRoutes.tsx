@@ -12,6 +12,7 @@ import { Register } from "../components/pages/auth/Register";
 import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
 import { Home } from "../components/pages/Home/Home";
 import { Favorites } from "../components/pages/Home/Favorites";
+import { CalendarPage } from "../components/pages/Calendar/CalendarPage";
 import { Profile } from "../components/pages/Home/Profile";
 import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
 import firebase from "../database/firebase";
@@ -82,7 +83,7 @@ export const ApplicationRoutes: React.FC = () => {
           <PrivateRoute path="/addClothes" component={AddClothes} />
           <PrivateRoute path="/addItem" component={AddItem} />
 
-          <PrivateRoute path="/favorites" component={Favorites} />
+          <PrivateRoute path="/calendar" component={CalendarPage} />
 
           <PrivateRoute path="/profile" component={Profile} />
         </Switch>

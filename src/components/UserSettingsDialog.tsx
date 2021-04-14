@@ -174,15 +174,7 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
             endIcon={<EditIcon></EditIcon>}
             size="large"
           >
-            Change Username
-          </Button>
-          <Button
-            color="secondary"
-            variant="contained"
-            endIcon={<EditIcon></EditIcon>}
-            size="large"
-          >
-            Change Username
+            Change Password
           </Button>
           <Button
             onClick={() => action(signout())}

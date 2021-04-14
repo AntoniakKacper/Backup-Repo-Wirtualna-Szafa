@@ -8,5 +8,9 @@ const Wrapper = styled.div`
 
 interface HomePageState {}
 export const Home: React.FC<HomePageState> = () => {
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <h1>Proponowane stylizacje</h1>
+    </Wrapper>
+  );
 };

@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import styled from "styled-components";
 import { ReactComponent as Tshirt } from "../../images/menuTshirt.svg";
+import { ReactComponent as Hanger } from "../../images/hanger.svg";
+import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
 
 interface BottomNavbarProps {}
 
@@ -35,7 +36,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
     {
       value: "wardrobe",
       label: "Wardrobe",
-      icon: <Tshirt width="24px" height="24px" color="#757575" />,
+      icon: <Hanger />,
     },
     {
       value: "add",
@@ -43,9 +44,9 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
       icon: <AddCircleIcon />,
     },
     {
-      value: "favorites",
-      label: "Favorites",
-      icon: <FavoriteIcon />,
+      value: "calendar",
+      label: "Calendar",
+      icon: <Calendar width="24px" height="24px" color="#757575" />,
     },
   ];
 

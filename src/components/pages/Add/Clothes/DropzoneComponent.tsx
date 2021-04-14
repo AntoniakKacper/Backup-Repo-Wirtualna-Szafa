@@ -2,7 +2,9 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import { Download } from "@styled-icons/boxicons-regular/Download";
+import { Times } from "@styled-icons/fa-solid/Times";
 import { CustomInput } from "./CustomInput";
+import Badge from "@material-ui/core/Badge";
 
 interface DropzoneComponentProps {}
 
@@ -15,8 +17,9 @@ const DropzoneContainer = styled.div`
 `;
 
 const DropzoneInput = styled.div<{
-  isDragActive: boolean;
+  isDragAccept: boolean;
   isDragReject: boolean;
+  isDragActive: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -26,8 +29,14 @@ const DropzoneInput = styled.div<{
   min-height: 250px;
   min-width: 250px;
   cursor: pointer;
-  border: 4px dashed #b1b1b1;
+  border: 4px dashed
+    ${({ isDragActive, isDragAccept, isDragReject }) =>
+      isDragActive
+        ? (isDragAccept && `#11f519`) || (isDragReject && `#eb4034`)
+        : `#b1b1b1`};
+
   border-radius: 20px;
+  margin-bottom: 30px;
 
   & > p {
     text-align: center;
@@ -37,8 +46,8 @@ const DropzoneInput = styled.div<{
   }
 `;
 
-const Icon = styled(Download)<{ isDragActive: boolean }>`
-  height: 80px;
+const Icon = styled(Download)`
+  height: 50px;
   color: #b1b1b1;
 `;
 
@@ -46,20 +55,40 @@ const PreviewImage = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 20px;
-  margin-top: 20px;
+
   background: #e0e0e0;
   box-shadow: 12px 12px 24px #d7d7d7, -12px -12px 24px #e9e9e9;
+  margin-bottom: 20px;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+const DeleteButton = styled(Times)`
+  color: red;
+  height: 20px;
+  margin-top: -15px;
+  margin-right: -15px;
+
+  &&:hover {
+    cursor: pointer;
+  }
 `;
 
 interface Image extends File {
   preview?: string;
 }
 
-export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({}) => {
+export const DropzoneComponent: React.FC<DropzoneComponentProps> = () => {
   const [image, setImage] = useState<Image>();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    acceptedFiles.map((file) => {
+    acceptedFiles.forEach((file) => {
       setImage(Object.assign(file, { preview: URL.createObjectURL(file) }));
     });
   }, []);
@@ -69,9 +98,10 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({}) => {
     getInputProps,
     isDragActive,
     isDragReject,
+    isDragAccept,
   } = useDropzone({
     onDrop,
-    accept: "image/png, image/gif",
+    accept: "image/png, image/jpg, image/jpeg",
     multiple: false,
     maxFiles: 1,
   });
@@ -80,10 +110,11 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({}) => {
     <DropzoneContainer>
       <DropzoneInput
         {...getRootProps()}
-        isDragActive={isDragActive}
+        isDragAccept={isDragAccept}
         isDragReject={isDragReject}
+        isDragActive={isDragActive}
       >
-        <Icon isDragActive={isDragActive} />
+        <Icon />
         <input {...getInputProps()} />
 
         {image !== undefined ? (
@@ -94,10 +125,17 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({}) => {
       </DropzoneInput>
 
       {image !== undefined && (
-        <PreviewImage src={image.preview} alt={image.name}></PreviewImage>
+        <Badge
+          badgeContent={<DeleteButton onClick={() => setImage(undefined)} />}
+          overlap="circle"
+        >
+          <PreviewImage src={image.preview} alt={image.name}></PreviewImage>
+        </Badge>
       )}
-      <CustomInput />
-      <CustomInput />
+      <SelectContainer>
+        <CustomInput name="Category" />
+        <CustomInput name="Weather" />
+      </SelectContainer>
     </DropzoneContainer>
   );
 };

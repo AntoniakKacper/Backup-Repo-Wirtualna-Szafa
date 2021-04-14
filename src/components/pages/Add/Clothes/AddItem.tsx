@@ -24,7 +24,7 @@ export const AddItem: React.FC<AddItemProps> = ({
   setOpenDialog,
 }) => {
   return (
-    <Dialog open={openDialog} fullWidth={true} maxWidth="xl">
+    <Dialog open={openDialog} fullWidth={true} maxWidth="sm">
       <DialogTitle>Add item</DialogTitle>
       <DialogContent>
         <DropzoneComponent />
