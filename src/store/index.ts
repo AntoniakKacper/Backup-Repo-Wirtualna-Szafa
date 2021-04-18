@@ -4,9 +4,11 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import authReducer from './reducers/authReducers';
+import clothReducers from './reducers/clothReducers';
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  cloth: clothReducers
 });
 
 const store = createStore(

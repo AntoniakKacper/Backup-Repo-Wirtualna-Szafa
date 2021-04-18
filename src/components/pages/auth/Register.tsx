@@ -1,23 +1,22 @@
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { useDispatch, useSelector } from "react-redux";
 //eslint-disable-next-line
-import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { styled } from "../../../config/theme";
 import { database } from "../../../database/firebase";
+import { SignUpFormValues } from "../../../models/auth.model";
+import { RootState } from "../../../store";
+import { setError, signup } from "../../../store/actions/authActions";
 import { flexCenterXY } from "../../../styles/shared-style";
 import Links from "../../elements/Links";
 import { MyField } from "../../elements/MyField";
-import { SignUpFormValues } from "../../../models/auth.model";
-import { SignupSchema } from "./Schema";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import { useCollection } from "react-firebase-hooks/firestore";
-
-import { useDispatch, useSelector } from "react-redux";
-import { setError, signup } from "../../../store/actions/authActions";
-import { RootState } from "../../../store";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { SignupSchema } from "./Schema";
 
 //Styled components
 const Wrapper = styled.div`

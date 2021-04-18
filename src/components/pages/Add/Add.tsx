@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as Cloth } from "../../../images/cloth.svg";
@@ -43,7 +44,7 @@ const ButtonDescription = styled.p`
   color: black;
 `;
 
-export const Add: React.FC<AddProps> = ({}) => {
+export const Add: React.FC<AddProps> = () => {
   return (
     <Wrapper>
       <CategoryTile>

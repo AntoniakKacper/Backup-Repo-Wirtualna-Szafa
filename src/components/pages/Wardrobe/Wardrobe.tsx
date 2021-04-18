@@ -1,7 +1,7 @@
-import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
-
+import React from "react";
+//eslint-disable-next-line
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface WardrobeProps {}

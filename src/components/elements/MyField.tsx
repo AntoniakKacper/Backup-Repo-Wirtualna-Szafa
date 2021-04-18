@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { FieldAttributes, useField } from "formik";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { FieldAttributes, useField } from "formik";
+import React, { useState } from "react";
 import { StyledInput } from "../styledComponents/AuthStyles";
 
 interface Props {

@@ -3,18 +3,20 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
 import { BottomNavbar } from "../components/elements/BottomNavbar";
 import { Header } from "../components/Header";
+import { Add } from "../components/pages/Add/Add";
+import { AddClothes } from "../components/pages/Add/Clothes/AddClothes";
+import { AddItem } from "../components/pages/Add/Clothes/AddItem";
 import { ForgotPassword } from "../components/pages/auth/ForgotPassword";
 import { Login } from "../components/pages/auth/Login";
 import { Register } from "../components/pages/auth/Register";
-import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
-import { Home } from "../components/pages/Home/Home";
-import { Favorites } from "../components/pages/Home/Favorites";
 import { CalendarPage } from "../components/pages/Calendar/CalendarPage";
+import { Home } from "../components/pages/Home/Home";
 import { Profile } from "../components/pages/Home/Profile";
 import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
+import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
+import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
 import firebase from "../database/firebase";
 import { RootState } from "../store";
 import {
@@ -26,9 +28,6 @@ import GlobalStyle from "../styles/GlobalStyle";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
-import { AddClothes } from "../components/pages/Add/Clothes/AddClothes";
-import { Add } from "../components/pages/Add/Add";
-import { AddItem } from "../components/pages/Add/Clothes/AddItem";
 
 export const ApplicationRoutes: React.FC = () => {
   const dispatch = useDispatch();

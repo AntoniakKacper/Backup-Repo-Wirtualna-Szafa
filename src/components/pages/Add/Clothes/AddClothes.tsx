@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { RouteComponentProps } from "react-router";
-import styled from "styled-components";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { flexCenterXY } from "../../../../styles/shared-style";
+import React, { useState } from "react";
+import { RouteComponentProps } from "react-router";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import styled from "styled-components";
 import { ReactComponent as Cloth } from "../../../../images/cloth.svg";
+import { flexCenterXY } from "../../../../styles/shared-style";
 import { AddItem } from "./AddItem";
 
 interface AddClothesProps extends RouteComponentProps<{ category: string }> {}

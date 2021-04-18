@@ -1,3 +1,4 @@
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { Formik } from "formik";
@@ -13,8 +14,6 @@ import Links from "../../elements/Links";
 import { MyField } from "../../elements/MyField";
 import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
 import { SigninSchema } from "./Schema";
-
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface SignInFormValues {
   email: string;

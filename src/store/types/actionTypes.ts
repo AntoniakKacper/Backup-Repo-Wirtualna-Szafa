@@ -1,4 +1,5 @@
 import { User } from './authTypes';
+import { Cloth } from './clothTypes';
 export const SET_USER = 'SET_USER';
 export const SIGN_OUT = 'SIGN_OUT';
 export const SET_LOADING = 'SET_LOADING';
@@ -6,8 +7,7 @@ export const SET_ERROR = 'SET_ERROR';
 export const SET_SUCCESS = 'SET_SUCCESS';
 export const NEED_VERIFICATION = 'NEED_VERIFICATION';
 
-export const SET_AVATAR = "SET_AVATAR";
-
+export const SET_CLOTH = "SET_CLOTH";
 
 // AUTH ACTIONS
 interface SetUserAction {
@@ -39,14 +39,17 @@ interface SetUserAction {
   }
 
 
-  // USER ACTIONS
-  interface SetAvatarAction {
-    type: typeof SET_AVATAR;
+  // CLOTH ACTIONS
+  interface SetClothAction {
+    type: typeof SET_CLOTH;
     payload: string;
   }
 
+  
+
+
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
-  export type UserActionsTypes = SetAvatarAction
+  export type ClothActionTypes = SetClothAction;
 
-export type AppActions = AuthActionsTypes | UserActionsTypes;
+export type AppActions = AuthActionsTypes | ClothActionTypes;

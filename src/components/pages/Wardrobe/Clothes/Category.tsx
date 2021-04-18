@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+//eslint-disable-next-line
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import styled from "styled-components";
 import { flexCenterXY } from "../../../../styles/shared-style";
 
 interface CategoryProps {

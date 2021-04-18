@@ -8,14 +8,13 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import React, { useEffect, useState } from "react";
-import { flexCenterXY } from "../styles/shared-style";
+import React, { SetStateAction, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { database, storage } from "../database/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { SetStateAction } from "react";
 import { RootState } from "../store";
 import { signout } from "../store/actions/authActions";
+import { flexCenterXY } from "../styles/shared-style";
 
 interface UserSettingsDialogProps {
   openDialog: boolean;

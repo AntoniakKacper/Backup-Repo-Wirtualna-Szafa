@@ -1,12 +1,13 @@
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import styled from "styled-components";
+import Badge from "@material-ui/core/Badge";
 import { Download } from "@styled-icons/boxicons-regular/Download";
 import { Times } from "@styled-icons/fa-solid/Times";
-import { CustomInput } from "./CustomInput";
-import Badge from "@material-ui/core/Badge";
-
-interface DropzoneComponentProps {}
+import React, { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import styled from "styled-components";
+import { storage } from "../../../../database/firebase";
+interface DropzoneComponentProps {
+  setImageUrl: (url: string) => void;
+}
 
 const DropzoneContainer = styled.div`
   overflow: hidden;
@@ -26,8 +27,9 @@ const DropzoneInput = styled.div<{
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 250px;
-  min-width: 250px;
+  min-height: 240px;
+  min-width: 240px;
+
   cursor: pointer;
   border: 4px dashed
     ${({ isDragActive, isDragAccept, isDragReject }) =>
@@ -36,8 +38,7 @@ const DropzoneInput = styled.div<{
         : `#b1b1b1`};
 
   border-radius: 20px;
-  margin-bottom: 30px;
-
+  margin-bottom: 20px;
   & > p {
     text-align: center;
     width: 200px;
@@ -61,14 +62,6 @@ const PreviewImage = styled.img`
   margin-bottom: 20px;
 `;
 
-const SelectContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-  margin-bottom: 20px;
-`;
-
 const DeleteButton = styled(Times)`
   color: red;
   height: 20px;
@@ -84,13 +77,46 @@ interface Image extends File {
   preview?: string;
 }
 
-export const DropzoneComponent: React.FC<DropzoneComponentProps> = () => {
+export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({
+  setImageUrl,
+}) => {
   const [image, setImage] = useState<Image>();
 
+  const getImageDownloadUrl = async (image: Image) => {
+    console.log("getimagedownloadurl", image);
+    const url = await storage
+      .ref("ClothImages")
+      .child(image.name)
+      .getDownloadURL();
+    console.log(url);
+    setImageUrl(url as string);
+  };
+
+  const handleUpload = async () => {
+    console.log("handleupload", image);
+    if (image !== undefined) {
+      await storage.ref(`ClothImages/${image.name}`).put(image);
+      await console.log(storage.ref(`ClothImages/${image.name}`).put(image));
+
+      getImageDownloadUrl(image);
+    }
+  };
+
+  //USE CALLBACK NIE UPDATEUJE IMAGE
   const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {
       setImage(Object.assign(file, { preview: URL.createObjectURL(file) }));
+      console.log("ondrop", image);
     });
+
+    image !== undefined && handleUpload();
+  }, []);
+
+  useEffect(() => {
+    console.log("RENDER");
+    return () => {
+      setImage(undefined);
+    };
   }, []);
 
   const {
@@ -132,10 +158,6 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = () => {
           <PreviewImage src={image.preview} alt={image.name}></PreviewImage>
         </Badge>
       )}
-      <SelectContainer>
-        <CustomInput name="Category" />
-        <CustomInput name="Weather" />
-      </SelectContainer>
     </DropzoneContainer>
   );
 };
