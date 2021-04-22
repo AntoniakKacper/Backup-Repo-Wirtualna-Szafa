@@ -1,9 +1,10 @@
-import { AppActions } from '../types/actionTypes';
+import { ADD_CLOTH, AppActions, CLEAR_CLOTHES, REMOVE_CLOTH_FROM_LIST } from '../types/actionTypes';
 import { ClothState } from '../types/clothTypes'
 import { SET_CLOTH } from '../types/actionTypes';
 
 const initialState: ClothState = {
     cloth: null,
+    clothesList: [],
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -12,7 +13,24 @@ export default (state = initialState, action: AppActions) => {
         case SET_CLOTH:
             return {
                 ...state,
-                value: action.payload
+                cloth: action.payload
+            }
+        case ADD_CLOTH:
+            return {
+                ...state,
+                clothesList: [...state.clothesList, action.payload]
+            }
+        case CLEAR_CLOTHES:
+            return {
+                ...state,
+                clothesList: []
+            }
+        case REMOVE_CLOTH_FROM_LIST:
+            return {
+                ...state,
+                clothesList: state.clothesList.filter((cloth) => 
+                    cloth.imageUrl !== action.payload.imageUrl
+                )
             }
         default:
             return state;

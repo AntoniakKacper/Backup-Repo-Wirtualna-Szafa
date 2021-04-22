@@ -8,6 +8,9 @@ export const SET_SUCCESS = 'SET_SUCCESS';
 export const NEED_VERIFICATION = 'NEED_VERIFICATION';
 
 export const SET_CLOTH = "SET_CLOTH";
+export const ADD_CLOTH = "ADD_CLOTH";
+export const CLEAR_CLOTHES = "CLEAR_CLOTHES";
+export const REMOVE_CLOTH_FROM_LIST = "REMOVE_CLOTH_FROM_LIST";
 
 // AUTH ACTIONS
 interface SetUserAction {
@@ -42,7 +45,21 @@ interface SetUserAction {
   // CLOTH ACTIONS
   interface SetClothAction {
     type: typeof SET_CLOTH;
-    payload: string;
+    payload: Cloth;
+  }
+
+  interface AddClothAction {
+    type: typeof ADD_CLOTH;
+    payload: Cloth;
+  }
+
+  interface ClearClothesListAction {
+    type: typeof CLEAR_CLOTHES;
+  }
+
+  interface RemoveClothFromListAction {
+    type: typeof REMOVE_CLOTH_FROM_LIST;
+    payload: Cloth;
   }
 
   
@@ -50,6 +67,6 @@ interface SetUserAction {
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
-  export type ClothActionTypes = SetClothAction;
+  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes;

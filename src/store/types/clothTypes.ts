@@ -10,7 +10,7 @@ export interface Cloth {
 
   export interface ClothState{
       cloth: Cloth | null;
-      
+      clothesList: Cloth[] | [];
   }
 
   export interface Clothes{

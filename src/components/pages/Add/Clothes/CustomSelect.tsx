@@ -9,7 +9,6 @@ interface CustomSelectProps {
   options: string[];
   name: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
 }
 
 const StyledForm = styled(FormControl)`
@@ -23,7 +22,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   options,
   name,
   onChange,
-  value,
 }) => {
   const [selectValue, setSelectValue] = useState("");
 

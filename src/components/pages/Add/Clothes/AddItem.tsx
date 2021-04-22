@@ -6,13 +6,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import React, { SetStateAction, useEffect, useState } from "react";
 import "react-dropzone-uploader/dist/styles.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../../../store";
 import { CustomSelect } from "./CustomSelect";
 import { DropzoneComponent } from "./DropzoneComponent";
 import { CirclePicker } from "react-color";
 import { database } from "../../../../database/firebase";
+import { addCloth, setCloth } from "../../../../store/actions/clothActions";
 
 interface AddItemProps {
   openDialog: boolean;
@@ -51,11 +52,12 @@ export const AddItem: React.FC<AddItemProps> = ({
   openDialog,
   setOpenDialog,
 }) => {
+  const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
 
-  const weather = ["Cold", "Hot", "Warm"];
+  const weather = ["Cold", "Hot", "Warm", "Rain"];
   const occasions = ["Sport", "Elegant", "Casual", "Business", "Smart Casual"];
-  const [cloth, setCloth] = useState<Cloth>({
+  const initialState: Cloth = {
     name: "",
     imageUrl: "",
     weather: "",
@@ -63,24 +65,38 @@ export const AddItem: React.FC<AddItemProps> = ({
     category: "",
     color: "",
     occasion: "",
+  };
+  const [item, setItem] = useState<Cloth>({
+    ...initialState,
   });
 
   const [categories, setCategories] = useState<string[]>([]);
-  const [selectValue, setSelectValue] = useState("");
 
   const setImageUrl = (url: string) => {
-    setCloth({ ...cloth, imageUrl: url });
+    setItem({ ...item, imageUrl: url });
+  };
+
+  const isClothNotFilled = () => {
+    const { name, imageUrl, weather, category, color, occasion } = item;
+    return (
+      name === "" ||
+      imageUrl === "" ||
+      weather === "" ||
+      category === "" ||
+      color === "" ||
+      occasion === ""
+    );
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setCloth({
-      ...cloth,
+    setItem({
+      ...item,
       [event.target.name.toLowerCase()]: event.target.value,
     });
   };
 
   const handleColorChange = (color: any) => {
-    setCloth({ ...cloth, color: color.hex });
+    setItem({ ...item, color: color.hex });
   };
 
   const getCategories = async () => {
@@ -96,10 +112,17 @@ export const AddItem: React.FC<AddItemProps> = ({
     setCategories(categoriesData);
   };
 
+  const handleSubmit = () => {
+    setOpenDialog(false);
+    action(setCloth(item));
+    action(addCloth(item));
+
+    setItem({ ...initialState });
+  };
+
   useEffect(() => {
     getCategories();
-    console.log(cloth);
-  }, [cloth]);
+  }, []);
 
   return (
     <StyledDialog open={openDialog} fullWidth={true} maxWidth="sm">
@@ -109,20 +132,18 @@ export const AddItem: React.FC<AddItemProps> = ({
         <SelectContainer>
           <TextField
             name="Name"
-            value={cloth.name}
+            value={item.name}
             onChange={handleChange}
             label="Name"
             variant="outlined"
           />
           <CustomSelect
             name="Category"
-            value={selectValue}
             onChange={handleChange}
             options={categories}
           />
           <CustomSelect
             name="Weather"
-            value={selectValue}
             onChange={handleChange}
             options={weather}
           />
@@ -133,7 +154,6 @@ export const AddItem: React.FC<AddItemProps> = ({
           />
           <CustomSelect
             name="Occasion"
-            value={selectValue}
             onChange={handleChange}
             options={occasions}
           />
@@ -144,28 +164,24 @@ export const AddItem: React.FC<AddItemProps> = ({
           color="secondary"
           onClick={() => {
             setOpenDialog(false);
-            setCloth({
-              name: "",
-              imageUrl: "",
-              weather: "",
-              userId: user!.id,
-              category: "",
-              color: "",
-              occasion: "",
-            });
+            setItem({ ...initialState });
           }}
         >
           Close
         </StyledButton>
-        <StyledButton
-          color="secondary"
-          variant="contained"
-          onClick={() => {
-            setOpenDialog(false);
-          }}
-        >
-          Add item
-        </StyledButton>
+        {isClothNotFilled() ? (
+          <StyledButton color="secondary" variant="contained" disabled>
+            Add item
+          </StyledButton>
+        ) : (
+          <StyledButton
+            color="secondary"
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Add item
+          </StyledButton>
+        )}
       </DialogActions>
     </StyledDialog>
   );

@@ -1,10 +1,11 @@
 import Badge from "@material-ui/core/Badge";
 import { Download } from "@styled-icons/boxicons-regular/Download";
 import { Times } from "@styled-icons/fa-solid/Times";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import { storage } from "../../../../database/firebase";
+import CircularProgress from "@material-ui/core/CircularProgress";
 interface DropzoneComponentProps {
   setImageUrl: (url: string) => void;
 }
@@ -73,6 +74,10 @@ const DeleteButton = styled(Times)`
   }
 `;
 
+const StyledProgress = styled(CircularProgress)`
+  margin-bottom: 20px;
+`;
+
 interface Image extends File {
   preview?: string;
 }
@@ -81,43 +86,34 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({
   setImageUrl,
 }) => {
   const [image, setImage] = useState<Image>();
+  const [loading, setLoading] = useState(false);
 
   const getImageDownloadUrl = async (image: Image) => {
-    console.log("getimagedownloadurl", image);
     const url = await storage
       .ref("ClothImages")
       .child(image.name)
       .getDownloadURL();
-    console.log(url);
     setImageUrl(url as string);
   };
 
   const handleUpload = async () => {
-    console.log("handleupload", image);
+    setLoading(true);
     if (image !== undefined) {
       await storage.ref(`ClothImages/${image.name}`).put(image);
-      await console.log(storage.ref(`ClothImages/${image.name}`).put(image));
-
       getImageDownloadUrl(image);
+      setLoading(false);
     }
   };
 
-  //USE CALLBACK NIE UPDATEUJE IMAGE
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const onDrop = (acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {
       setImage(Object.assign(file, { preview: URL.createObjectURL(file) }));
-      console.log("ondrop", image);
     });
-
-    image !== undefined && handleUpload();
-  }, []);
+  };
 
   useEffect(() => {
-    console.log("RENDER");
-    return () => {
-      setImage(undefined);
-    };
-  }, []);
+    image && handleUpload();
+  }, [image]);
 
   const {
     getRootProps,
@@ -130,6 +126,7 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({
     accept: "image/png, image/jpg, image/jpeg",
     multiple: false,
     maxFiles: 1,
+    disabled: loading,
   });
 
   return (
@@ -150,14 +147,17 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({
         )}
       </DropzoneInput>
 
-      {image !== undefined && (
-        <Badge
-          badgeContent={<DeleteButton onClick={() => setImage(undefined)} />}
-          overlap="circle"
-        >
-          <PreviewImage src={image.preview} alt={image.name}></PreviewImage>
-        </Badge>
-      )}
+      {image !== undefined &&
+        (loading ? (
+          <StyledProgress color="secondary" />
+        ) : (
+          <Badge
+            badgeContent={<DeleteButton onClick={() => setImage(undefined)} />}
+            overlap="circle"
+          >
+            <PreviewImage src={image.preview} alt={image.name}></PreviewImage>
+          </Badge>
+        ))}
     </DropzoneContainer>
   );
 };
