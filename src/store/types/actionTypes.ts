@@ -11,6 +11,8 @@ export const SET_CLOTH = "SET_CLOTH";
 export const ADD_CLOTH = "ADD_CLOTH";
 export const CLEAR_CLOTHES = "CLEAR_CLOTHES";
 export const REMOVE_CLOTH_FROM_LIST = "REMOVE_CLOTH_FROM_LIST";
+export const ADD_CLOTHES_TO_DATABASE = "ADD_CLOTHES_TO_DATABASE";
+export const GET_ADDED_CLOTHES = "GET_ADDED_CLOTHES";
 
 // AUTH ACTIONS
 interface SetUserAction {
@@ -61,12 +63,21 @@ interface SetUserAction {
     type: typeof REMOVE_CLOTH_FROM_LIST;
     payload: Cloth;
   }
+  interface AddClothesToDatabase {
+    type: typeof ADD_CLOTHES_TO_DATABASE;
+    payload: Cloth[];
+  }
+
+  interface GetAddedClothes {
+    type: typeof GET_ADDED_CLOTHES;
+    payload: Cloth[];
+  }
 
   
 
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
-  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction;
+  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabase | GetAddedClothes;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes;

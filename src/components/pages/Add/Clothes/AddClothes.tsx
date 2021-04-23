@@ -1,12 +1,12 @@
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { ReactComponent as ClothImage } from "../../../../images/cloth.svg";
 import { RootState } from "../../../../store";
-import Button from "@material-ui/core/Button";
 import {
+  addClothesToDatabase,
   clearClothesList,
   removeClothFromList,
 } from "../../../../store/actions/clothActions";
@@ -38,6 +38,11 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
   const { clothesList } = useSelector((state: RootState) => state.cloth);
   const action = useDispatch();
 
+  const HandleSave = () => {
+    action(addClothesToDatabase(clothesList));
+    action(clearClothesList());
+  };
+
   return (
     <Wrapper>
       <NavigationBar>
@@ -47,7 +52,7 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
 
         {clothesList.length !== 0 && (
           //ACTION ADD TO DATABASE
-          <SaveChangesButton>Save</SaveChangesButton>
+          <SaveChangesButton onClick={HandleSave}>Save</SaveChangesButton>
         )}
       </NavigationBar>
       {clothesList.length !== 0 ? (
