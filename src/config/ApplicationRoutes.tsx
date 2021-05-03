@@ -8,6 +8,7 @@ import { Header } from "../components/Header";
 import { Add } from "../components/pages/Add/Add";
 import { AddClothes } from "../components/pages/Add/Clothes/AddClothes";
 import { AddItem } from "../components/pages/Add/Clothes/AddItem";
+import { AddOutfits } from "../components/pages/Add/Outfits/AddOutfits";
 import { ForgotPassword } from "../components/pages/auth/ForgotPassword";
 import { Login } from "../components/pages/auth/Login";
 import { Register } from "../components/pages/auth/Register";
@@ -15,6 +16,7 @@ import { CalendarPage } from "../components/pages/Calendar/CalendarPage";
 import { Home } from "../components/pages/Home/Home";
 import { Profile } from "../components/pages/Home/Profile";
 import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
+import { DisplayClothes } from "../components/pages/Wardrobe/Clothes/DisplayClothes";
 import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
 import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
 import firebase from "../database/firebase";
@@ -76,11 +78,14 @@ export const ApplicationRoutes: React.FC = () => {
 
           <PrivateRoute path="/wardrobe" component={Wardrobe} />
           <PrivateRoute path="/categories" component={Categories} />
+          <PrivateRoute path="/myClothes" component={DisplayClothes} />
           <PrivateRoute path="/itemsList/:category" component={ItemsList} />
 
           <PrivateRoute path="/add" component={Add} />
           <PrivateRoute path="/addClothes" component={AddClothes} />
           <PrivateRoute path="/addItem" component={AddItem} />
+
+          <PrivateRoute path="/addOutfits" component={AddOutfits} />
 
           <PrivateRoute path="/calendar" component={CalendarPage} />
 

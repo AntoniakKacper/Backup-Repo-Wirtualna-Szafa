@@ -19,6 +19,7 @@ export const NoItemsAdded = styled.div`
   ${flexCenterXY}
   flex-direction: column;
   margin-top: 100px;
+  margin-bottom: 180px;
 `;
 
 export const BackArrow = styled(Link)`

@@ -47,10 +47,12 @@ const ButtonDescription = styled.p`
 export const Add: React.FC<AddProps> = () => {
   return (
     <Wrapper>
-      <CategoryTile>
-        <Outfit width="100px" height="100px" data-item="Outfits" />
-        <ButtonDescription>ADD OUTFITS</ButtonDescription>
-      </CategoryTile>
+      <Link to="/addOutfits">
+        <CategoryTile>
+          <Outfit width="100px" height="100px" data-item="Outfits" />
+          <ButtonDescription>ADD OUTFITS</ButtonDescription>
+        </CategoryTile>
+      </Link>
 
       <Link to="/addClothes">
         <CategoryTile>

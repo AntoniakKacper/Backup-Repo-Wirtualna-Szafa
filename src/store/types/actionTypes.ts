@@ -63,12 +63,12 @@ interface SetUserAction {
     type: typeof REMOVE_CLOTH_FROM_LIST;
     payload: Cloth;
   }
-  interface AddClothesToDatabase {
+  interface AddClothesToDatabaseAction {
     type: typeof ADD_CLOTHES_TO_DATABASE;
     payload: Cloth[];
   }
 
-  interface GetAddedClothes {
+  interface GetAddedClothesAction {
     type: typeof GET_ADDED_CLOTHES;
     payload: Cloth[];
   }
@@ -78,6 +78,6 @@ interface SetUserAction {
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
-  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabase | GetAddedClothes;
+  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes;

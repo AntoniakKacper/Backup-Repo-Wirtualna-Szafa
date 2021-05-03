@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { ReactComponent as ClothImage } from "../../../../images/cloth.svg";
 import { RootState } from "../../../../store";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import {
   addClothesToDatabase,
   clearClothesList,
@@ -51,8 +52,9 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
         </BackArrow>
 
         {clothesList.length !== 0 && (
-          //ACTION ADD TO DATABASE
-          <SaveChangesButton onClick={HandleSave}>Save</SaveChangesButton>
+          <Link to="/myClothes">
+            <SaveChangesButton onClick={HandleSave}>Save</SaveChangesButton>
+          </Link>
         )}
       </NavigationBar>
       {clothesList.length !== 0 ? (

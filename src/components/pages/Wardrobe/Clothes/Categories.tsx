@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ReactComponent as Cap } from "../../../../images/cap.svg";
 import { ReactComponent as Dress } from "../../../../images/dress.svg";
@@ -78,6 +78,7 @@ export const Categories: React.FC<CategroiesProps> = () => {
       icon: <HighHeeles height={50} />,
     },
   ];
+
   return (
     <Wrapper>
       <h2>All clothes</h2>

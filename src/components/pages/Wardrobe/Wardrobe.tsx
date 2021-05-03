@@ -27,7 +27,7 @@ export const Wardrobe: React.FC<WardrobeProps> = () => {
         <Fab variant="extended" color="secondary">
           My outfits
         </Fab>
-        <Link to="/categories">
+        <Link to="/myClothes">
           <Fab variant="extended" color="secondary">
             My clothes
           </Fab>
