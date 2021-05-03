@@ -27,35 +27,36 @@ export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
   return (
     <h1>
       All clothes
-      {userClothes.map((item: Cloth, index: number) => (
-        <ItemCard key={index}>
-          <img src={item.imageUrl} alt={item.name} />
-          <ItemInfo>
-            <p>
-              <span>Name:</span> {item.name}
-            </p>
-            <p>
-              <span>Catergory:</span> {item.category}
-            </p>
-            <p>
-              <span>Weather:</span> {item.weather}
-            </p>
-            <p>
-              <span>Ocassion:</span> {item.occasion}
-            </p>
-            <DisplayColor>
-              <span>Color:</span>
-              <ColorCircle color={item.color}></ColorCircle>
-            </DisplayColor>
-          </ItemInfo>
-          <ClicableIcon>
-            <EditButton />
-          </ClicableIcon>
-          <ClicableIcon>
-            <DeleteButton />
-          </ClicableIcon>
-        </ItemCard>
-      ))}
+      {userClothes &&
+        userClothes.map((item: Cloth) => (
+          <ItemCard key={item.id}>
+            <img src={item.imageUrl} alt={item.name} />
+            <ItemInfo>
+              <p>
+                <span>Name:</span> {item.name}
+              </p>
+              <p>
+                <span>Catergory:</span> {item.category}
+              </p>
+              <p>
+                <span>Weather:</span> {item.weather}
+              </p>
+              <p>
+                <span>Ocassion:</span> {item.occasion}
+              </p>
+              <DisplayColor>
+                <span>Color:</span>
+                <ColorCircle color={item.color}></ColorCircle>
+              </DisplayColor>
+            </ItemInfo>
+            <ClicableIcon>
+              <EditButton />
+            </ClicableIcon>
+            <ClicableIcon>
+              <DeleteButton />
+            </ClicableIcon>
+          </ItemCard>
+        ))}
     </h1>
   );
 };

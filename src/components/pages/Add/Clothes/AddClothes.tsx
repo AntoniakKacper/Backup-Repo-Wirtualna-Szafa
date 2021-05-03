@@ -59,8 +59,8 @@ export const AddClothes: React.FC<AddClothesProps> = () => {
       </NavigationBar>
       {clothesList.length !== 0 ? (
         <AddedClothes>
-          {clothesList.map((item: Cloth, index: number) => (
-            <ItemCard key={index}>
+          {clothesList.map((item: Cloth) => (
+            <ItemCard key={item.id}>
               <img src={item.imageUrl} alt={item.name} />
               <ItemInfo>
                 <p>

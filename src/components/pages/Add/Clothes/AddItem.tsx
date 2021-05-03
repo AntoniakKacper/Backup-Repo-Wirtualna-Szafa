@@ -14,20 +14,12 @@ import { DropzoneComponent } from "./DropzoneComponent";
 import { CirclePicker } from "react-color";
 import { database } from "../../../../database/firebase";
 import { addCloth, setCloth } from "../../../../store/actions/clothActions";
+import { v4 as uuidv4 } from "uuid";
+import { Cloth } from "../../../../store/types/clothTypes";
 
 interface AddItemProps {
   openDialog: boolean;
   setOpenDialog: React.Dispatch<SetStateAction<boolean>>;
-}
-
-interface Cloth {
-  category: string;
-  name: string;
-  imageUrl: string;
-  weather: string;
-  userId: string;
-  color: string;
-  occasion: string;
 }
 
 const StyledButton = styled(Button)`
@@ -58,6 +50,7 @@ export const AddItem: React.FC<AddItemProps> = ({
   const weather = ["Cold", "Hot", "Warm", "Rain"];
   const occasions = ["Sport", "Elegant", "Casual", "Business", "Smart Casual"];
   const initialState: Cloth = {
+    id: uuidv4().toString(),
     name: "",
     imageUrl: "",
     weather: "",
@@ -114,7 +107,7 @@ export const AddItem: React.FC<AddItemProps> = ({
 
   const handleSubmit = () => {
     setOpenDialog(false);
-    action(setCloth(item));
+    //action(setCloth(item));
     action(addCloth(item));
 
     setItem({ ...initialState });

@@ -1,4 +1,5 @@
 export interface Cloth {
+    id: string;
     category: string;
     name: string;
     imageUrl: string;

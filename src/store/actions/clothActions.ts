@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import firebase, {database} from '../../database/firebase';
-import { ADD_CLOTH, ADD_CLOTHES_TO_DATABASE, AppActions, CLEAR_CLOTHES, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, SET_CLOTH } from '../types/actionTypes';
+import { ADD_CLOTH, ADD_CLOTHES_TO_DATABASE, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_CLOTH, SET_USER_CLOTHES } from '../types/actionTypes';
 import { Cloth } from '../types/clothTypes';
 
 export const setCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
@@ -31,6 +31,7 @@ export const addCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppAc
         }
     }
 }
+
 
 export const clearClothesList = (): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
@@ -86,6 +87,7 @@ export const getAddedClothes = (userId: string): ThunkAction<void, RootState, nu
             const ref = await database.collection("Clothes").doc("AllClothes");
             ref.get().then(queryResult => {
                 const category = queryResult.data()?.ClothesList;
+                category &&
                 category.map((item: any) => {
                     const cloth = JSON.parse(JSON.stringify(item));
                     ListOfClothes.push(cloth);
@@ -99,6 +101,48 @@ export const getAddedClothes = (userId: string): ThunkAction<void, RootState, nu
             })
 
             
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const removeClothFromUserList = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+            dispatch({
+                type: REMOVE_CLOTH_FROM_USER_LIST,
+                payload: cloth,
+            })
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const setUserClothes = (clothes: Cloth[]): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+            dispatch({
+                type: SET_USER_CLOTHES,
+                payload: clothes,
+            })
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const addUserCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+            dispatch({
+                type: ADD_USER_CLOTH,
+                payload: cloth,
+            })
         }
         catch (error){
             console.log(error)

@@ -1,4 +1,4 @@
-import { ADD_CLOTH, AppActions, CLEAR_CLOTHES, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST } from '../types/actionTypes';
+import { ADD_CLOTH, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_USER_CLOTHES } from '../types/actionTypes';
 import { ClothState } from '../types/clothTypes'
 import { SET_CLOTH } from '../types/actionTypes';
 
@@ -30,13 +30,30 @@ export default (state = initialState, action: AppActions) => {
             return {
                 ...state,
                 clothesList: state.clothesList.filter((cloth) => 
-                    cloth.imageUrl !== action.payload.imageUrl
+                    cloth.id !== action.payload.id
                 )
             }
         case GET_ADDED_CLOTHES:
             return {
                 ...state,
                 userClothes: action.payload,
+            }
+        case REMOVE_CLOTH_FROM_USER_LIST:
+            return {
+                ...state,
+                userClothes: state.userClothes.filter((cloth) => 
+                    cloth.id !== action.payload.id
+                )
+            }
+        case SET_USER_CLOTHES:
+            return {
+                ...state,
+                userClothes: action.payload,
+            }
+        case ADD_USER_CLOTH:
+            return {
+                ...state,
+                userClothes: [...state.userClothes, action.payload],
             }
         default:
             return state;
