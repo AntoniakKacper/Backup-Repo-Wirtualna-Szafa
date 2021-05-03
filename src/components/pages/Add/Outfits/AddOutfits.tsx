@@ -1,11 +1,11 @@
-import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { ReactComponent as OutfitImage } from "../../../../images/outfit.svg";
 import { RootState } from "../../../../store";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
 import {
   addClothesToDatabase,
   clearClothesList,
@@ -16,18 +16,13 @@ import {
   NoItemsAdded,
   BackArrow,
   Info,
-  AddButton,
   SaveChangesButton,
   NavigationBar,
   ItemCard,
   ItemInfo,
   DisplayColor,
   ColorCircle,
-  ClicableIcon,
-  DeleteButton,
-  EditButton,
 } from "../Clothes/styles/AddClothesStyles";
-import { AddOutfitDialog } from "./AddOutfitDialog";
 import { Cloth } from "../../../../store/types/clothTypes";
 import styled from "styled-components";
 import { flexCenterXY } from "../../../../styles/shared-style";
@@ -51,6 +46,21 @@ const OwnedClothesContainer = styled.div`
     padding-top: 20px;
     padding-bottom: 20px;
   }
+`;
+
+const ClickableIcon = styled.div`
+  position: relative;
+  width: 35px;
+  height: 35px;
+  color: #e91e63;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const StyledAddIcon = styled(AddIcon)`
+  position: absolute;
+  right: 10px;
 `;
 
 export const AddOutfits: React.FC<AddOutfitsProps> = () => {
@@ -111,18 +121,12 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
                 <ColorCircle color={item.color}></ColorCircle>
               </DisplayColor>
             </ItemInfo>
+            <ClickableIcon>
+              <StyledAddIcon fontSize="large" />
+            </ClickableIcon>
           </ItemCard>
         ))}
       </OwnedClothesContainer>
-
-      {/* <AddButton
-        color="secondary"
-        aria-label="add"
-        onClick={() => setOpenDialog(true)}
-      >
-        <AddIcon />
-      </AddButton> */}
-      {/* <AddOutfitDialog openDialog={openDialog} setOpenDialog={setOpenDialog} /> */}
     </Wrapper>
   );
 };
