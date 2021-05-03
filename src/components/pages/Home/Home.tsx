@@ -1,41 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { auth, database } from "../../../database/firebase";
-import { Header } from "../../Header";
-import Button from "@material-ui/core/Button";
+import React from "react";
+import styled from "styled-components";
 
-export const Home: React.FC = () => {
-  const [userName, setUserName] = useState();
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-  const history = useHistory();
-
-  useEffect(() => {
-    auth.currentUser! &&
-      database
-        .collection("Users")
-        .doc(auth.currentUser!.uid)
-        .get()
-        .then((userCredentials) => {
-          const user = userCredentials.data();
-          user && setUserName(user["username"]);
-        })
-        .catch((error) => console.log(error));
-  }, []);
-
-  const handleClick = (event: any) => {
-    event.preventDefault();
-    auth.signOut().then(() => {
-      history.push("/login");
-    });
-  };
-
+interface HomePageState {}
+export const Home: React.FC<HomePageState> = () => {
   return (
-    <div>
-      <Header />
-      <h1>Homepage</h1> {userName}
-      <Button onClick={handleClick} color="secondary" variant="contained">
-        Logout
-      </Button>
-    </div>
+    <Wrapper>
+      <h1>Proponowane stylizacje</h1>
+    </Wrapper>
   );
 };
