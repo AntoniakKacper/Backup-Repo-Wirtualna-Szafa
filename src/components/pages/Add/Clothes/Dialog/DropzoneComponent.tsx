@@ -4,11 +4,8 @@ import { Times } from "@styled-icons/fa-solid/Times";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-import { storage } from "../../../../database/firebase";
+import { storage } from "../../../../../database/firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
-interface DropzoneComponentProps {
-  setImageUrl: (url: string) => void;
-}
 
 const DropzoneContainer = styled.div`
   overflow: hidden;
@@ -28,8 +25,8 @@ const DropzoneInput = styled.div<{
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 240px;
-  min-width: 240px;
+  padding: 30px;
+  width: 100%;
 
   cursor: pointer;
   border: 4px dashed
@@ -49,8 +46,9 @@ const DropzoneInput = styled.div<{
 `;
 
 const Icon = styled(Download)`
-  height: 50px;
+  height: 45px;
   color: #b1b1b1;
+  margin-bottom: 10px;
 `;
 
 const PreviewImage = styled.img`
@@ -82,8 +80,16 @@ interface Image extends File {
   preview?: string;
 }
 
+interface DropzoneComponentProps {
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => void;
+}
+
 export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({
-  setImageUrl,
+  setFieldValue,
 }) => {
   const [image, setImage] = useState<Image>();
   const [loading, setLoading] = useState(false);
@@ -93,7 +99,7 @@ export const DropzoneComponent: React.FC<DropzoneComponentProps> = ({
       .ref("ClothImages")
       .child(image.name)
       .getDownloadURL();
-    setImageUrl(url as string);
+    setFieldValue("imageUrl", url);
   };
 
   const handleUpload = async () => {

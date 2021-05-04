@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import { Pencil } from "@styled-icons/boxicons-solid/Pencil";
 import { Trash } from "@styled-icons/boxicons-regular/Trash";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 
 export const Wrapper = styled.div`
   ${flexCenterXY}
@@ -19,7 +19,6 @@ export const NoItemsAdded = styled.div`
   ${flexCenterXY}
   flex-direction: column;
   margin-top: 100px;
-  margin-bottom: 180px;
 `;
 
 export const BackArrow = styled(Link)`
@@ -32,16 +31,6 @@ export const BackArrow = styled(Link)`
 export const Info = styled.p`
   padding-top: 20px;
   color: #757575;
-`;
-
-export const AddButton = styled(Fab)`
-  && {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-right: 30px;
-    margin-bottom: 80px;
-  }
 `;
 
 export const AddedClothes = styled.div`
@@ -59,7 +48,7 @@ export const ItemCard = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  
+
   min-height: 100px;
   max-height: 140px;
   border-radius: 20px;
@@ -126,7 +115,7 @@ export const DeleteButton = styled(Trash)`
 `;
 
 export const ClicableIcon = styled.div`
-& :hover {
+  & :hover {
     cursor: pointer;
   }
 `;
@@ -141,7 +130,6 @@ export const SaveChangesButton = styled(Button)`
     font-weight: bold;
     text-transform: none;
     font-size: 15px;
-
   }
 `;
 

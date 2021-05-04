@@ -6,8 +6,8 @@ import { ThemeProvider } from "styled-components";
 import { BottomNavbar } from "../components/elements/BottomNavbar";
 import { Header } from "../components/Header";
 import { Add } from "../components/pages/Add/Add";
-import { AddClothes } from "../components/pages/Add/Clothes/AddClothes";
-import { AddItem } from "../components/pages/Add/Clothes/AddItem";
+import { AddedClothesList } from "../components/pages/Add/Clothes/AddedClothesList";
+import { AddedClothItem } from "../components/pages/Add/Clothes/AddedClothItem";
 import { AddOutfits } from "../components/pages/Add/Outfits/AddOutfits";
 import { ForgotPassword } from "../components/pages/auth/ForgotPassword";
 import { Login } from "../components/pages/auth/Login";
@@ -82,8 +82,8 @@ export const ApplicationRoutes: React.FC = () => {
           <PrivateRoute path="/itemsList/:category" component={ItemsList} />
 
           <PrivateRoute path="/add" component={Add} />
-          <PrivateRoute path="/addClothes" component={AddClothes} />
-          <PrivateRoute path="/addItem" component={AddItem} />
+          <PrivateRoute path="/addClothes" component={AddedClothesList} />
+          <PrivateRoute path="/addItem" component={AddedClothItem} />
 
           <PrivateRoute path="/addOutfits" component={AddOutfits} />
 
