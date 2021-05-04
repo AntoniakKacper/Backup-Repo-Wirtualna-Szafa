@@ -1,5 +1,6 @@
 import { User } from './authTypes';
 import { Cloth } from './clothTypes';
+import { Outfit } from './outfitTypes';
 export const SET_USER = 'SET_USER';
 export const SIGN_OUT = 'SIGN_OUT';
 export const SET_LOADING = 'SET_LOADING';
@@ -16,6 +17,11 @@ export const GET_ADDED_CLOTHES = "GET_ADDED_CLOTHES";
 export const REMOVE_CLOTH_FROM_USER_LIST = "REMOVE_CLOTH_FROM_USER_LIST";
 export const SET_USER_CLOTHES = "SET_USER_CLOTHES";
 export const ADD_USER_CLOTH = "ADD_USER_CLOTH";
+
+export const ADD_OUTFIT = "ADD_OUTFIT";
+export const DELETE_OUTFIT = "ADD_OUTFIT";
+export const EDIT_OUTFIT = "ADD_OUTFIT";
+
 
 // AUTH ACTIONS
 interface SetUserAction {
@@ -76,28 +82,34 @@ interface SetUserAction {
     payload: Cloth[];
   }
 
-  interface RemoveClothFromUserList {
+  interface RemoveClothFromUserListAction {
     type: typeof REMOVE_CLOTH_FROM_USER_LIST;
     payload: Cloth;
   }
 
-  interface SetUserClothes {
+  interface SetUserClothesAction {
     type: typeof SET_USER_CLOTHES;
     payload: Cloth[];
   }
 
-  interface AddUserClothes {
+  interface AddUserClothesAction {
     type: typeof ADD_USER_CLOTH;
     payload: Cloth;
   }
 
   // OUTFIT ACTIONS
 
+  interface AddOutfitAction {
+    type: typeof ADD_OUTFIT;
+    payload: Outfit;
+  }
   
 
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
-  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserList | SetUserClothes | AddUserClothes;
+  export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserListAction | SetUserClothesAction | AddUserClothesAction;
 
-export type AppActions = AuthActionsTypes | ClothActionTypes;
+  export type OutfitActionTypes = AddOutfitAction;
+
+export type AppActions = AuthActionsTypes | ClothActionTypes | OutfitActionTypes;

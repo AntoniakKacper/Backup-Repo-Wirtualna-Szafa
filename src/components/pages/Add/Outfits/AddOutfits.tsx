@@ -12,7 +12,6 @@ import {
   addUserCloth,
   getAddedClothes,
   removeClothFromUserList,
-  setUserClothes,
 } from "../../../../store/actions/clothActions";
 import { Cloth } from "../../../../store/types/clothTypes";
 import { flexCenterXY } from "../../../../styles/shared-style";
@@ -29,6 +28,9 @@ import {
   Wrapper,
 } from "../Clothes/styles/AddClothesStyles";
 import ClearIcon from "@material-ui/icons/Clear";
+import { v4 as uuidv4 } from "uuid";
+import { Outfit } from "../../../../store/types/outfitTypes";
+import { addOutfit } from "../../../../store/actions/outfitActions";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
 
@@ -89,20 +91,30 @@ const StyledInput = styled(TextField)`
 `;
 
 export const AddOutfits: React.FC<AddOutfitsProps> = () => {
-  const { clothesList } = useSelector((state: RootState) => state.cloth);
-  const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
+
+  const action = useDispatch();
   const { userClothes } = useSelector((state: RootState) => state.cloth);
-  //const [clothesToAdd, setClothesToAdd] = useState<Cloth[]>([]);
   const [addedClothes, setAddedClothes] = useState<Cloth[]>([]);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
+
+    return () => {
+      setAddedClothes([]);
+    };
   }, []);
 
   const HandleSave = () => {
-    // action(addClothesToDatabase(userClothes));
-    // action(clearClothesList());
+    const initialState: Outfit = {
+      id: uuidv4().toString(),
+      clothesList: addedClothes,
+      name: name,
+      userId: user!.id,
+    };
+    console.log(initialState);
+    action(addOutfit(initialState));
   };
 
   const AddClothToOutfit = (cloth: Cloth) => {
@@ -122,15 +134,21 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
           <ArrowBackIosIcon fontSize="large" />
         </BackArrow>
 
-        {addedClothes.length > 2 && (
-          <Link to="/myClothes">
-            <SaveChangesButton onClick={HandleSave}>Save</SaveChangesButton>
+        {addedClothes.length > 2 && addedClothes.length <= 6 && (
+          <Link to="/wardrobe">
+            <SaveChangesButton onClick={() => HandleSave()}>
+              Save
+            </SaveChangesButton>
           </Link>
         )}
       </NavigationBar>
       <AddedClothesContainer>
         {addedClothes.length > 0 && (
-          <StyledInput label="Name" variant="outlined" />
+          <StyledInput
+            label="Name"
+            variant="outlined"
+            onChange={(event) => setName(event.target.value)}
+          />
         )}
         {addedClothes.length > 0 ? (
           addedClothes.map((item: Cloth, index: number) => (
