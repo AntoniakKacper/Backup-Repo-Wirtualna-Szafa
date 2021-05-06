@@ -5,10 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import authReducer from './reducers/authReducers';
 import clothReducers from './reducers/clothReducers';
+import outfitReducers from './reducers/outfitReducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  cloth: clothReducers
+  cloth: clothReducers,
+  outfit: outfitReducers
 });
 
 const store = createStore(

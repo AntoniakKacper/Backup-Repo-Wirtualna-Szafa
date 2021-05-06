@@ -21,6 +21,7 @@ export const ADD_USER_CLOTH = "ADD_USER_CLOTH";
 export const ADD_OUTFIT = "ADD_OUTFIT";
 export const DELETE_OUTFIT = "ADD_OUTFIT";
 export const EDIT_OUTFIT = "ADD_OUTFIT";
+export const GET_USER_OUTFITS = "GET_USER_OUTFITS";
 
 
 // AUTH ACTIONS
@@ -103,6 +104,12 @@ interface SetUserAction {
     type: typeof ADD_OUTFIT;
     payload: Outfit;
   }
+
+  interface GetUserOutfitsAction {
+    type: typeof GET_USER_OUTFITS;
+    payload: Outfit[];
+    //payload: string;
+  }
   
 
 
@@ -110,6 +117,6 @@ interface SetUserAction {
 
   export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserListAction | SetUserClothesAction | AddUserClothesAction;
 
-  export type OutfitActionTypes = AddOutfitAction;
+  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes | OutfitActionTypes;

@@ -9,4 +9,5 @@ export interface Outfit{
 
 export interface OutfitState{
     outfit: Outfit | null;
+    userOutfits: Outfit[] | null;
 }

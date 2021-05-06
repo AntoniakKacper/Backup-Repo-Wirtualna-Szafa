@@ -24,9 +24,11 @@ export const Wardrobe: React.FC<WardrobeProps> = () => {
   return (
     <Wrapper>
       <Buttons>
-        <Fab variant="extended" color="secondary">
-          My outfits
-        </Fab>
+        <Link to="/myOutfits">
+          <Fab variant="extended" color="secondary">
+            My outfits
+          </Fab>
+        </Link>
 
         <Link to="/myClothes">
           <Fab variant="extended" color="secondary">

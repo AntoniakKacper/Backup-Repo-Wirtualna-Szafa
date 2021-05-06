@@ -18,6 +18,7 @@ import { Profile } from "../components/pages/Home/Profile";
 import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
 import { DisplayClothes } from "../components/pages/Wardrobe/Clothes/DisplayClothes";
 import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
+import { DisplayOutfits } from "../components/pages/Wardrobe/Outfits/DisplayOutfits";
 import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
 import firebase from "../database/firebase";
 import { RootState } from "../store";
@@ -79,6 +80,7 @@ export const ApplicationRoutes: React.FC = () => {
           <PrivateRoute path="/wardrobe" component={Wardrobe} />
           <PrivateRoute path="/categories" component={Categories} />
           <PrivateRoute path="/myClothes" component={DisplayClothes} />
+          <PrivateRoute path="/myOutfits" component={DisplayOutfits} />
           <PrivateRoute path="/itemsList/:category" component={ItemsList} />
 
           <PrivateRoute path="/add" component={Add} />

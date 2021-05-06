@@ -23,7 +23,6 @@ import {
 import * as Yup from "yup";
 import { ColorPicker } from "./ColorPickerPopper";
 import { DropzoneComponent } from "./DropzoneComponent";
-import { v4 as uuidv4 } from "uuid";
 
 const validationSchema = Yup.object({
   name: Yup.string().required().max(40),
@@ -47,7 +46,7 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
   const { user } = useSelector((state: RootState) => state.auth);
 
   const initialState: Cloth = {
-    id: uuidv4().toString(),
+    id: "",
     name: "",
     imageUrl: "",
     weather: "",
@@ -63,7 +62,6 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
       validateOnChange={true}
       validationSchema={validationSchema}
       onSubmit={(data, { resetForm }) => {
-        console.log(data);
         action(addCloth(data));
         setOpenDialog(false);
         resetForm();

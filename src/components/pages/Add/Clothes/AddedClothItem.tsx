@@ -10,7 +10,7 @@ import {
   EditButton,
   ItemCard,
   ItemInfo,
-} from "./styles/AddClothesStyles";
+} from "../../../../styles/Card";
 
 interface AddedClothItemProps {
   cloth: Cloth;

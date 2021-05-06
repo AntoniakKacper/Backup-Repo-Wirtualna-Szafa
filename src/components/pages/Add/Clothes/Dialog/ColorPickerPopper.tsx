@@ -57,7 +57,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       <ClickAwayListener onClickAway={() => setOpen(false)}>
         <ColorPickerAction>
           <Button onClick={() => setOpen(!open)} color="primary">
-            Wybierz kolor
+            Choose color
           </Button>
           <ColorCircle color={color}></ColorCircle>
           {open && (

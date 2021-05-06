@@ -17,16 +17,18 @@ import { Cloth } from "../../../../store/types/clothTypes";
 import { flexCenterXY } from "../../../../styles/shared-style";
 import {
   BackArrow,
-  ColorCircle,
-  DisplayColor,
   Info,
-  ItemCard,
-  ItemInfo,
   NavigationBar,
   NoItemsAdded,
   SaveChangesButton,
   Wrapper,
 } from "../Clothes/styles/AddClothesStyles";
+import {
+  ColorCircle,
+  DisplayColor,
+  ItemCard,
+  ItemInfo,
+} from "../../../../styles/Card";
 import ClearIcon from "@material-ui/icons/Clear";
 import { v4 as uuidv4 } from "uuid";
 import { Outfit } from "../../../../store/types/outfitTypes";

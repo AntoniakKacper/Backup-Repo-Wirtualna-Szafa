@@ -44,7 +44,6 @@ export const AddedClothesList: React.FC<AddedClothesProps> = () => {
         </BackArrow>
 
         {clothesList.length !== 0 && (
-          //ACTION ADD TO DATABASE
           <SaveChangesButton onClick={handleSave}>Save</SaveChangesButton>
         )}
       </NavigationBar>

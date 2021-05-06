@@ -3,6 +3,7 @@ import { RootState } from '..';
 import firebase, {database} from '../../database/firebase';
 import { ADD_CLOTH, ADD_CLOTHES_TO_DATABASE, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_CLOTH, SET_USER_CLOTHES } from '../types/actionTypes';
 import { Cloth } from '../types/clothTypes';
+import { v4 as uuidv4 } from "uuid";
 
 export const setCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
@@ -21,9 +22,10 @@ export const setCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppAc
 export const addCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
+            const data: Cloth = {...cloth, id: uuidv4().toString()}
             dispatch({
                 type: ADD_CLOTH,
-                payload: cloth
+                payload: data
             })
         }
         catch (error){
