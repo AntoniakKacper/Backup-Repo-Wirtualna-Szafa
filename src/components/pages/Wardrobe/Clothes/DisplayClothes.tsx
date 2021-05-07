@@ -11,9 +11,21 @@ import {
   EditButton,
   ItemCard,
   ItemInfo,
-} from "../../Add/Clothes/styles/AddClothesStyles";
+} from "../../../../styles/Card";
+import styled from "styled-components";
+import { flexCenterXY } from "../../../../styles/shared-style";
 
 interface DisplayClothesProps {}
+
+export const Wrapper = styled.div`
+  ${flexCenterXY}
+  flex-direction: column;
+  margin: 0px 20px 96px 20px;
+
+  & > h2 {
+    padding-bottom: 20px;
+  }
+`;
 
 export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
   const action = useDispatch();
@@ -25,27 +37,27 @@ export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
   }, []);
 
   return (
-    <h1>
-      All clothes
+    <Wrapper>
+      <h2>All clothes</h2>
       {userClothes &&
         userClothes.map((item: Cloth) => (
           <ItemCard key={item.id}>
             <img src={item.imageUrl} alt={item.name} />
             <ItemInfo>
               <p>
-                <span>Name:</span> {item.name}
+                <strong>Name:</strong> {item.name}
               </p>
               <p>
-                <span>Catergory:</span> {item.category}
+                <strong>Catergory:</strong> {item.category}
               </p>
               <p>
-                <span>Weather:</span> {item.weather}
+                <strong>Weather:</strong> {item.weather}
               </p>
               <p>
-                <span>Ocassion:</span> {item.occasion}
+                <strong>Ocassion:</strong> {item.occasion}
               </p>
               <DisplayColor>
-                <span>Color:</span>
+                <strong>Color:</strong>
                 <ColorCircle color={item.color}></ColorCircle>
               </DisplayColor>
             </ItemInfo>
@@ -57,6 +69,6 @@ export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
             </ClicableIcon>
           </ItemCard>
         ))}
-    </h1>
+    </Wrapper>
   );
 };

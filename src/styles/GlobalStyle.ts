@@ -26,9 +26,7 @@ const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
-    body {
-        font-size: 1rem;
-        font-weight: 600;
+    body {  
         font-family: 'Montserrat', sans-serif;
         -webkit-font-smoothing: antialiased;
         -webkit-osx-font-smoothing: greyscale;

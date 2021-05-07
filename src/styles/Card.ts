@@ -34,9 +34,6 @@ export const ItemInfo = styled.div`
   margin-left: 10px;
   color: #757575;
 
-  & span {
-    color: black;
-  }
 `;
 
 export const DisplayColor = styled.div`

@@ -108,7 +108,12 @@ interface SetUserAction {
   interface GetUserOutfitsAction {
     type: typeof GET_USER_OUTFITS;
     payload: Outfit[];
-    //payload: string;
+  }
+
+  interface DeleteOutfitAction {
+    type: typeof DELETE_OUTFIT;
+    //payload: Outfit[];
+    payload: Outfit;
   }
   
 
@@ -117,6 +122,6 @@ interface SetUserAction {
 
   export type ClothActionTypes = SetClothAction | AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserListAction | SetUserClothesAction | AddUserClothesAction;
 
-  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction;
+  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes | OutfitActionTypes;

@@ -4,6 +4,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Typography from "@material-ui/core/Typography";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 export const Wrapper = styled.div`
   ${flexCenterXY}
@@ -16,15 +17,18 @@ export const OutfitContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-bottom: 30px;
+  margin: 20px 50px 30px 50px;
   color: #757575;
-  margin-top: 20px;
   border-radius: 20px;
   overflow: hidden;
   max-width: 300px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.5s ease;
+  /* cursor: pointer; */
+
+  &:hover{
+      transform: scale(1.02);
+  }
 `;
 
 export const OutfitImagesContainer = styled.div`
@@ -49,6 +53,18 @@ export const Info = styled.div`
   flex-direction: column;
   padding-bottom: 10px;
   font-size: 12px;
+`;
+
+export const LikeContainer = styled.div`
+    display: flex;
+`;
+export const Heart = styled(FavoriteBorderIcon)`
+    margin-left: 5px;
+    margin-right: 5px;
+
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 export const DetailsButton = styled.p`

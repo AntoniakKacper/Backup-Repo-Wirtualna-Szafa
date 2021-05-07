@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk"
 import { RootState } from ".."
 import { database } from "../../database/firebase"
-import { ADD_OUTFIT, AppActions, GET_USER_OUTFITS } from "../types/actionTypes"
+import { ADD_OUTFIT, AppActions, DELETE_OUTFIT, GET_USER_OUTFITS } from "../types/actionTypes"
 import { Outfit } from "../types/outfitTypes"
 
 export const addOutfit = (outfit: Outfit): ThunkAction<void, RootState, null, AppActions> => {
@@ -34,6 +34,28 @@ export const getUserOutfits = (uId: string): ThunkAction<void, RootState, null, 
             dispatch({
                 type: GET_USER_OUTFITS,
                 payload: listOfOutfits,
+            })
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const deleteOutfit = (outfit: Outfit): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+            let outfitId;
+            const outfitRef = database.collection("Outfits")
+            await outfitRef.where("id", "==", outfit.id).get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    outfitId = doc.id as string;
+                });
+            });
+            outfitRef.doc(outfitId).delete();
+            dispatch({
+                type: DELETE_OUTFIT,
+                payload: outfit,
             })
         }
         catch (error){
