@@ -1,6 +1,5 @@
 import { ADD_CLOTH, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_USER_CLOTHES } from '../types/actionTypes';
 import { ClothState } from '../types/clothTypes'
-import { SET_CLOTH } from '../types/actionTypes';
 
 const initialState: ClothState = {
     cloth: null,
@@ -11,11 +10,6 @@ const initialState: ClothState = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action: AppActions) => {
     switch(action.type){
-        case SET_CLOTH:
-            return {
-                ...state,
-                cloth: action.payload
-            }
         case ADD_CLOTH:
             return {
                 ...state,
