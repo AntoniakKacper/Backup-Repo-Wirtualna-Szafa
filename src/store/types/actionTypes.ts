@@ -19,7 +19,7 @@ export const ADD_USER_CLOTH = "ADD_USER_CLOTH";
 export const DELETE_CLOTH = "DELETE_CLOTH";
 
 export const ADD_OUTFIT = "ADD_OUTFIT";
-export const DELETE_OUTFIT = "ADD_OUTFIT";
+export const DELETE_OUTFIT = "DELETE_OUTFIT";
 export const EDIT_OUTFIT = "ADD_OUTFIT";
 export const GET_USER_OUTFITS = "GET_USER_OUTFITS";
 

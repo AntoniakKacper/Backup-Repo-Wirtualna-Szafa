@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   OutfitContainer,
@@ -17,8 +17,10 @@ import {
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Outfit } from "../../../../store/types/outfitTypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteOutfit } from "../../../../store/actions/outfitActions";
+import { RootState } from "../../../../store";
+import { getUserById } from "../../../../store/actions/authActions";
 
 interface OutfitCardProps {
   outfit: Outfit;
@@ -27,6 +29,7 @@ interface OutfitCardProps {
 export const OutfitCard: React.FC<OutfitCardProps> = ({ outfit }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const action = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -56,7 +59,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({ outfit }) => {
         <OutfitBottomBar>
           <Info>
             <p>
-              <strong>#Username</strong>
+              <strong>#{user?.username}</strong>
             </p>
             <p>
               <strong>Name:</strong> {outfit.name}

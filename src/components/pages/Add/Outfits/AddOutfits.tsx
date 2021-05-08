@@ -105,6 +105,7 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
     return () => {
       setAddedClothes([]);
+      setName("");
     };
   }, []);
 
@@ -115,7 +116,6 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
       name: name,
       userId: user!.id,
     };
-    console.log(initialState);
     action(addOutfit(initialState));
   };
 
@@ -137,7 +137,7 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
         </BackArrow>
 
         {addedClothes.length > 2 && addedClothes.length <= 6 && (
-          <Link to="/wardrobe">
+          <Link to="/myOutfits">
             <SaveChangesButton onClick={() => HandleSave()}>
               Save
             </SaveChangesButton>

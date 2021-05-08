@@ -15,10 +15,10 @@ export const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
 
   useEffect(() => {
     user && action(getUserOutfits(user.id));
-  }, [userOutfits]);
+  }, []);
   return (
     <Wrapper>
-      {userOutfits?.map((outfit) => (
+      {userOutfits?.map((outfit: Outfit) => (
         <OutfitCard outfit={outfit} key={outfit.id} />
       ))}
     </Wrapper>

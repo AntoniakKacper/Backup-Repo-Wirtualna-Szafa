@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import {
@@ -41,7 +41,7 @@ export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
-  }, [userClothes]);
+  }, []);
 
   return (
     <Wrapper>
