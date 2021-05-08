@@ -4,6 +4,7 @@ import { RootState } from "../../../../store";
 import { getUserOutfits } from "../../../../store/actions/outfitActions";
 import { Wrapper } from "./styles/OutfitCardStyles";
 import { OutfitCard } from "./OutfitCard";
+import { Outfit } from "../../../../store/types/outfitTypes";
 
 interface DisplayOutfitsProps {}
 

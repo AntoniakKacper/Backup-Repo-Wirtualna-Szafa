@@ -1,5 +1,6 @@
 import { ThunkAction } from "redux-thunk"
 import { RootState } from ".."
+import { Cloth } from "../../components/styledComponents/FavoritesStyles"
 import { database } from "../../database/firebase"
 import { ADD_OUTFIT, AppActions, DELETE_OUTFIT, GET_USER_OUTFITS } from "../types/actionTypes"
 import { Outfit } from "../types/outfitTypes"
@@ -9,8 +10,6 @@ export const addOutfit = (outfit: Outfit): ThunkAction<void, RootState, null, Ap
         try{
             const ref = await database.collection("Outfits");
             ref.doc().set(outfit);
-
-
             dispatch({
                 type: ADD_OUTFIT,
                 payload: outfit,
