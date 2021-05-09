@@ -3,7 +3,7 @@ import AvatarEditor from "react-avatar-editor";
 
 interface ProfileProps {}
 
-export const Profile: React.FC<ProfileProps> = ({}) => {
+export const Profile: React.FC<ProfileProps> = () => {
   return (
     <AvatarEditor
       image="http://example.com/initialimage.jpg"

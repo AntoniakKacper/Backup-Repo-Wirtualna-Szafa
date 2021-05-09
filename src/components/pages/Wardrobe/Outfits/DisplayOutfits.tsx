@@ -10,7 +10,7 @@ interface DisplayOutfitsProps {}
 
 export const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const { userOutfits } = useSelector((state: RootState) => state.outfit);
+  const { outfits } = useSelector((state: RootState) => state.outfit);
   const action = useDispatch();
 
   useEffect(() => {
@@ -18,8 +18,8 @@ export const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
   }, []);
   return (
     <Wrapper>
-      {userOutfits?.map((outfit: Outfit) => (
-        <OutfitCard outfit={outfit} key={outfit.id} />
+      {outfits?.map((outfit: Outfit) => (
+        <OutfitCard outfit={outfit} key={outfit.id} myOutfits={true} />
       ))}
     </Wrapper>
   );

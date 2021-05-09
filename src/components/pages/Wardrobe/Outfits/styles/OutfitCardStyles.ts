@@ -5,6 +5,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Typography from "@material-ui/core/Typography";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Avatar from "@material-ui/core/Avatar";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const Wrapper = styled.div`
   ${flexCenterXY}
@@ -46,6 +48,7 @@ export const OutfitBottomBar = styled.div`
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
+  position: relative;
 `;
 
 export const Info = styled.div`
@@ -53,15 +56,47 @@ export const Info = styled.div`
   flex-direction: column;
   padding-bottom: 10px;
   font-size: 12px;
+  & > p {
+    padding-bottom: 5px;
+  }
+  
+
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+  
+  & > p {
+    padding-left: 8px;
+  }
+`;
+
+export const StyledAvatar = styled(Avatar)`
+  && {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export const LikeContainer = styled.div`
     display: flex;
 `;
 export const Heart = styled(FavoriteBorderIcon)`
-    margin-left: 5px;
-    margin-right: 5px;
+  position: absolute;
+  right: 25px;
+  bottom: 15px;
+    &:hover{
+        cursor: pointer;
+    }
+`;
 
+export const FilledHeart = styled(FavoriteIcon)`
+position: absolute;
+  right: 25px;
+  bottom: 15px;
     &:hover{
         cursor: pointer;
     }
@@ -78,14 +113,8 @@ export const DetailsButton = styled.p`
   }
 `;
 
-export const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: column;  
-    align-items: flex-end;
-`;
-
 export const DottedMenuButton = styled(MoreVertIcon)`
-
+    margin-bottom: 20px;
     &:hover{
         cursor: pointer;
     }
@@ -93,6 +122,9 @@ export const DottedMenuButton = styled(MoreVertIcon)`
 
 export const StyledButton = styled.button`
     all: unset;
+    position: absolute;
+    right: 25px;
+    bottom: 40px;
 `;
 
 export const StyledEditButton = styled(EditIcon)`

@@ -1,35 +1,41 @@
-import React, { useEffect } from "react";
-
-import {
-  OutfitContainer,
-  OutfitImagesContainer,
-  OutfitBottomBar,
-  Info,
-  ButtonsContainer,
-  DottedMenuButton,
-  StyledButton,
-  StyledEditButton,
-  StyledDeleteButton,
-  StyledTypography,
-  LikeContainer,
-  Heart,
-} from "./styles/OutfitCardStyles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Outfit } from "../../../../store/types/outfitTypes";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { database } from "../../../../database/firebase";
 import { deleteOutfit } from "../../../../store/actions/outfitActions";
-import { RootState } from "../../../../store";
-import { getUserById } from "../../../../store/actions/authActions";
+import { Outfit } from "../../../../store/types/outfitTypes";
+import {
+  DottedMenuButton,
+  Heart,
+  Info,
+  LikeContainer,
+  OutfitBottomBar,
+  OutfitContainer,
+  OutfitImagesContainer,
+  StyledAvatar,
+  StyledButton,
+  StyledDeleteButton,
+  StyledEditButton,
+  StyledTypography,
+  UserInfo,
+  FilledHeart,
+} from "./styles/OutfitCardStyles";
 
 interface OutfitCardProps {
   outfit: Outfit;
+  myOutfits?: boolean;
 }
 
-export const OutfitCard: React.FC<OutfitCardProps> = ({ outfit }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+export const OutfitCard: React.FC<OutfitCardProps> = ({
+  outfit,
+  myOutfits,
+}) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [username, setUsername] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  const [toggle, setToggle] = useState(false);
   const action = useDispatch();
-  const { user } = useSelector((state: RootState) => state.auth);
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,6 +49,27 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({ outfit }) => {
     action(deleteOutfit(outfit));
     setAnchorEl(null);
   };
+
+  const getUsername = (outfit: Outfit) => {
+    try {
+      database
+        .collection("Users")
+        .where("id", "==", outfit.userId)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            setUsername(doc.data()["username"]);
+            setUserAvatar(doc.data()["imageUrl"]);
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUsername(outfit);
+  }, [outfit]);
 
   return (
     <>
@@ -58,21 +85,31 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({ outfit }) => {
         </OutfitImagesContainer>
         <OutfitBottomBar>
           <Info>
-            <p>
-              <strong>#{user?.username}</strong>
-            </p>
+            <UserInfo>
+              <StyledAvatar alt={username} src={userAvatar} />
+              <p>
+                <strong>#{username}</strong>
+              </p>
+            </UserInfo>
             <p>
               <strong>Name:</strong> {outfit.name}
             </p>
             <LikeContainer>
-              <strong>Likes</strong> <Heart /> 123
+              <p>
+                <strong>Likes:</strong> 123
+              </p>
             </LikeContainer>
           </Info>
-          <ButtonsContainer>
+          {myOutfits && (
             <StyledButton onClick={handleOpen}>
               <DottedMenuButton />
             </StyledButton>
-          </ButtonsContainer>
+          )}
+          {toggle ? (
+            <FilledHeart onClick={() => setToggle(!toggle)} />
+          ) : (
+            <Heart onClick={() => setToggle(!toggle)} />
+          )}
         </OutfitBottomBar>
       </OutfitContainer>
 
