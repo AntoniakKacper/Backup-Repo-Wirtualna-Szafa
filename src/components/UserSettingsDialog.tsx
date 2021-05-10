@@ -171,9 +171,15 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
             color="secondary"
             variant="contained"
             endIcon={<EditIcon></EditIcon>}
-            size="large"
           >
             Change Password
+          </Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            endIcon={<EditIcon></EditIcon>}
+          >
+            Check statistics
           </Button>
           <Button
             onClick={() => action(signout())}

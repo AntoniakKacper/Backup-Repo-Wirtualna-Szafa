@@ -27,29 +27,20 @@ export default (state = initialState, action: AppActions) => {
                     cloth.id !== action.payload.id
                 )
             }
+        case SET_USER_CLOTHES:
         case GET_ADDED_CLOTHES:
             return {
                 ...state,
                 userClothes: action.payload,
             }
-        case REMOVE_CLOTH_FROM_USER_LIST:
-            return {
-                ...state,
-                userClothes: state.userClothes.filter((cloth) => 
-                    cloth.id !== action.payload.id
-                )
-            }
-        case SET_USER_CLOTHES:
-            return {
-                ...state,
-                userClothes: action.payload,
-            }
+            
         case ADD_USER_CLOTH:
             return {
                 ...state,
                 userClothes: [...state.userClothes, action.payload],
             }
-            case DELETE_CLOTH:
+        case DELETE_CLOTH:
+        case REMOVE_CLOTH_FROM_USER_LIST:        
             return {
                 ...state,
                 userClothes: state.userClothes.filter((cloth) => 

@@ -4,6 +4,7 @@ export interface User {
     id: string;
     imageUrl: string;
   }
+
   
   export interface AuthState {
     user: User | null;

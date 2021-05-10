@@ -54,7 +54,6 @@ interface SetUserAction {
     payload: string;
   }
 
-
   // CLOTH ACTIONS
   interface AddClothAction {
     type: typeof ADD_CLOTH;
@@ -121,7 +120,6 @@ interface SetUserAction {
     payload: Outfit[];
   }
   
-
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 

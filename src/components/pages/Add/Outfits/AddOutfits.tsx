@@ -115,6 +115,7 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
       clothesList: addedClothes,
       name: name,
       userId: user!.id,
+      likesCount: 0,
     };
     action(addOutfit(initialState));
   };

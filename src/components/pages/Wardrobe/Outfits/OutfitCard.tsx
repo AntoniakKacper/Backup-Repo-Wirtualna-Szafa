@@ -34,7 +34,8 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [username, setUsername] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
+
   const action = useDispatch();
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,7 +51,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
     setAnchorEl(null);
   };
 
-  const getUsername = (outfit: Outfit) => {
+  const getData = (outfit: Outfit) => {
     try {
       database
         .collection("Users")
@@ -68,7 +69,12 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
   };
 
   useEffect(() => {
-    getUsername(outfit);
+    getData(outfit);
+
+    return () => {
+      setUsername("");
+      setUserAvatar("");
+    };
   }, [outfit]);
 
   return (
@@ -96,7 +102,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
             </p>
             <LikeContainer>
               <p>
-                <strong>Likes:</strong> 123
+                <strong>Likes:</strong> {outfit.likesCount}
               </p>
             </LikeContainer>
           </Info>
@@ -105,10 +111,20 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               <DottedMenuButton />
             </StyledButton>
           )}
-          {toggle ? (
-            <FilledHeart onClick={() => setToggle(!toggle)} />
+          {isToggled ? (
+            <FilledHeart
+              color="secondary"
+              onClick={() => {
+                setIsToggled(!isToggled);
+              }}
+            />
           ) : (
-            <Heart onClick={() => setToggle(!toggle)} />
+            <Heart
+              color="secondary"
+              onClick={() => {
+                setIsToggled(!isToggled);
+              }}
+            />
           )}
         </OutfitBottomBar>
       </OutfitContainer>

@@ -3,16 +3,16 @@ import { RootState } from '..';
 import {database} from '../../database/firebase';
 import { ADD_CLOTH, ADD_CLOTHES_TO_DATABASE, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, DELETE_CLOTH, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_USER_CLOTHES } from '../types/actionTypes';
 import { Cloth } from '../types/clothTypes';
-import { v4 as uuidv4 } from "uuid";
+
 
 
 export const addCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            const data: Cloth = {...cloth, id: uuidv4().toString()}
+            
             dispatch({
                 type: ADD_CLOTH,
-                payload: data
+                payload: cloth
             })
         }
         catch (error){
@@ -51,10 +51,11 @@ export const removeClothFromList = (clothFromList: Cloth): ThunkAction<void, Roo
 
 export const addClothesToDatabase = (clothes: Cloth[]): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
-        try{
+        try{    
             const ref = await database.collection("Clothes");
             clothes.forEach((item) => {
-                ref.doc().set(item);
+                const docRef = ref.doc()
+                docRef.set({...item, id: docRef.id})
             })
 
             dispatch({
@@ -136,22 +137,19 @@ export const deleteCloth = (cloth: Cloth): ThunkAction<void, RootState, null, Ap
         try{
             //Delete cloth
             const clothRef = await database.collection("Clothes");
-            clothRef.where("id", "==", cloth.id).get().then((snapshot) => snapshot.forEach((doc) => clothRef.doc(doc.id).delete()));
-
+            clothRef.doc(cloth.id).delete();
 
             //Delete outfits that contains deleted cloth
             const ref = await database.collection("Outfits");
             ref.get().then((snapshot) => {
                 snapshot.forEach((doc) => 
                 {
-                    let test = doc.data()["clothesList"].map((list: Cloth) => list).find((item: Cloth) => item.id === cloth.id);
-                    test && ref.doc(doc.id).delete();
+                    let equalId = doc.data()["clothesList"].map((list: Cloth) => list).find((item: Cloth) => item.id === cloth.id);
+                    equalId && ref.doc(doc.id).delete();
                 }
                    
                 ) 
             });
-            
-
             dispatch({
                 type: DELETE_CLOTH,
                 payload: cloth,

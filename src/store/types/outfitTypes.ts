@@ -5,6 +5,7 @@ export interface Outfit{
     clothesList: Cloth[];
     name: string;
     userId: string;
+    likesCount: number;
 }
 
 export interface OutfitState{

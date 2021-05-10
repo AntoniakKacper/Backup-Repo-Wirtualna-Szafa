@@ -21,11 +21,9 @@ export default (state = initialState, action: AppActions) => {
               outfits: action.payload
           }
       case DELETE_OUTFIT:
-        
           return {
               ...state,
               outfits: state.outfits.filter((outfit) => outfit.id !== action.payload.id)
-              
           }
       case GET_ALL_OUTFITS:
           return {
