@@ -5,7 +5,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import React, { SetStateAction, useEffect, useState } from "react";
@@ -15,6 +14,10 @@ import { database, storage } from "../database/firebase";
 import { RootState } from "../store";
 import { signout } from "../store/actions/authActions";
 import { flexCenterXY } from "../styles/shared-style";
+import ShowChartIcon from "@material-ui/icons/ShowChart";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Statistics } from "./pages/Statistics/Statistics";
 
 interface UserSettingsDialogProps {
   openDialog: boolean;
@@ -46,7 +49,7 @@ const DialogButtons = styled(DialogActions)`
   display: flex;
   flex-direction: column;
 
-  min-height: 250px;
+  min-height: 100px;
   &.MuiDialogActions-root {
     justify-content: space-around;
   }
@@ -166,21 +169,24 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
           <Username>{user?.username}</Username>
           <Email>{user?.email}</Email>
         </UserInfo>
+
+        <DialogContent>
+          <Statistics />
+        </DialogContent>
+
         <DialogButtons>
-          <Button
+          {/* <Button
             color="secondary"
             variant="contained"
             endIcon={<EditIcon></EditIcon>}
           >
             Change Password
-          </Button>
-          <Button
-            color="secondary"
-            variant="contained"
-            endIcon={<EditIcon></EditIcon>}
-          >
+          </Button> */}
+
+          {/* <Button color="secondary" endIcon={<ShowChartIcon></ShowChartIcon>}>
             Check statistics
-          </Button>
+          </Button> */}
+
           <Button
             onClick={() => action(signout())}
             color="secondary"

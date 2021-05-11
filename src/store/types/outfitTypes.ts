@@ -7,8 +7,13 @@ export interface Outfit{
     userId: string;
     likesCount: number;
 }
+export interface MostUsedCloth {
+    cloth: Cloth | null;
+    count: number;
+  }
 
 export interface OutfitState{
     outfit: Outfit | null;
     outfits: Outfit[];
+    mostUsedCloth: MostUsedCloth | null;
 }

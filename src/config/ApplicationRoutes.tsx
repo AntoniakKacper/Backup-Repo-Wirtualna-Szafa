@@ -15,11 +15,13 @@ import { Register } from "../components/pages/auth/Register";
 import { CalendarPage } from "../components/pages/Calendar/CalendarPage";
 import { Home } from "../components/pages/Home/Home";
 import { Profile } from "../components/pages/Home/Profile";
+import { Statistics } from "../components/pages/Statistics/Statistics";
 import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
 import { DisplayClothes } from "../components/pages/Wardrobe/Clothes/DisplayClothes";
 import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
 import { DisplayOutfits } from "../components/pages/Wardrobe/Outfits/DisplayOutfits";
 import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
+import { UserSettingsDialog } from "../components/UserSettingsDialog";
 import firebase from "../database/firebase";
 import { RootState } from "../store";
 import {
@@ -67,8 +69,9 @@ export const ApplicationRoutes: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Header />
+
       <Router>
+        <Header />
         <Switch>
           <PublicRoute path="/" exact component={Login} />
           <PublicRoute path="/login" component={Login} />

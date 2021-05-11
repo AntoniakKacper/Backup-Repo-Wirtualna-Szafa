@@ -4,7 +4,8 @@ import { ClothState } from '../types/clothTypes'
 const initialState: ClothState = {
     cloth: null,
     clothesList: [],
-    userClothes: []
+    userClothes: [],
+   
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -24,7 +25,7 @@ export default (state = initialState, action: AppActions) => {
             return {
                 ...state,
                 clothesList: state.clothesList.filter((cloth) => 
-                    cloth.id !== action.payload.id
+                    cloth.imageUrl !== action.payload.imageUrl
                 )
             }
         case SET_USER_CLOTHES:

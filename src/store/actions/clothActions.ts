@@ -160,3 +160,5 @@ export const deleteCloth = (cloth: Cloth): ThunkAction<void, RootState, null, Ap
         }
     }
 }
+
+

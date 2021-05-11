@@ -1,6 +1,8 @@
-import Avatar from "@material-ui/core/Avatar";
 import React, { useEffect, useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
 import { useSelector } from "react-redux";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { styled } from "../config/theme";
 import { database } from "../database/firebase";
 import { ReactComponent as LogoSVG } from "../images/Logo.svg";
