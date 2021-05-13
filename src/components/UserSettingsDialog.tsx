@@ -14,7 +14,6 @@ import { database, storage } from "../database/firebase";
 import { RootState } from "../store";
 import { signout } from "../store/actions/authActions";
 import { flexCenterXY } from "../styles/shared-style";
-import ShowChartIcon from "@material-ui/icons/ShowChart";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Statistics } from "./pages/Statistics/Statistics";

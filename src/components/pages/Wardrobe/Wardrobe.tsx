@@ -35,6 +35,11 @@ export const Wardrobe: React.FC<WardrobeProps> = () => {
             My clothes
           </Fab>
         </Link>
+        <Link to="/weather">
+          <Fab variant="extended" color="secondary">
+            Weather
+          </Fab>
+        </Link>
       </Buttons>
     </Wrapper>
   );

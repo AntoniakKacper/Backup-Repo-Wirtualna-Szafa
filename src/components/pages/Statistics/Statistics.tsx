@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../../store";
 import { getAddedClothes } from "../../../store/actions/clothActions";
-import {
-  countClothInOutfits,
-  getUserOutfits,
-} from "../../../store/actions/outfitActions";
-import { Cloth } from "../../../store/types/clothTypes";
+import { countClothInOutfits } from "../../../store/actions/outfitActions";
+
 import { AccordionComponent } from "./AccordionComponent";
 
 const Wrapper = styled.div`
@@ -19,11 +16,6 @@ const Wrapper = styled.div`
 
 interface StatisticsProps {}
 
-interface MostUsedCloth {
-  cloth: Cloth;
-  count: number;
-}
-
 export const Statistics: React.FC<StatisticsProps> = ({}) => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
@@ -33,6 +25,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
 
   useEffect(() => {
     if (user) {
+      action(getAddedClothes(user.id));
       action(countClothInOutfits(user.id));
     }
   }, []);

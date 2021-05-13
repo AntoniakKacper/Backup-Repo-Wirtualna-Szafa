@@ -29,22 +29,21 @@ export const Header: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
+    const getAvatarUrl = async () => {
+      await database
+        .collection("Users")
+        .doc(user?.id)
+        .onSnapshot((snapshot) => {
+          const result = snapshot.data();
+          setImageUrl(result?.imageUrl);
+        });
+    };
     getAvatarUrl();
 
     return () => {
       setImageUrl("");
     };
-  }, []);
-
-  const getAvatarUrl = async () => {
-    await database
-      .collection("Users")
-      .doc(user?.id)
-      .onSnapshot((snapshot) => {
-        const result = snapshot.data();
-        setImageUrl(result?.imageUrl);
-      });
-  };
+  }, [user?.id]);
 
   return (
     <Wrapper>

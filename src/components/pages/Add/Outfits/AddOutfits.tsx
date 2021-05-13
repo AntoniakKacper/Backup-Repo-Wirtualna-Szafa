@@ -3,6 +3,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
+//eslint-disable-next-line
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as OutfitImage } from "../../../../images/outfit.svg";

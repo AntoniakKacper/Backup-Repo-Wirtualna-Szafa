@@ -15,13 +15,11 @@ import { Register } from "../components/pages/auth/Register";
 import { CalendarPage } from "../components/pages/Calendar/CalendarPage";
 import { Home } from "../components/pages/Home/Home";
 import { Profile } from "../components/pages/Home/Profile";
-import { Statistics } from "../components/pages/Statistics/Statistics";
-import { Categories } from "../components/pages/Wardrobe/Clothes/Categories";
 import { DisplayClothes } from "../components/pages/Wardrobe/Clothes/DisplayClothes";
 import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
 import { DisplayOutfits } from "../components/pages/Wardrobe/Outfits/DisplayOutfits";
 import { Wardrobe } from "../components/pages/Wardrobe/Wardrobe";
-import { UserSettingsDialog } from "../components/UserSettingsDialog";
+import { Weather } from "../components/pages/Weather/Weather";
 import firebase from "../database/firebase";
 import { RootState } from "../store";
 import {
@@ -81,7 +79,6 @@ export const ApplicationRoutes: React.FC = () => {
           <PrivateRoute path="/home" component={Home} />
 
           <PrivateRoute path="/wardrobe" component={Wardrobe} />
-          <PrivateRoute path="/categories" component={Categories} />
           <PrivateRoute path="/myClothes" component={DisplayClothes} />
           <PrivateRoute path="/myOutfits" component={DisplayOutfits} />
           <PrivateRoute path="/itemsList/:category" component={ItemsList} />
@@ -95,6 +92,8 @@ export const ApplicationRoutes: React.FC = () => {
           <PrivateRoute path="/calendar" component={CalendarPage} />
 
           <PrivateRoute path="/profile" component={Profile} />
+
+          <PrivateRoute path="/weather" component={Weather} />
         </Switch>
         {authenticated && <BottomNavbar />}
       </Router>
