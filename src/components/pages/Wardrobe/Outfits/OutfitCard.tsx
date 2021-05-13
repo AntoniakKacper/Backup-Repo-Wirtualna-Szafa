@@ -75,7 +75,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
       setUsername("");
       setUserAvatar("");
     };
-  }, [outfit]);
+  }, []);
 
   return (
     <>

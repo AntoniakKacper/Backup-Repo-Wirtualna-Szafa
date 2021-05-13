@@ -1,4 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { getOutfitByWeather } from "../../../store/actions/outfitActions";
+import { Outfit } from "../../../store/types/outfitTypes";
+import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import {
   DateInfo,
   WeatherContianer,
@@ -9,6 +14,7 @@ import {
   SunnyIcon,
   ColdIcon,
   RainIcon,
+  StyledPragraph,
 } from "./styles/WeatherStyles";
 
 interface WeatherProps {}
@@ -49,17 +55,20 @@ const api = {
 
 export const Weather: React.FC<WeatherProps> = () => {
   const [weather, setWeather] = useState<IWeatherData>();
+  const { outfits } = useSelector((state: RootState) => state.outfit);
+  const action = useDispatch();
 
-  const search = () => {
+  const getCurrentWeather = () => {
     fetch(`${api.base}weather?q=Białystok&units=metric&APPID=${api.key}`)
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
+        action(getOutfitByWeather(getWeather(result) as string));
       });
   };
 
   useEffect(() => {
-    search();
+    getCurrentWeather();
 
     return () => {
       setWeather(undefined);
@@ -99,7 +108,7 @@ export const Weather: React.FC<WeatherProps> = () => {
     return `${day} ${date} ${month} ${year}`;
   };
 
-  const getWeather = (weather: IWeatherData) => {
+  const getWeather = (weather: IWeatherData): string | undefined => {
     const temperature = Math.round(weather.main.temp);
     const rain = weather.weather[0].main;
     if (rain === "Rain") {
@@ -107,6 +116,7 @@ export const Weather: React.FC<WeatherProps> = () => {
     } else {
       switch (true) {
         case temperature >= 20:
+          action(getOutfitByWeather("Hot"));
           return "Hot";
         case temperature < 20 && temperature >= 10:
           return "Warm";
@@ -144,13 +154,16 @@ export const Weather: React.FC<WeatherProps> = () => {
           <Degrees>{`${Math.round(weather.main.temp)}° C`}</Degrees>
           <CloudContainer>
             <p>{getWeather(weather)}</p>
-
             <GetWeatherIcon weather={getWeather(weather)} />
           </CloudContainer>
         </WeatherContianer>
       )}
 
-      {weather && <div></div>}
+      <StyledPragraph>Outfits that you might wear</StyledPragraph>
+
+      {outfits?.map((outfit: Outfit) => (
+        <OutfitCard outfit={outfit} key={outfit.id} />
+      ))}
     </Wrapper>
   );
 };

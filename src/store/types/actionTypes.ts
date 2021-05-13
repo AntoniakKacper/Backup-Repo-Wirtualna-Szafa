@@ -18,13 +18,15 @@ export const REMOVE_CLOTH_FROM_USER_LIST = "REMOVE_CLOTH_FROM_USER_LIST";
 export const SET_USER_CLOTHES = "SET_USER_CLOTHES";
 export const ADD_USER_CLOTH = "ADD_USER_CLOTH";
 export const DELETE_CLOTH = "DELETE_CLOTH";
-export const COUNT_CLOTHES_IN_OUTFIT = "COUNT_CLOTHES_IN_OUTFIT";
+
 
 export const ADD_OUTFIT = "ADD_OUTFIT";
 export const DELETE_OUTFIT = "DELETE_OUTFIT";
 export const EDIT_OUTFIT = "ADD_OUTFIT";
 export const GET_USER_OUTFITS = "GET_USER_OUTFITS";
 export const GET_ALL_OUTFITS = "GET_ALL_OUTFITS";
+export const COUNT_CLOTHES_IN_OUTFIT = "COUNT_CLOTHES_IN_OUTFIT";
+export const GET_OUTFITS_BY_WEATHER = "GET_OUTFITS_BY_WEATHER";
 
 
 // AUTH ACTIONS
@@ -127,7 +129,12 @@ interface SetUserAction {
   interface CountClothesInOutfitsAction {
     type: typeof COUNT_CLOTHES_IN_OUTFIT;
     payload: MostUsedCloth;
-    //payload: "";
+  }
+
+  interface GetOutfitByWeather {
+    type: typeof GET_OUTFITS_BY_WEATHER;
+    payload: Outfit[];
+    //payload: string;
   }
   
 
@@ -135,6 +142,6 @@ interface SetUserAction {
 
   export type ClothActionTypes = AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserListAction | SetUserClothesAction | AddUserClothesAction | DeleteClothAction;
 
-  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction | GetAllOutfitsAction | CountClothesInOutfitsAction;
+  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction | GetAllOutfitsAction | CountClothesInOutfitsAction | GetOutfitByWeather;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes | OutfitActionTypes;

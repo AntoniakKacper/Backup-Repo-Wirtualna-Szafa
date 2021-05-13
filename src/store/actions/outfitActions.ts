@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk"
 import { RootState } from ".."
 import { database } from "../../database/firebase"
-import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_USER_OUTFITS } from "../types/actionTypes"
+import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_USER_OUTFITS, GET_OUTFITS_BY_WEATHER } from "../types/actionTypes"
 import { Cloth } from "../types/clothTypes"
 import { MostUsedCloth, Outfit } from "../types/outfitTypes"
 
@@ -79,6 +79,7 @@ export const getAllOutfits = (): ThunkAction<void, RootState, null, AppActions> 
 export const countClothInOutfits = (uId: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
+
             //FIX THIS FUNCTION
             let initialState: MostUsedCloth = {
                 cloth: null,
@@ -121,6 +122,27 @@ export const countClothInOutfits = (uId: string): ThunkAction<void, RootState, n
                 payload: mostUsedCloth,
             })
             
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const getOutfitByWeather = (weather: string): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+            let listOfOutfits: Outfit[] = [];
+            database.collection("Outfits").get().then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    doc.data()["clothesList"].find((listItem: Cloth) => listItem.weather === weather && listOfOutfits.push(doc.data() as Outfit));  
+                })
+                dispatch({
+                    type: GET_OUTFITS_BY_WEATHER,
+                    payload: listOfOutfits,
+                })
+            }) 
+
         }
         catch (error){
             console.log(error)

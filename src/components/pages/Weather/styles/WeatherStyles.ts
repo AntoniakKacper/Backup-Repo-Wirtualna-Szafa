@@ -53,6 +53,14 @@ export const CloudContainer = styled.div`
     }
 `;
 
+export const StyledPragraph = styled.p`
+    color: #757575;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+`;
+
 export const SunnyIcon = styled(WbSunnyIcon)`
     color: #ffe100;
     && {
