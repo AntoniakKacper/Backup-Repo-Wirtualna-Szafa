@@ -56,19 +56,37 @@ const api = {
 export const Weather: React.FC<WeatherProps> = () => {
   const [weather, setWeather] = useState<IWeatherData>();
   const { outfits } = useSelector((state: RootState) => state.outfit);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const action = useDispatch();
 
-  const getCurrentWeather = () => {
-    fetch(`${api.base}weather?q=Białystok&units=metric&APPID=${api.key}`)
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      console.log("Geolocation is not supported by this browser");
+    }
+  };
+
+  const getCoordinates = (position: any) => {
+    getCurrentWeather(position.coords.latitude, position.coords.longitude);
+  };
+
+  const getCurrentWeather = (latitude: string, longitude: string) => {
+    fetch(
+      `${api.base}weather?lat=${latitude}&lon=${longitude}&appid=${api.key}&units=metric`
+    )
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
-        action(getOutfitByWeather(getWeather(result) as string));
+        user &&
+          action(getOutfitByWeather(getWeather(result) as string, user.id));
       });
   };
 
   useEffect(() => {
-    getCurrentWeather();
+    getLocation();
 
     return () => {
       setWeather(undefined);
@@ -116,7 +134,6 @@ export const Weather: React.FC<WeatherProps> = () => {
     } else {
       switch (true) {
         case temperature >= 20:
-          action(getOutfitByWeather("Hot"));
           return "Hot";
         case temperature < 20 && temperature >= 10:
           return "Warm";

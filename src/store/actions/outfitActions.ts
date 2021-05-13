@@ -129,9 +129,10 @@ export const countClothInOutfits = (uId: string): ThunkAction<void, RootState, n
     }
 }
 
-export const getOutfitByWeather = (weather: string): ThunkAction<void, RootState, null, AppActions> => {
+export const getOutfitByWeather = (weather: string, userId: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
+
             let listOfOutfits: Outfit[] = [];
             database.collection("Outfits").get().then((snapshot) => {
                 snapshot.forEach((doc) => {
