@@ -71,6 +71,7 @@ export const Weather: React.FC<WeatherProps> = () => {
 
   const getCoordinates = (position: any) => {
     getCurrentWeather(position.coords.latitude, position.coords.longitude);
+    //getCurrentWeather("-7.778050", "110.585540");
   };
 
   const getCurrentWeather = (latitude: string, longitude: string) => {

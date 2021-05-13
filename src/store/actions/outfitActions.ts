@@ -99,9 +99,7 @@ export const countClothInOutfits = (uId: string): ThunkAction<void, RootState, n
             });
             clothesList = clothesList.filter((cloth) => cloth.userId === uId);
 
-            
-
-            clothesList.map((cloth: Cloth) => {
+            clothesList.forEach((cloth: Cloth) => {
                 listOfOutfits.find((outfit) => outfit.clothesList.find((outfiCloth) => {
                     if(outfiCloth.id === cloth.id){
                         initialState = {cloth: cloth, count: initialState.count + 1}
@@ -114,14 +112,13 @@ export const countClothInOutfits = (uId: string): ThunkAction<void, RootState, n
                     count: 0,
                   };
             })
-            let mostUsedCloth = listOfMostUsedClothes.reduce((max, cloth) => max.count > cloth.count ? max : cloth);
-
-   
-            dispatch({
-                type: COUNT_CLOTHES_IN_OUTFIT,
-                payload: mostUsedCloth,
-            })
-            
+            if(listOfMostUsedClothes.length !== 0){
+                let mostUsedCloth = listOfMostUsedClothes.reduce((max, cloth) => max.count > cloth.count ? max : cloth);   
+                dispatch({
+                    type: COUNT_CLOTHES_IN_OUTFIT,
+                    payload: mostUsedCloth,
+                })   
+            }          
         }
         catch (error){
             console.log(error)
