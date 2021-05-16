@@ -1,11 +1,13 @@
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { database } from "../../../../database/firebase";
+import { RootState } from "../../../../store";
 import {
   deleteOutfit,
   likeOutfit,
+  unlikeOutfit,
 } from "../../../../store/actions/outfitActions";
 import { Outfit } from "../../../../store/types/outfitTypes";
 import {
@@ -34,10 +36,10 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
   outfit,
   myOutfits,
 }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [username, setUsername] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
-  const [isToggled, setIsToggled] = useState(false);
 
   const action = useDispatch();
 
@@ -68,6 +70,16 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
         });
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const isOutfitLiked = () => {
+    if (outfit.likes) {
+      if (user && outfit.likes.find((like) => like.userId === user.id)) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
 
@@ -114,19 +126,18 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               <DottedMenuButton />
             </StyledButton>
           )}
-          {isToggled ? (
+          {isOutfitLiked() ? (
             <FilledHeart
               color="secondary"
               onClick={() => {
-                setIsToggled(!isToggled);
-                action(likeOutfit(outfit.id));
+                user && action(unlikeOutfit(outfit.id, user.id));
               }}
             />
           ) : (
             <Heart
               color="secondary"
               onClick={() => {
-                setIsToggled(!isToggled);
+                user && action(likeOutfit(outfit.id, user.id));
               }}
             />
           )}

@@ -1,8 +1,8 @@
 import { Cloth } from "./clothTypes";
 
 export interface LikesArray {
-    username: string;
-    outfitId: string;
+    userId: string;
+
 }
 export interface Outfit{
     id: string;
@@ -21,4 +21,5 @@ export interface OutfitState{
     outfits: Outfit[];
     userOutfits: Outfit[];
     mostUsedCloth: MostUsedCloth | null;
+
 }

@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk"
 import { RootState } from ".."
 import { database } from "../../database/firebase"
-import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_USER_OUTFITS, GET_OUTFITS_BY_WEATHER, LIKE_OUTFIT } from "../types/actionTypes"
+import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_USER_OUTFITS, GET_OUTFITS_BY_WEATHER, LIKE_OUTFIT, UNLIKE_OUTFIT } from "../types/actionTypes"
 import { Cloth } from "../types/clothTypes"
 import { MostUsedCloth, Outfit } from "../types/outfitTypes"
 
@@ -133,7 +133,6 @@ export const getOutfitByWeather = (weather: string, userId: string): ThunkAction
             database.collection("Outfits").where("userId", "==", userId).get().then((snapshot) => {
                 snapshot.forEach((doc) => {
                     doc.data()["clothesList"].find((listItem: Cloth) => listItem.weather === weather && listOfOutfits.push(doc.data() as Outfit));  
-
                 })
                 dispatch({
                     type: GET_OUTFITS_BY_WEATHER,
@@ -149,15 +148,52 @@ export const getOutfitByWeather = (weather: string, userId: string): ThunkAction
     }
 }
 
-export const likeOutfit = (outfitID: string): ThunkAction<void, RootState, null, AppActions> => {
+export const likeOutfit = (outfitID: string, userID: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            database.collection("Outfits").doc(outfitID).get();
-            database.collection("Outfits").doc(outfitID).get().then((doc) => console.log(doc.data()))
-            dispatch({
-                type: LIKE_OUTFIT,
-                payload: "listOfOutfits",
+            const ref = database.collection("Outfits").doc(outfitID);
+            ref.get().then((doc) => {
+                
+                let data = doc.data() as Outfit;
+
+                data.likes = [...data.likes, {
+                    userId: userID,
+                }]
+                ref.update({
+                    ...data,
+                    likesCount: data.likesCount + 1
+                })
+                dispatch({
+                    type: LIKE_OUTFIT,
+                    payload: data,
+                })
             })
+            
+
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const unlikeOutfit = (outfitID: string, userID: string): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+            const ref = database.collection("Outfits").doc(outfitID);
+            ref.get().then((doc) => {
+                let data = doc.data() as Outfit;
+                data.likes = data.likes.filter((like) => like.userId !== userID)
+                ref.update({
+                    ...data,
+                    likesCount: data.likesCount - 1
+                })
+                dispatch({
+                    type: UNLIKE_OUTFIT,
+                    payload: data,
+                })
+            })
+            
 
         }
         catch (error){

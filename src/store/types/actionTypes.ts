@@ -32,6 +32,8 @@ export const UNLIKE_OUTFIT = "UNLIKE_OUTFIT";
 
 
 
+
+
 // AUTH ACTIONS
 interface SetUserAction {
     type: typeof SET_USER;
@@ -141,14 +143,14 @@ interface SetUserAction {
 
   interface LikeOutfitAction {
     type: typeof LIKE_OUTFIT;
-    //payload: Outfit;
-    payload: string;
+    payload: Outfit;
   }
 
   interface UnlikeOutfitAction {
     type: typeof UNLIKE_OUTFIT;
     payload: Outfit;
   }
+
   
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
