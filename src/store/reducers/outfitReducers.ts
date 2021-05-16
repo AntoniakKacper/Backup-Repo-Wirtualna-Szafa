@@ -2,8 +2,8 @@ import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL
 import { OutfitState } from '../types/outfitTypes';
 
 const initialState: OutfitState = {
-  outfit: null,
   outfits: [],
+  userOutfits: [],
   mostUsedCloth: null
 }
 
@@ -19,12 +19,12 @@ export default (state = initialState, action: AppActions) => {
       case GET_USER_OUTFITS:
           return {
               ...state,
-              outfits: action.payload
+              userOutfits: action.payload
           }
       case GET_OUTFITS_BY_WEATHER:
           return {
               ...state,
-              outfits: action.payload
+              userOutfits: action.payload
           }
       case DELETE_OUTFIT:
           return {

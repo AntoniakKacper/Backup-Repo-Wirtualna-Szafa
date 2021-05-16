@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../../store";
 import { getAddedClothes } from "../../../store/actions/clothActions";
-import { countClothInOutfits } from "../../../store/actions/outfitActions";
+import {
+  countClothInOutfits,
+  getUserOutfits,
+} from "../../../store/actions/outfitActions";
 
 import { AccordionComponent } from "./AccordionComponent";
 
@@ -20,13 +23,14 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
-  const { outfits } = useSelector((state: RootState) => state.outfit);
+  const { userOutfits } = useSelector((state: RootState) => state.outfit);
   const { mostUsedCloth } = useSelector((state: RootState) => state.outfit);
 
   useEffect(() => {
     if (user) {
       action(getAddedClothes(user.id));
       action(countClothInOutfits(user.id));
+      action(getUserOutfits(user.id));
     }
   }, []);
 
@@ -39,7 +43,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
       />
       <AccordionComponent
         title="Outfit Count"
-        content={outfits.length}
+        content={userOutfits.length}
         name="Outfit"
       />
       <AccordionComponent

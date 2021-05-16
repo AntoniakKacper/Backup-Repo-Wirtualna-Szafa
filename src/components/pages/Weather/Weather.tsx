@@ -55,10 +55,9 @@ const api = {
 
 export const Weather: React.FC<WeatherProps> = () => {
   const [weather, setWeather] = useState<IWeatherData>();
-  const { outfits } = useSelector((state: RootState) => state.outfit);
+  const { userOutfits } = useSelector((state: RootState) => state.outfit);
   const { user } = useSelector((state: RootState) => state.auth);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+
   const action = useDispatch();
 
   const getLocation = () => {
@@ -87,6 +86,7 @@ export const Weather: React.FC<WeatherProps> = () => {
   };
 
   useEffect(() => {
+    //user && action(getUserOutfits(user.id));
     getLocation();
 
     return () => {
@@ -179,7 +179,7 @@ export const Weather: React.FC<WeatherProps> = () => {
 
       <StyledPragraph>Outfits that you might wear</StyledPragraph>
 
-      {outfits?.map((outfit: Outfit) => (
+      {userOutfits?.map((outfit: Outfit) => (
         <OutfitCard outfit={outfit} key={outfit.id} />
       ))}
     </Wrapper>

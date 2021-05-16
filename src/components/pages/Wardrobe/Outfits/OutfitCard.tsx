@@ -3,7 +3,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { database } from "../../../../database/firebase";
-import { deleteOutfit } from "../../../../store/actions/outfitActions";
+import {
+  deleteOutfit,
+  likeOutfit,
+} from "../../../../store/actions/outfitActions";
 import { Outfit } from "../../../../store/types/outfitTypes";
 import {
   DottedMenuButton,
@@ -116,6 +119,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               color="secondary"
               onClick={() => {
                 setIsToggled(!isToggled);
+                action(likeOutfit(outfit.id));
               }}
             />
           ) : (
