@@ -28,8 +28,8 @@ export const getUserOutfits = (uId: string): ThunkAction<void, RootState, null, 
             let listOfOutfits: Outfit[] = []
             await database.collection("Outfits").get().then((snapshot) => {
                 snapshot.forEach((doc) => listOfOutfits = [...listOfOutfits, doc.data() as Outfit])
+                
             });
-
             listOfOutfits = listOfOutfits.filter((outfit) => outfit.userId === uId);
             dispatch({
                 type: GET_USER_OUTFITS,
@@ -153,16 +153,15 @@ export const likeOutfit = (outfitID: string, userID: string): ThunkAction<void, 
         try{
             const ref = database.collection("Outfits").doc(outfitID);
             ref.get().then((doc) => {
-                
                 let data = doc.data() as Outfit;
-
-                data.likes = [...data.likes, {
-                    userId: userID,
-                }]
-                ref.update({
+                data = {
                     ...data,
+                    likes: [...data.likes, {
+                        userId: userID,
+                    }],
                     likesCount: data.likesCount + 1
-                })
+                }
+                ref.update(data)
                 dispatch({
                     type: LIKE_OUTFIT,
                     payload: data,
@@ -183,11 +182,12 @@ export const unlikeOutfit = (outfitID: string, userID: string): ThunkAction<void
             const ref = database.collection("Outfits").doc(outfitID);
             ref.get().then((doc) => {
                 let data = doc.data() as Outfit;
-                data.likes = data.likes.filter((like) => like.userId !== userID)
-                ref.update({
+                data = {
                     ...data,
+                    likes: data.likes.filter((like) => like.userId !== userID),
                     likesCount: data.likesCount - 1
-                })
+                }
+                ref.update(data)
                 dispatch({
                     type: UNLIKE_OUTFIT,
                     payload: data,

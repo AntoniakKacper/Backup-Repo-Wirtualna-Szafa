@@ -23,7 +23,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
-  const { userOutfits } = useSelector((state: RootState) => state.outfit);
+  const { outfits } = useSelector((state: RootState) => state.outfit);
   const { mostUsedCloth } = useSelector((state: RootState) => state.outfit);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
       />
       <AccordionComponent
         title="Outfit Count"
-        content={userOutfits.length}
+        content={outfits.length}
         name="Outfit"
       />
       <AccordionComponent

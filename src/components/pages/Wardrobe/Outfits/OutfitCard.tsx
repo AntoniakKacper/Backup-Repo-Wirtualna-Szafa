@@ -131,6 +131,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               color="secondary"
               onClick={() => {
                 user && action(unlikeOutfit(outfit.id, user.id));
+                outfit.likesCount = outfit.likesCount - 1;
               }}
             />
           ) : (
@@ -138,6 +139,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               color="secondary"
               onClick={() => {
                 user && action(likeOutfit(outfit.id, user.id));
+                outfit.likesCount = outfit.likesCount + 1;
               }}
             />
           )}

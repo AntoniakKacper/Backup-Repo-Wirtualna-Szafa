@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { getOutfitByWeather } from "../../../store/actions/outfitActions";
+import {
+  getOutfitByWeather,
+  getUserOutfits,
+} from "../../../store/actions/outfitActions";
 import { Outfit } from "../../../store/types/outfitTypes";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import {
@@ -55,7 +58,7 @@ const api = {
 
 export const Weather: React.FC<WeatherProps> = () => {
   const [weather, setWeather] = useState<IWeatherData>();
-  const { userOutfits } = useSelector((state: RootState) => state.outfit);
+  const { outfits } = useSelector((state: RootState) => state.outfit);
   const { user } = useSelector((state: RootState) => state.auth);
 
   const action = useDispatch();
@@ -86,7 +89,7 @@ export const Weather: React.FC<WeatherProps> = () => {
   };
 
   useEffect(() => {
-    //user && action(getUserOutfits(user.id));
+    user && action(getUserOutfits(user.id));
     getLocation();
 
     return () => {
@@ -179,7 +182,7 @@ export const Weather: React.FC<WeatherProps> = () => {
 
       <StyledPragraph>Outfits that you might wear</StyledPragraph>
 
-      {userOutfits?.map((outfit: Outfit) => (
+      {outfits?.map((outfit: Outfit) => (
         <OutfitCard outfit={outfit} key={outfit.id} />
       ))}
     </Wrapper>
