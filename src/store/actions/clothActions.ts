@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import {database} from '../../database/firebase';
-import { ADD_CLOTH, ADD_CLOTHES_TO_DATABASE, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, DELETE_CLOTH, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_USER_CLOTHES } from '../types/actionTypes';
+import { ADD_CLOTH, ADD_CLOTHES_TO_DATABASE, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, DELETE_CLOTH, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST } from '../types/actionTypes';
 import { Cloth } from '../types/clothTypes';
 
 
@@ -9,7 +9,6 @@ import { Cloth } from '../types/clothTypes';
 export const addCloth = (cloth: Cloth): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            
             dispatch({
                 type: ADD_CLOTH,
                 payload: cloth
@@ -96,20 +95,6 @@ export const removeClothFromUserList = (cloth: Cloth): ThunkAction<void, RootSta
             dispatch({
                 type: REMOVE_CLOTH_FROM_USER_LIST,
                 payload: cloth,
-            })
-        }
-        catch (error){
-            console.log(error)
-        }
-    }
-}
-
-export const setUserClothes = (clothes: Cloth[]): ThunkAction<void, RootState, null, AppActions> => {
-    return async dispatch => {
-        try{
-            dispatch({
-                type: SET_USER_CLOTHES,
-                payload: clothes,
             })
         }
         catch (error){

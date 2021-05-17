@@ -1,4 +1,4 @@
-import { ADD_CLOTH, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, DELETE_CLOTH, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST, SET_USER_CLOTHES } from '../types/actionTypes';
+import { ADD_CLOTH, ADD_USER_CLOTH, AppActions, CLEAR_CLOTHES, DELETE_CLOTH, GET_ADDED_CLOTHES, REMOVE_CLOTH_FROM_LIST, REMOVE_CLOTH_FROM_USER_LIST } from '../types/actionTypes';
 import { ClothState } from '../types/clothTypes'
 
 const initialState: ClothState = {
@@ -28,7 +28,7 @@ export default (state = initialState, action: AppActions) => {
                     cloth.imageUrl !== action.payload.imageUrl
                 )
             }
-        case SET_USER_CLOTHES:
+
         case GET_ADDED_CLOTHES:
             return {
                 ...state,

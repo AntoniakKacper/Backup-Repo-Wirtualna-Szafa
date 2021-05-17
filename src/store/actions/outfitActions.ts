@@ -8,7 +8,6 @@ import { MostUsedCloth, Outfit } from "../types/outfitTypes"
 export const addOutfit = (outfit: Outfit): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-
             const ref = await database.collection("Outfits").doc();
             ref.set({...outfit, id: ref.id});
             dispatch({
