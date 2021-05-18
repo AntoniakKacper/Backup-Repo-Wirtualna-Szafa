@@ -1,21 +1,29 @@
-import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-//eslint-disable-next-line
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import styled from "styled-components";
 import { ReactComponent as OutfitImage } from "../../../../images/outfit.svg";
 import { RootState } from "../../../../store";
-import TextField from "@material-ui/core/TextField";
 import {
   addUserCloth,
   getAddedClothes,
   removeClothFromUserList,
 } from "../../../../store/actions/clothActions";
+//eslint-disable-next-line
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { addOutfit } from "../../../../store/actions/outfitActions";
 import { Cloth } from "../../../../store/types/clothTypes";
-import { flexCenterXY } from "../../../../styles/shared-style";
+import { Outfit } from "../../../../store/types/outfitTypes";
+import {
+  ColorCircle,
+  DisplayColor,
+  ItemCard,
+  ItemInfo,
+} from "../../../../styles/Card";
 import {
   BackArrow,
   Info,
@@ -25,73 +33,18 @@ import {
   Wrapper,
 } from "../Clothes/styles/AddClothesStyles";
 import {
-  ColorCircle,
-  DisplayColor,
-  ItemCard,
-  ItemInfo,
-} from "../../../../styles/Card";
-import ClearIcon from "@material-ui/icons/Clear";
-import { v4 as uuidv4 } from "uuid";
-import { Outfit } from "../../../../store/types/outfitTypes";
-import { addOutfit } from "../../../../store/actions/outfitActions";
+  AddedClothesContainer,
+  ClickableIcon,
+  Line,
+  OutfitForm,
+  OwnedClothesContainer,
+  StyledAddIcon,
+  StyledDeleteIcon,
+  StyledInput,
+} from "./styles/AddOutfitsStyles";
+import DateFnsUtils from "@date-io/date-fns";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
-
-const Line = styled.hr`
-  min-width: 300px;
-  width: 70%;
-  max-width: 550px;
-  color: #757575;
-  margin-top: 20px;
-  margin-bottom: 30px;
-`;
-
-const OwnedClothesContainer = styled.div`
-  ${flexCenterXY}
-  flex-direction: column;
-  padding-right: 20px;
-  padding-left: 20px;
-
-  h2 {
-    padding-bottom: 20px;
-  }
-`;
-
-const ClickableIcon = styled.div`
-  width: 35px;
-  height: 35px;
-  color: #e91e63;
-`;
-
-const StyledAddIcon = styled(AddIcon)`
-  position: absolute;
-  right: 10px;
-  margin-top: 5px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const StyledDeleteIcon = styled(ClearIcon)`
-  position: absolute;
-  right: 10px;
-  margin-top: 5px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const AddedClothesContainer = styled.div`
-  ${flexCenterXY}
-  flex-direction: column;
-  padding: 20px 10px 20px 10px;
-`;
-
-const StyledInput = styled(TextField)`
-  && {
-    margin-bottom: 20px;
-  }
-`;
 
 export const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -100,6 +53,7 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const { userClothes } = useSelector((state: RootState) => state.cloth);
   const [addedClothes, setAddedClothes] = useState<Cloth[]>([]);
   const [name, setName] = useState("");
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>();
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
@@ -112,7 +66,7 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
   const HandleSave = () => {
     const initialState: Outfit = {
-      id: uuidv4().toString(),
+      id: "",
       clothesList: addedClothes,
       name: name,
       userId: user!.id,
@@ -132,6 +86,11 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
     action(addUserCloth(cloth));
   };
 
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    console.log(selectedDate);
+  };
+
   return (
     <Wrapper>
       <NavigationBar>
@@ -148,12 +107,29 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
         )}
       </NavigationBar>
       <AddedClothesContainer>
-        {addedClothes.length > 0 && (
-          <StyledInput
-            label="Name"
-            variant="outlined"
-            onChange={(event) => setName(event.target.value)}
-          />
+        <h2>Add Outfit</h2>
+        {addedClothes.length > 2 && addedClothes.length <= 6 && (
+          <OutfitForm>
+            <StyledInput
+              label="Name"
+              variant="outlined"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="dd/MM/yyyy"
+                margin="normal"
+                label="Add this outfit to calendar"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </OutfitForm>
         )}
         {addedClothes.length > 0 ? (
           addedClothes.map((item: Cloth, index: number) => (

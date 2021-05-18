@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Cloth } from "../../../../store/types/clothTypes";
-import { removeClothFromList } from "../../../../store/actions/clothActions";
+import {
+  addUserCloth,
+  removeClothFromList,
+  removeClothFromUserList,
+} from "../../../../store/actions/clothActions";
 import {
   ClicableIcon,
   ColorCircle,
@@ -11,6 +15,11 @@ import {
   ItemCard,
   ItemInfo,
 } from "../../../../styles/Card";
+import {
+  ClickableIcon,
+  StyledAddIcon,
+  StyledDeleteIcon,
+} from "../Outfits/styles/AddOutfitsStyles";
 
 interface AddedClothItemProps {
   cloth: Cloth;

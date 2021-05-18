@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useEffect } from "react";
 import "react-dropzone-uploader/dist/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import moment from "moment";
+import { getUserOutfits } from "store/actions/outfitActions";
+import { RootState } from "store";
+import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 
 interface CalendarDialogProps {
   openDialog: boolean;
@@ -20,6 +23,13 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
   setOpenDialog,
   date,
 }) => {
+  const action = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { outfits } = useSelector((state: RootState) => state.outfit);
+
+  useEffect(() => {
+    user && action(getUserOutfits(user.id));
+  }, []);
   return (
     <Dialog open={openDialog}>
       <DialogTitle>Add outfit to calendar</DialogTitle>

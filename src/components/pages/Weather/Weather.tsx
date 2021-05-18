@@ -89,7 +89,6 @@ export const Weather: React.FC<WeatherProps> = () => {
   };
 
   useEffect(() => {
-    user && action(getUserOutfits(user.id));
     getLocation();
 
     return () => {

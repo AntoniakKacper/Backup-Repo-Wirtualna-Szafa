@@ -11,7 +11,7 @@ import {
   weather,
 } from "../../../../../models/cloth.model";
 import React, { SetStateAction } from "react";
-import "react-dropzone-uploader/dist/styles.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../store";
 import { addCloth } from "../../../../../store/actions/clothActions";
