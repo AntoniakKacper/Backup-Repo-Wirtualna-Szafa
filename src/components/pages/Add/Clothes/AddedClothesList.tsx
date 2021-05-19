@@ -10,6 +10,7 @@ import { RootState } from "../../../../store";
 import {
   addClothesToDatabase,
   clearClothesList,
+  removeClothFromList,
 } from "../../../../store/actions/clothActions";
 import { Cloth } from "../../../../store/types/clothTypes";
 import { AddItemDialog } from "./Dialog/AddItemDialog";
@@ -36,6 +37,10 @@ export const AddedClothesList: React.FC<AddedClothesProps> = () => {
     action(clearClothesList());
   };
 
+  const handleDelete = (cloth: Cloth) => {
+    action(removeClothFromList(cloth));
+  };
+
   return (
     <Wrapper>
       <NavigationBar>
@@ -50,7 +55,12 @@ export const AddedClothesList: React.FC<AddedClothesProps> = () => {
       {clothesList.length !== 0 ? (
         <AddedClothes>
           {clothesList.map((cloth: Cloth, index: number) => (
-            <AddedClothItem cloth={cloth} key={index}></AddedClothItem>
+            <AddedClothItem
+              cloth={cloth}
+              key={index}
+              buttons={true}
+              handleDelete={handleDelete}
+            ></AddedClothItem>
           ))}
           <Button color="secondary" onClick={() => action(clearClothesList())}>
             Clear all

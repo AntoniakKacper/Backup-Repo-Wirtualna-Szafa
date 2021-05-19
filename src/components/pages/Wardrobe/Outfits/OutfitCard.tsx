@@ -10,6 +10,7 @@ import {
   unlikeOutfit,
 } from "../../../../store/actions/outfitActions";
 import { Outfit } from "../../../../store/types/outfitTypes";
+import { OutfitDetalis } from "./OutfitDetalis";
 import {
   DottedMenuButton,
   Heart,
@@ -25,6 +26,10 @@ import {
   StyledTypography,
   UserInfo,
   FilledHeart,
+  HorizontalImage,
+  Image2,
+  Image3,
+  DetailsButton,
 } from "./styles/OutfitCardStyles";
 
 interface OutfitCardProps {
@@ -40,6 +45,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [username, setUsername] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   const action = useDispatch();
 
@@ -95,15 +101,26 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
   return (
     <>
       <OutfitContainer key={outfit.id}>
-        <OutfitImagesContainer>
-          {
-            <img
+        {
+          <OutfitImagesContainer>
+            <HorizontalImage
               key={outfit.clothesList[0].id}
               src={outfit.clothesList[0].imageUrl}
               alt={outfit.clothesList[0].name}
             />
-          }
-        </OutfitImagesContainer>
+            <Image2
+              key={outfit.clothesList[1].id}
+              src={outfit.clothesList[1].imageUrl}
+              alt={outfit.clothesList[1].name}
+            />
+            <Image3
+              key={outfit.clothesList[2].id}
+              src={outfit.clothesList[2].imageUrl}
+              alt={outfit.clothesList[2].name}
+            />
+          </OutfitImagesContainer>
+        }
+
         <OutfitBottomBar>
           <Info>
             <UserInfo>
@@ -112,6 +129,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
                 <strong>#{username}</strong>
               </p>
             </UserInfo>
+
             <p>
               <strong>Name:</strong> {outfit.name}
             </p>
@@ -144,6 +162,9 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
             />
           )}
         </OutfitBottomBar>
+        <DetailsButton onClick={() => setOpenDialog(true)}>
+          View details
+        </DetailsButton>
       </OutfitContainer>
 
       <Menu
@@ -161,6 +182,14 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
           <StyledTypography variant="inherit">Delete outfit</StyledTypography>
         </MenuItem>
       </Menu>
+      <OutfitDetalis
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        outfit={outfit}
+        username={username}
+        userAvatar={userAvatar}
+        likes={outfit.likesCount}
+      />
     </>
   );
 };

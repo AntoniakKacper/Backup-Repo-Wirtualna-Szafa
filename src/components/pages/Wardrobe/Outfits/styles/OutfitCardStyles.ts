@@ -28,10 +28,38 @@ export const OutfitContainer = styled.div`
   
 `;
 
+// export const OutfitImagesContainer = styled.div`
+//   padding-bottom: 10px;
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+// `;
+
 export const OutfitImagesContainer = styled.div`
-  padding-bottom: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  
+  grid-template-areas:
+    "image1 image2"
+    "image1 image3";
+`;
+
+export const HorizontalImage = styled.img`
+  grid-area: image1;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const Image2 = styled.img`
+  grid-area: image2;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const Image3 = styled.img`
+  grid-area: image3;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const OutfitBottomBar = styled.div`
@@ -63,7 +91,7 @@ export const UserInfo = styled.div`
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
-  
+  margin-top: 15px;
   & > p {
     padding-left: 8px;
   }
@@ -99,10 +127,11 @@ position: absolute;
 
 export const DetailsButton = styled.p`
   ${flexCenterXY}
-  font-size: 10px;
+  font-size: 12px;
   color: #347edd;
   margin-top: 10px;
-
+  margin-bottom: 10px;
+  font-weight: bold;
   &:hover {
     cursor: pointer;
   }
@@ -137,39 +166,3 @@ export const StyledTypography = styled(Typography)`
     color: #757575;
     font-size: 14px;
 `;
-
-
-
-// const Mansory3 = styled.div<{
-//   length: number;
-// }>`
-//   display: grid;
-//   ${({ length }) =>
-//     length === 3 &&
-//     `grid-template-columns: auto auto;
-//   grid-template-rows: auto auto;
-//   grid-column: 1 / span 2;`}
-
-//   ${({ length }) =>
-//     length === 4 &&
-//     `grid-template-columns: auto auto;
-//   grid-template-rows: 50% 50%;`}
-
-// ${({ length }) =>
-//     length === 5 &&
-//     `grid-template-columns: auto auto auto;
-//   grid-template-rows: auto auto auto;
-// `}
-
-// ${({ length }) =>
-//     length === 6 &&
-//     `grid-template-columns: auto auto auto;
-//   grid-template-rows: 50% 50%;
-// `}
-
-//   & > img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: fill;
-//   }
-// `;

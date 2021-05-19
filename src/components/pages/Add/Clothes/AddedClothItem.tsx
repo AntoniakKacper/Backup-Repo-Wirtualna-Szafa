@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Cloth } from "../../../../store/types/clothTypes";
-import {
-  addUserCloth,
-  removeClothFromList,
-  removeClothFromUserList,
-} from "../../../../store/actions/clothActions";
+import { removeClothFromList } from "../../../../store/actions/clothActions";
 import {
   ClicableIcon,
   ColorCircle,
@@ -15,45 +11,51 @@ import {
   ItemCard,
   ItemInfo,
 } from "../../../../styles/Card";
-import {
-  ClickableIcon,
-  StyledAddIcon,
-  StyledDeleteIcon,
-} from "../Outfits/styles/AddOutfitsStyles";
 
 interface AddedClothItemProps {
   cloth: Cloth;
+  buttons?: boolean;
+  handleDelete?: (cloth: Cloth) => void;
 }
 
-export const AddedClothItem: React.FC<AddedClothItemProps> = ({ cloth }) => {
+export const AddedClothItem: React.FC<AddedClothItemProps> = ({
+  cloth,
+  buttons,
+  handleDelete,
+}) => {
   const action = useDispatch();
   return (
     <ItemCard>
       <img src={cloth.imageUrl} alt={cloth.name} />
       <ItemInfo>
         <p>
-          <span>Name:</span> {cloth.name}
+          <strong>Name:</strong> {cloth.name}
         </p>
         <p>
-          <span>Catergory:</span> {cloth.category}
+          <strong>Catergory:</strong> {cloth.category}
         </p>
         <p>
-          <span>Weather:</span> {cloth.weather}
+          <strong>Weather:</strong> {cloth.weather}
         </p>
         <p>
-          <span>Ocassion:</span> {cloth.occasion}
+          <strong>Ocassion:</strong> {cloth.occasion}
         </p>
         <DisplayColor>
-          <span>Color:</span>
+          <strong>Color:</strong>
           <ColorCircle color={cloth.color}></ColorCircle>
         </DisplayColor>
       </ItemInfo>
-      <ClicableIcon>
-        <EditButton />
-      </ClicableIcon>
-      <ClicableIcon onClick={() => action(removeClothFromList(cloth))}>
-        <DeleteButton />
-      </ClicableIcon>
+
+      {buttons && (
+        <>
+          <ClicableIcon>
+            <EditButton />
+          </ClicableIcon>
+          <ClicableIcon onClick={() => action(removeClothFromList(cloth))}>
+            <DeleteButton />
+          </ClicableIcon>
+        </>
+      )}
     </ItemCard>
   );
 };

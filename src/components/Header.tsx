@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
       {authenticated ? (
         <ClickableAvatar src={imageUrl} onClick={() => setOpen(true)} />
       ) : (
-        <p>Wardrobe</p>
+        <strong>Wardrobe</strong>
       )}
       <UserSettingsDialog openDialog={open} setOpenDialog={setOpen} />
     </Wrapper>

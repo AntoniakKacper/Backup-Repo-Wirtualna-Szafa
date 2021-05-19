@@ -76,7 +76,9 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
       userId: user!.id,
       likesCount: 0,
       likes: [],
-      calendarDate: format(parseISO(selectedDate!.toISOString()), "MM/d/yyyy"),
+      calendarDate: selectedDate
+        ? format(parseISO(selectedDate!.toISOString()), "MM/d/yyyy")
+        : "",
     };
 
     action(addOutfit(initialState));
