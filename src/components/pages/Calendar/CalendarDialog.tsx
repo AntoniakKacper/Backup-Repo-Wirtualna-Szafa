@@ -11,6 +11,7 @@ import { getUserOutfits } from "store/actions/outfitActions";
 import { RootState } from "store";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import { format } from "date-fns";
+import { Outfit } from "store/types/outfitTypes";
 
 interface CalendarDialogProps {
   openDialog: boolean;
@@ -39,9 +40,11 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
         </DialogContentText>
         {outfits.length !== 0 ? (
           <div>
-            {outfits.map((outfit) => (
-              <OutfitCard key={outfit.id} outfit={outfit} />
-            ))}
+            {outfits
+              .filter((outfit) => outfit.userId !== user?.id)
+              .map((outfit) => (
+                <OutfitCard key={outfit.id} outfit={outfit} />
+              ))}
           </div>
         ) : (
           <div>There are no addded outfits for current date</div>

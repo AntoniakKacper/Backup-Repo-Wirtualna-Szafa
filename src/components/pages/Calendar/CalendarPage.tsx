@@ -3,8 +3,9 @@ import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import styled from "styled-components";
 import { CalendarDialog } from "./CalendarDialog";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOutfitsByDate } from "store/actions/outfitActions";
+import { RootState } from "store";
 
 interface CalendarPageProps {}
 
