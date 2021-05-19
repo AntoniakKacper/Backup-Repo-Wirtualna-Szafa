@@ -7,10 +7,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import moment from "moment";
 import { getUserOutfits } from "store/actions/outfitActions";
 import { RootState } from "store";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
+import { format } from "date-fns";
 
 interface CalendarDialogProps {
   openDialog: boolean;
@@ -32,18 +32,24 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
   }, []);
   return (
     <Dialog open={openDialog}>
-      <DialogTitle>Add outfit to calendar</DialogTitle>
+      <DialogTitle>Outfits for current day</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          <strong>Choosen date:</strong> {moment(date).format("YYYY-MM-DD")}
+          <strong>Choosen date:</strong> {date && format(date, "do MMMM yyyy")}
         </DialogContentText>
+        {outfits.length !== 0 ? (
+          <div>
+            {outfits.map((outfit) => (
+              <OutfitCard key={outfit.id} outfit={outfit} />
+            ))}
+          </div>
+        ) : (
+          <div>There are no addded outfits for current date</div>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)} color="primary">
-          Disagree
-        </Button>
-        <Button onClick={() => setOpenDialog(false)} color="primary" autoFocus>
-          Agree
+          Close
         </Button>
       </DialogActions>
     </Dialog>

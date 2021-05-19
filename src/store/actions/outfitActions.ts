@@ -1,7 +1,8 @@
+import { format, parseISO } from "date-fns"
 import { ThunkAction } from "redux-thunk"
 import { RootState } from ".."
 import { database } from "../../database/firebase"
-import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_USER_OUTFITS, GET_OUTFITS_BY_WEATHER, LIKE_OUTFIT, UNLIKE_OUTFIT } from "../types/actionTypes"
+import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_USER_OUTFITS, GET_OUTFITS_BY_WEATHER, LIKE_OUTFIT, UNLIKE_OUTFIT, GET_OUTFITS_BY_DATE } from "../types/actionTypes"
 import { Cloth } from "../types/clothTypes"
 import { MostUsedCloth, Outfit } from "../types/outfitTypes"
 
@@ -9,7 +10,7 @@ export const addOutfit = (outfit: Outfit): ThunkAction<void, RootState, null, Ap
     return async dispatch => {
         try{
             const ref = await database.collection("Outfits").doc();
-            ref.set({...outfit, id: ref.id});
+            ref.set({...outfit, id: ref.id });
             dispatch({
                 type: ADD_OUTFIT,
                 payload: outfit,
@@ -24,9 +25,10 @@ export const addOutfit = (outfit: Outfit): ThunkAction<void, RootState, null, Ap
 export const getUserOutfits = (uId: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            let listOfOutfits: Outfit[] = []
+            
+            let listOfOutfits: Outfit[] = [];
             await database.collection("Outfits").get().then((snapshot) => {
-                snapshot.forEach((doc) => listOfOutfits = [...listOfOutfits, doc.data() as Outfit])
+                snapshot.forEach((doc) => listOfOutfits.push(doc.data() as Outfit))
                 
             });
             listOfOutfits = listOfOutfits.filter((outfit) => outfit.userId === uId);
@@ -59,9 +61,9 @@ export const deleteOutfit = (outfit: Outfit): ThunkAction<void, RootState, null,
 export const getAllOutfits = (): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            let listOfOutfits: Outfit[] = []
+            const listOfOutfits: Outfit[] = []
             await database.collection("Outfits").get().then((snapshot) => {
-                snapshot.forEach((doc) => listOfOutfits = [...listOfOutfits, doc.data() as Outfit])
+                snapshot.forEach((doc) => listOfOutfits.push(doc.data() as Outfit))
             });
             dispatch({
                 type: GET_ALL_OUTFITS,
@@ -128,8 +130,9 @@ export const countClothInOutfits = (uId: string): ThunkAction<void, RootState, n
 export const getOutfitByWeather = (weather: string, userId: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            let listOfOutfits: Outfit[] = [];
+            
             database.collection("Outfits").where("userId", "==", userId).get().then((snapshot) => {
+                const listOfOutfits: Outfit[] = [];
                 snapshot.forEach((doc) => {
                     doc.data()["clothesList"].find((listItem: Cloth) => listItem.weather === weather && listOfOutfits.push(doc.data() as Outfit));  
                 })
@@ -194,6 +197,28 @@ export const unlikeOutfit = (outfitID: string, userID: string): ThunkAction<void
             })
             
 
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const getOutfitsByDate = (date: Date): ThunkAction<void, RootState, null, AppActions> => {
+    return async dispatch => {
+        try{
+
+            const formattedDate: string = format(parseISO(date.toISOString()), "MM/d/yyyy");
+            await database.collection("Outfits").where("calendarDate", "==", formattedDate).get().then(snapshot => {
+                const listOfOutfits: Outfit[] = [];
+                snapshot.forEach((doc) => listOfOutfits.push(doc.data() as Outfit))
+                dispatch({
+                    type: GET_OUTFITS_BY_DATE,
+                    payload: listOfOutfits,
+                })
+            });
+            
+            
         }
         catch (error){
             console.log(error)

@@ -28,7 +28,7 @@ export const COUNT_CLOTHES_IN_OUTFIT = "COUNT_CLOTHES_IN_OUTFIT";
 export const GET_OUTFITS_BY_WEATHER = "GET_OUTFITS_BY_WEATHER";
 export const LIKE_OUTFIT = "LIKE_OUTFIT";
 export const UNLIKE_OUTFIT = "UNLIKE_OUTFIT";
-
+export const GET_OUTFITS_BY_DATE = "GET_OUTFITS_BY_DATE";
 
 
 
@@ -145,12 +145,18 @@ interface SetUserAction {
     payload: Outfit;
   }
 
+  interface GetOutfitsByDateAction{
+    type: typeof GET_OUTFITS_BY_DATE;
+    payload: Outfit[];
+    //payload: string;
+  }
+
   
 
   export type AuthActionsTypes = SetUserAction | SignOutAction | SetLoadingAction | SetErrorAction | SetSuccessAction | NeedVerificationAction;
 
   export type ClothActionTypes = AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserListAction | AddUserClothesAction | DeleteClothAction;
 
-  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction | GetAllOutfitsAction | CountClothesInOutfitsAction | GetOutfitByWeather | LikeOutfitAction | UnlikeOutfitAction;
+  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction | GetAllOutfitsAction | CountClothesInOutfitsAction | GetOutfitByWeather | LikeOutfitAction | UnlikeOutfitAction | GetOutfitsByDateAction;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes | OutfitActionTypes;

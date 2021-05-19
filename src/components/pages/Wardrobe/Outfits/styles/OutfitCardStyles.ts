@@ -25,12 +25,7 @@ export const OutfitContainer = styled.div`
   overflow: hidden;
   max-width: 300px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-  transition: 0.5s ease;
-  /* cursor: pointer; */
-
-  &:hover{
-      transform: scale(1.02);
-  }
+  
 `;
 
 export const OutfitImagesContainer = styled.div`

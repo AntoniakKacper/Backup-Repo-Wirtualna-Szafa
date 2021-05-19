@@ -15,7 +15,10 @@ import {
 } from "../../../../store/actions/clothActions";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { addOutfit } from "../../../../store/actions/outfitActions";
+import {
+  addOutfit,
+  getOutfitsByDate,
+} from "../../../../store/actions/outfitActions";
 import { Cloth } from "../../../../store/types/clothTypes";
 import { Outfit } from "../../../../store/types/outfitTypes";
 import {
@@ -43,6 +46,7 @@ import {
   StyledInput,
 } from "./styles/AddOutfitsStyles";
 import DateFnsUtils from "@date-io/date-fns";
+import { format, parseISO } from "date-fns";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
 
@@ -53,7 +57,7 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const { userClothes } = useSelector((state: RootState) => state.cloth);
   const [addedClothes, setAddedClothes] = useState<Cloth[]>([]);
   const [name, setName] = useState("");
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>();
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
@@ -72,7 +76,9 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
       userId: user!.id,
       likesCount: 0,
       likes: [],
+      calendarDate: format(parseISO(selectedDate!.toISOString()), "MM/d/yyyy"),
     };
+
     action(addOutfit(initialState));
   };
 
@@ -88,7 +94,6 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
-    console.log(selectedDate);
   };
 
   return (

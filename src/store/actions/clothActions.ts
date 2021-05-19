@@ -71,17 +71,16 @@ export const addClothesToDatabase = (clothes: Cloth[]): ThunkAction<void, RootSt
 export const getAddedClothes = (uId: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-            let clothesList: Cloth[] = []
             await database.collection("Clothes").get().then((snapshot) => {
-                snapshot.forEach((doc) => clothesList = [...clothesList, doc.data() as Cloth])
-            });
-            clothesList = clothesList.filter((cloth) => cloth.userId === uId);
-            dispatch({
-                    type: GET_ADDED_CLOTHES,
-                    payload: clothesList,
-                })
+                let clothesList: Cloth[] = []
 
-            
+                snapshot.forEach((doc) => clothesList.push(doc.data() as Cloth))
+                clothesList = clothesList.filter((cloth) => cloth.userId === uId);
+                dispatch({
+                        type: GET_ADDED_CLOTHES,
+                        payload: clothesList,
+                    })
+            });
         }
         catch (error){
             console.log(error)
@@ -127,8 +126,7 @@ export const deleteCloth = (cloth: Cloth): ThunkAction<void, RootState, null, Ap
             //Delete outfits that contains deleted cloth
             const ref = await database.collection("Outfits");
             ref.get().then((snapshot) => {
-                snapshot.forEach((doc) => 
-                {
+                snapshot.forEach((doc) => {
                     let equalId = doc.data()["clothesList"].map((list: Cloth) => list).find((item: Cloth) => item.id === cloth.id);
                     equalId && ref.doc(doc.id).delete();
                 }
