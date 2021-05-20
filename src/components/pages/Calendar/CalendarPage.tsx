@@ -3,8 +3,7 @@ import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import styled from "styled-components";
 import { CalendarDialog } from "./CalendarDialog";
-import { useDispatch, useSelector } from "react-redux";
-import { getOutfitsByDate } from "store/actions/outfitActions";
+import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { format, parseISO } from "date-fns";
 
@@ -17,20 +16,23 @@ const Wrapper = styled.div`
   padding-top: 20px;
 `;
 
+const Dot = styled.div`
+  width: 7px;
+  height: 7px;
+  border-radius: 50px;
+  background-color: #f61f6b;
+`;
+
 export const CalendarPage: React.FC<CalendarPageProps> = () => {
   const [date, setDate] = useState<Date>();
   const [openDialog, setOpenDialog] = useState(false);
   const { outfits } = useSelector((state: RootState) => state.outfit);
   const { user } = useSelector((state: RootState) => state.auth);
-  const action = useDispatch();
 
   const handleClick = (value: Date) => {
     setOpenDialog(true);
     setDate(value);
-    action(getOutfitsByDate(value));
   };
-
-  useEffect(() => {});
 
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
     let isTrue = !!outfits
@@ -40,10 +42,9 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
           outfit.calendarDate ===
           format(parseISO(date.toISOString()), "MM/d/yyyy")
       );
-    //console.log(isTrue);
 
     if (isTrue) {
-      return view === "month" ? <p>.</p> : null;
+      return view === "month" ? <Dot></Dot> : null;
     }
     return null;
   };

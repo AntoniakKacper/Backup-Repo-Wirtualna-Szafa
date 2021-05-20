@@ -20,6 +20,6 @@ export interface MostUsedCloth {
 export interface OutfitState{
     outfits: Outfit[];
     mostUsedCloth: MostUsedCloth | null;
-
+    calendarOutfits: Outfit[];
 
 }

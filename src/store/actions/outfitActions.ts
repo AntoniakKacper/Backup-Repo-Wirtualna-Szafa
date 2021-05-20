@@ -273,6 +273,7 @@ export const getOutfitsByDate = (
         });
     } catch (error) {
       console.log(error);
+}
     }
   };
 };
