@@ -18,7 +18,7 @@ interface AddedClothItemProps {
   handleDelete?: (cloth: Cloth) => void;
 }
 
-export const AddedClothItem: React.FC<AddedClothItemProps> = ({
+const AddedClothItem: React.FC<AddedClothItemProps> = ({
   cloth,
   buttons,
   handleDelete,

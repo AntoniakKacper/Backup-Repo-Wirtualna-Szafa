@@ -1,24 +1,8 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { BottomNavbar } from "components/elements/BottomNavbar";
-import { Header } from "components/Header";
-import { Add } from "components/pages/Add/Add";
-import { AddedClothesList } from "components/pages/Add/Clothes/AddedClothesList";
-import { AddedClothItem } from "components/pages/Add/Clothes/AddedClothItem";
-import { AddOutfits } from "components/pages/Add/Outfits/AddOutfits";
-import { ForgotPassword } from "components/pages/auth/ForgotPassword";
-import { Login } from "components/pages/auth/Login";
-import { Register } from "components/pages/auth/Register";
-import { CalendarPage } from "components/pages/Calendar/CalendarPage";
-import { Home } from "components/pages/Home/Home";
-import { DisplayClothes } from "components/pages/Wardrobe/Clothes/DisplayClothes";
-import { ItemsList } from "components/pages/Wardrobe/Clothes/ItemsList";
-import { DisplayOutfits } from "components/pages/Wardrobe/Outfits/DisplayOutfits";
-import { Wardrobe } from "components/pages/Wardrobe/Wardrobe";
-import { Weather } from "components/pages/Weather/Weather";
 import firebase from "database/firebase";
 import { RootState } from "store";
 import {
@@ -26,12 +10,44 @@ import {
   setLoading,
   setNeedVerification,
 } from "store/actions/authActions";
-import GlobalStyle from "styles/GlobalStyle";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
 
-export const ApplicationRoutes: React.FC = () => {
+const BottomNavbar = lazy(() => import("components/elements/BottomNavbar"));
+const Header = lazy(() => import("components/Header"));
+const Add = lazy(() => import("components/pages/Add/Add"));
+const AddedClothesList = lazy(
+  () => import("components/pages/Add/Clothes/AddedClothesList")
+);
+const AddedClothItem = lazy(
+  () => import("components/pages/Add/Clothes/AddedClothItem")
+);
+const AddOutfits = lazy(
+  () => import("components/pages/Add/Outfits/AddOutfits")
+);
+const ForgotPassword = lazy(
+  () => import("components/pages/auth/ForgotPassword")
+);
+const Login = lazy(() => import("components/pages/auth/Login"));
+const Register = lazy(() => import("components/pages/auth/Register"));
+const CalendarPage = lazy(
+  () => import("components/pages/Calendar/CalendarPage")
+);
+const Home = lazy(() => import("components/pages/Home/Home"));
+const DisplayClothes = lazy(
+  () => import("components/pages/Wardrobe/Clothes/DisplayClothes")
+);
+const ItemsList = lazy(
+  () => import("components/pages/Wardrobe/Clothes/ItemsList")
+);
+const DisplayOutfits = lazy(
+  () => import("components/pages/Wardrobe/Outfits/DisplayOutfits")
+);
+const Wardrobe = lazy(() => import("components/pages/Wardrobe/Wardrobe"));
+const Weather = lazy(() => import("components/pages/Weather/Weather"));
+
+const ApplicationRoutes: React.FC = () => {
   const dispatch = useDispatch();
   const { loading, authenticated } = useSelector(
     (state: RootState) => state.auth
@@ -42,14 +58,13 @@ export const ApplicationRoutes: React.FC = () => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         dispatch(setLoading(true));
-        await dispatch(getUserById(user.uid));
+        dispatch(getUserById(user.uid));
         if (!user.emailVerified) {
           dispatch(setNeedVerification());
         }
       }
       dispatch(setLoading(false));
     });
-
     return () => {
       unsubscribe();
     };
@@ -65,35 +80,32 @@ export const ApplicationRoutes: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Router>
+          <Header />
+          <Switch>
+            <PublicRoute path="/" exact component={Login} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/register" component={Register} />
+            <PublicRoute path="/forgotPassword" component={ForgotPassword} />
+            <PrivateRoute path="/home" component={Home} />
+            <PrivateRoute path="/wardrobe" component={Wardrobe} />
+            <PrivateRoute path="/myClothes" component={DisplayClothes} />
+            <PrivateRoute path="/myOutfits" component={DisplayOutfits} />
+            <PrivateRoute path="/itemsList/:category" component={ItemsList} />
+            <PrivateRoute path="/add" component={Add} />
+            <PrivateRoute path="/addClothes" component={AddedClothesList} />
+            <PrivateRoute path="/addItem" component={AddedClothItem} />
+            <PrivateRoute path="/addOutfits" component={AddOutfits} />
+            <PrivateRoute path="/calendar" component={CalendarPage} />
+            <PrivateRoute path="/weather" component={Weather} />
+          </Switch>
 
-      <Router>
-        <Header />
-        <Switch>
-          <PublicRoute path="/" exact component={Login} />
-          <PublicRoute path="/login" component={Login} />
-          <PublicRoute path="/register" component={Register} />
-          <PublicRoute path="/forgotPassword" component={ForgotPassword} />
-
-          <PrivateRoute path="/home" component={Home} />
-
-          <PrivateRoute path="/wardrobe" component={Wardrobe} />
-          <PrivateRoute path="/myClothes" component={DisplayClothes} />
-          <PrivateRoute path="/myOutfits" component={DisplayOutfits} />
-          <PrivateRoute path="/itemsList/:category" component={ItemsList} />
-
-          <PrivateRoute path="/add" component={Add} />
-          <PrivateRoute path="/addClothes" component={AddedClothesList} />
-          <PrivateRoute path="/addItem" component={AddedClothItem} />
-
-          <PrivateRoute path="/addOutfits" component={AddOutfits} />
-
-          <PrivateRoute path="/calendar" component={CalendarPage} />
-
-          <PrivateRoute path="/weather" component={Weather} />
-        </Switch>
-        {authenticated && <BottomNavbar />}
-      </Router>
+          {authenticated && <BottomNavbar />}
+        </Router>
+      </Suspense>
     </ThemeProvider>
   );
 };
+
+export default ApplicationRoutes;

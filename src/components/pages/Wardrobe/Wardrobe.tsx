@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const Wardrobe: React.FC<WardrobeProps> = () => {
+const Wardrobe: React.FC<WardrobeProps> = () => {
   return (
     <Wrapper>
       <Buttons>
@@ -44,3 +44,5 @@ export const Wardrobe: React.FC<WardrobeProps> = () => {
     </Wrapper>
   );
 };
+
+export default Wardrobe;

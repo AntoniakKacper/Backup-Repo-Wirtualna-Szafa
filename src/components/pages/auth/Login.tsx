@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Login: React.FC<MyFormProps> = () => {
+const Login: React.FC<MyFormProps> = () => {
   const action = useDispatch();
   const { error } = useSelector((state: RootState) => state.auth);
   const [loading, setLoading] = useState(false);
@@ -109,3 +109,5 @@ export const Login: React.FC<MyFormProps> = () => {
     </>
   );
 };
+
+export default Login;

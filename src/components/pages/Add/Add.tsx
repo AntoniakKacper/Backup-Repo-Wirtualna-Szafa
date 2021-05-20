@@ -44,7 +44,7 @@ const ButtonDescription = styled.p`
   color: black;
 `;
 
-export const Add: React.FC<AddProps> = () => {
+const Add: React.FC<AddProps> = () => {
   return (
     <Wrapper>
       <Link to="/addOutfits">
@@ -63,3 +63,5 @@ export const Add: React.FC<AddProps> = () => {
     </Wrapper>
   );
 };
+
+export default Add;

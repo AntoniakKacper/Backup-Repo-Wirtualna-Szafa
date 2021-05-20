@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Register: React.FC = () => {
+const Register: React.FC = () => {
   const action = useDispatch();
   const [loading, setLoading] = useState(false);
   const { error } = useSelector((state: RootState) => state.auth);
@@ -122,3 +122,5 @@ export const Register: React.FC = () => {
     </>
   );
 };
+
+export default Register;

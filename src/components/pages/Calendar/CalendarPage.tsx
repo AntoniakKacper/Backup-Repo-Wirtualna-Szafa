@@ -23,7 +23,7 @@ const Dot = styled.div`
   background-color: #f61f6b;
 `;
 
-export const CalendarPage: React.FC<CalendarPageProps> = () => {
+const CalendarPage: React.FC<CalendarPageProps> = () => {
   const [date, setDate] = useState<Date>();
   const [openDialog, setOpenDialog] = useState(false);
   const { outfits } = useSelector((state: RootState) => state.outfit);
@@ -60,3 +60,5 @@ export const CalendarPage: React.FC<CalendarPageProps> = () => {
     </Wrapper>
   );
 };
+
+export default CalendarPage;

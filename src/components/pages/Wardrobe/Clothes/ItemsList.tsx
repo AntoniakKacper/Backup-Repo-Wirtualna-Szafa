@@ -41,7 +41,7 @@ const Info = styled.p`
   color: #757575;
 `;
 
-export const ItemsList: React.FC<RouteParams> = ({ match, location }) => {
+const ItemsList: React.FC<RouteParams> = ({ match, location }) => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
@@ -68,3 +68,5 @@ export const ItemsList: React.FC<RouteParams> = ({ match, location }) => {
     </Wrapper>
   );
 };
+
+export default ItemsList;

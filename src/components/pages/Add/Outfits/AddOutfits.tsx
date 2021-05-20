@@ -42,7 +42,7 @@ import { format, parseISO } from "date-fns";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
 
-export const AddOutfits: React.FC<AddOutfitsProps> = () => {
+const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const action = useDispatch();
@@ -199,3 +199,5 @@ export const AddOutfits: React.FC<AddOutfitsProps> = () => {
     </Wrapper>
   );
 };
+
+export default AddOutfits;

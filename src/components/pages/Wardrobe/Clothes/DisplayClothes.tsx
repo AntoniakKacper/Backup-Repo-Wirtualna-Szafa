@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
+const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
@@ -76,3 +76,5 @@ export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
     </Wrapper>
   );
 };
+
+export default DisplayClothes;

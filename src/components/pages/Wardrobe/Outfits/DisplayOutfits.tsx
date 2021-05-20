@@ -8,7 +8,7 @@ import { Outfit } from "store/types/outfitTypes";
 
 interface DisplayOutfitsProps {}
 
-export const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
+const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { outfits } = useSelector((state: RootState) => state.outfit);
   const action = useDispatch();
@@ -25,3 +25,5 @@ export const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
     </Wrapper>
   );
 };
+
+export default DisplayOutfits;

@@ -24,7 +24,7 @@ const StyledBottomNavigation = styled(BottomNavigation)`
   width: 100%;
 `;
 
-export const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
+const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
   const [value, setValue] = React.useState("recents");
   const ListOfButtons: ListOfButtonTypes[] = [
     {
@@ -69,3 +69,5 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({}) => {
     </StyledBottomNavigation>
   );
 };
+
+export default BottomNavbar;

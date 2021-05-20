@@ -56,7 +56,7 @@ const api = {
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
-export const Weather: React.FC<WeatherProps> = () => {
+const Weather: React.FC<WeatherProps> = () => {
   const [weather, setWeather] = useState<IWeatherData>();
   const { outfits } = useSelector((state: RootState) => state.outfit);
   const { user } = useSelector((state: RootState) => state.auth);
@@ -187,3 +187,5 @@ export const Weather: React.FC<WeatherProps> = () => {
     </Wrapper>
   );
 };
+
+export default Weather;

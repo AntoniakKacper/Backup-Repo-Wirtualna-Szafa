@@ -27,7 +27,7 @@ import {
 
 interface AddedClothesProps extends RouteComponentProps<{ category: string }> {}
 
-export const AddedClothesList: React.FC<AddedClothesProps> = () => {
+const AddedClothesList: React.FC<AddedClothesProps> = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const { clothesList } = useSelector((state: RootState) => state.cloth);
   const action = useDispatch();
@@ -84,3 +84,5 @@ export const AddedClothesList: React.FC<AddedClothesProps> = () => {
     </Wrapper>
   );
 };
+
+export default AddedClothesList;

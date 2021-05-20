@@ -23,7 +23,7 @@ const ClickableAvatar = styled(Avatar)`
   }
 `;
 
-export const Header: React.FC = () => {
+const Header: React.FC = () => {
   const { authenticated, user } = useSelector((state: RootState) => state.auth);
   const [open, setOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -57,3 +57,5 @@ export const Header: React.FC = () => {
     </Wrapper>
   );
 };
+
+export default Header;

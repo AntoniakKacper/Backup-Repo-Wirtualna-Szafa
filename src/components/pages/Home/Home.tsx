@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `;
 
 interface HomePageState {}
-export const Home: React.FC<HomePageState> = () => {
+const Home: React.FC<HomePageState> = () => {
   const { outfits } = useSelector((state: RootState) => state.outfit);
   const action = useDispatch();
 
@@ -31,3 +31,5 @@ export const Home: React.FC<HomePageState> = () => {
     </Wrapper>
   );
 };
+
+export default Home;
