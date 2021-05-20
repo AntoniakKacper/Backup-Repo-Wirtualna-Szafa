@@ -7,20 +7,19 @@ import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import React, { SetStateAction, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { database, storage } from "database/firebase";
+import { Statistics } from "pages/Statistics/Statistics";
+import React, { SetStateAction, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { signout } from "store/actions/authActions";
+import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { Statistics } from "./pages/Statistics/Statistics";
 
 interface UserSettingsDialogProps {
   openDialog: boolean;
   setOpenDialog: React.Dispatch<SetStateAction<boolean>>;
+  avatarUrl: string;
 }
 
 const DialogWrapper = styled.div`
@@ -64,15 +63,15 @@ const LargeAvatar = styled(Avatar)`
 export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
   openDialog,
   setOpenDialog,
+  avatarUrl,
 }) => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
 
-  const [imageUrl, setImageUrl] = useState("");
-  const [image, setImage] = useState<File>();
   const [progress, setProgress] = useState(0);
 
-  const setAvatarUrl = (image: File) => {
+  const updateUserAvatar = (image: File) => {
+    console.log("setAvatarUrl");
     storage
       .ref("AvatarImages")
       .child(image.name)
@@ -81,57 +80,31 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
         database.collection("Users").doc(user?.id).update({
           imageUrl: url,
         });
-
         setProgress(0);
-        setImage(undefined);
       });
   };
 
-  const handleUpload = () => {
-    if (image !== undefined) {
-      const uploadTask = storage.ref(`AvatarImages/${image.name}`).put(image);
-
-      uploadTask.on(
-        "state_changed",
-        (image) => {
-          const progress = Math.round(
-            (image.bytesTransferred / image.totalBytes) * 100
-          );
-          setProgress(progress);
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          setAvatarUrl(image);
-        }
-      );
-    }
+  const handleUpload = (image: File) => {
+    const uploadTask = storage.ref(`AvatarImages/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (image) => {
+        const progress = Math.round(
+          (image.bytesTransferred / image.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        updateUserAvatar(image);
+      }
+    );
   };
-
-  const getAvatarUrl = async () => {
-    await database
-      .collection("Users")
-      .doc(user?.id)
-      .onSnapshot((snapshot) => {
-        const result = snapshot.data();
-        setImageUrl(result?.imageUrl);
-      });
-  };
-
-  useEffect(() => {
-    handleUpload();
-    getAvatarUrl();
-
-    return () => {
-      setImageUrl("");
-      setImage(undefined);
-      setProgress(0);
-    };
-  }, [image]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.target.files !== null && setImage(e.target.files[0]);
+    e.target.files && handleUpload(e.target.files[0]);
   };
 
   return (
@@ -163,7 +136,7 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
             }}
             overlap="circle"
           >
-            <LargeAvatar src={imageUrl} />
+            <LargeAvatar src={avatarUrl} />
           </Badge>
           <Username>{user?.username}</Username>
           <Email>{user?.email}</Email>

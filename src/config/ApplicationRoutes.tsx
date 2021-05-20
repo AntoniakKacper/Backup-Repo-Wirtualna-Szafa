@@ -1,4 +1,3 @@
-import LinearProgress from "@material-ui/core/LinearProgress";
 import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -13,39 +12,29 @@ import {
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
+import { TopLinearProgress } from "styles/LinearProgress";
 
 const BottomNavbar = lazy(() => import("components/elements/BottomNavbar"));
-const Header = lazy(() => import("components/Header"));
-const Add = lazy(() => import("components/pages/Add/Add"));
+const Add = lazy(() => import("pages/Add/AddMenu"));
 const AddedClothesList = lazy(
-  () => import("components/pages/Add/Clothes/AddedClothesList")
+  () => import("pages/Add/Clothes/AddedClothesList")
 );
-const AddedClothItem = lazy(
-  () => import("components/pages/Add/Clothes/AddedClothItem")
-);
-const AddOutfits = lazy(
-  () => import("components/pages/Add/Outfits/AddOutfits")
-);
-const ForgotPassword = lazy(
-  () => import("components/pages/auth/ForgotPassword")
-);
-const Login = lazy(() => import("components/pages/auth/Login"));
-const Register = lazy(() => import("components/pages/auth/Register"));
-const CalendarPage = lazy(
-  () => import("components/pages/Calendar/CalendarPage")
-);
-const Home = lazy(() => import("components/pages/Home/Home"));
+const AddedClothItem = lazy(() => import("pages/Add/Clothes/AddedClothItem"));
+const AddOutfits = lazy(() => import("pages/Add/Outfits/AddOutfits"));
+const ForgotPassword = lazy(() => import("pages/auth/ForgotPassword"));
+const Login = lazy(() => import("pages/auth/Login"));
+const Register = lazy(() => import("pages/auth/Register"));
+const CalendarPage = lazy(() => import("pages/Calendar/CalendarPage"));
+const Home = lazy(() => import("pages/Home/Home"));
 const DisplayClothes = lazy(
-  () => import("components/pages/Wardrobe/Clothes/DisplayClothes")
+  () => import("pages/Wardrobe/Clothes/DisplayClothes")
 );
-const ItemsList = lazy(
-  () => import("components/pages/Wardrobe/Clothes/ItemsList")
-);
+const ItemsList = lazy(() => import("pages/Wardrobe/Clothes/ItemsList"));
 const DisplayOutfits = lazy(
-  () => import("components/pages/Wardrobe/Outfits/DisplayOutfits")
+  () => import("pages/Wardrobe/Outfits/DisplayOutfits")
 );
-const Wardrobe = lazy(() => import("components/pages/Wardrobe/Wardrobe"));
-const Weather = lazy(() => import("components/pages/Weather/Weather"));
+const Wardrobe = lazy(() => import("pages/Wardrobe/Wardrobe"));
+const Weather = lazy(() => import("pages/Weather/Weather"));
 
 const ApplicationRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -71,18 +60,13 @@ const ApplicationRoutes: React.FC = () => {
   }, [dispatch]);
 
   if (loading) {
-    return (
-      <div>
-        <LinearProgress color="secondary" />
-      </div>
-    );
+    return <TopLinearProgress color="secondary" />;
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<TopLinearProgress color="secondary" />}>
         <Router>
-          <Header />
           <Switch>
             <PublicRoute path="/" exact component={Login} />
             <PublicRoute path="/login" component={Login} />
@@ -100,7 +84,6 @@ const ApplicationRoutes: React.FC = () => {
             <PrivateRoute path="/calendar" component={CalendarPage} />
             <PrivateRoute path="/weather" component={Weather} />
           </Switch>
-
           {authenticated && <BottomNavbar />}
         </Router>
       </Suspense>

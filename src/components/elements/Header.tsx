@@ -9,6 +9,11 @@ import { ReactComponent as LogoSVG } from "images/Logo.svg";
 import { RootState } from "store";
 import { UserSettingsDialog } from "./UserSettingsDialog";
 
+const LogoTypography = styled.div`
+  font-family: "Parisienne", sans-serif;
+  font-size: 32px;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -28,22 +33,19 @@ const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
-  useEffect(() => {
-    const getAvatarUrl = async () => {
-      await database
-        .collection("Users")
-        .doc(user?.id)
-        .onSnapshot((snapshot) => {
-          const result = snapshot.data();
-          setImageUrl(result?.imageUrl);
-        });
-    };
-    getAvatarUrl();
+  const getAvatarUrl = () => {
+    database
+      .collection("Users")
+      .doc(user?.id)
+      .onSnapshot((snapshot) => {
+        const result = snapshot.data();
+        setImageUrl(result?.imageUrl);
+      });
+  };
 
-    return () => {
-      setImageUrl("");
-    };
-  }, [user?.id]);
+  useEffect(() => {
+    getAvatarUrl();
+  });
 
   return (
     <Wrapper>
@@ -51,9 +53,13 @@ const Header: React.FC = () => {
       {authenticated ? (
         <ClickableAvatar src={imageUrl} onClick={() => setOpen(true)} />
       ) : (
-        <strong>Wardrobe</strong>
+        <LogoTypography>Wardrobe</LogoTypography>
       )}
-      <UserSettingsDialog openDialog={open} setOpenDialog={setOpen} />
+      <UserSettingsDialog
+        openDialog={open}
+        setOpenDialog={setOpen}
+        avatarUrl={imageUrl}
+      />
     </Wrapper>
   );
 };

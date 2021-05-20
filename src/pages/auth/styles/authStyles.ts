@@ -1,10 +1,13 @@
 import { styled } from "config/theme";
 import { flexCenterXY } from "styles/shared-style";
 import { Form } from "formik";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 
-export const StyledForm = styled(Form)`
+export const AuthWrapper = styled.div`
+  ${flexCenterXY}
+  flex-direction: column;
+`;
+
+export const AuthForm = styled(Form)`
   ${flexCenterXY}
   width: 250px;
   flex-direction: column;
@@ -13,14 +16,8 @@ export const StyledForm = styled(Form)`
   padding-bottom: 100px;
 `;
 
-export const StyledButton = styled(Button)`
+export const AuthActions = styled.div`
   && {
     margin-top: 50px;
-  }
-`;
-
-export const StyledInput = styled(TextField)`
-  && {
-    margin-bottom: 40px;
   }
 `;

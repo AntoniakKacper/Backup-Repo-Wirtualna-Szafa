@@ -3,7 +3,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { Outfit } from "store/types/outfitTypes";
 import Button from "@material-ui/core/Button";
 
-import AddedClothItem from "components/pages/Add/Clothes/AddedClothItem";
+import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
 import {
   Content,
   Heart,

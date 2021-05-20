@@ -1,22 +1,18 @@
+import { Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import Links from "components/elements/Links";
+import { FormikInput } from "components/shared/FormikInput";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { styled } from "config/theme";
+import { Link } from "react-router-dom";
 import { RootState } from "store";
 import { setError, signin } from "store/actions/authActions";
-import { flexCenterXY } from "styles/shared-style";
-import Links from "components/elements/Links";
-import { MyField } from "components/elements/MyField";
-import {
-  StyledButton,
-  StyledForm,
-} from "components/styledComponents/AuthStyles";
 import { SigninSchema } from "./Schema";
+import { AuthActions, AuthForm, AuthWrapper } from "./styles/authStyles";
 
 interface SignInFormValues {
   email: string;
@@ -25,11 +21,6 @@ interface SignInFormValues {
 interface MyFormProps {
   onSubmit: (values: SignInFormValues) => void;
 }
-
-const Wrapper = styled.div`
-  ${flexCenterXY}
-  flex-direction: column;
-`;
 
 const Login: React.FC<MyFormProps> = () => {
   const action = useDispatch();
@@ -62,51 +53,48 @@ const Login: React.FC<MyFormProps> = () => {
   };
 
   return (
-    <>
-      <Wrapper>
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          validationSchema={SigninSchema}
-          onSubmit={(values) => {
-            handleSubmit(values);
-          }}
-        >
-          {() => (
-            <StyledForm>
-              <MyField name="email" placeholder="Email"></MyField>
-              <MyField
-                name="password"
-                placeholder="Password"
-                passwordDecoration={true}
-              />
+    <AuthWrapper>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={SigninSchema}
+        onSubmit={(values) => {
+          handleSubmit(values);
+        }}
+      >
+        {() => (
+          <AuthForm>
+            <FormikInput name="email" label="Email" variant="standard" />
+            <FormikInput
+              name="password"
+              label="Password"
+              passwordDecoration={true}
+              variant="standard"
+            />
+            <AuthActions>
               {loading ? (
-                <StyledButton variant="outlined" color="secondary" disabled>
+                <Button variant="outlined" color="secondary" disabled>
                   <CircularProgress color="secondary" size={20} />
-                </StyledButton>
+                </Button>
               ) : (
-                <StyledButton
-                  variant="outlined"
-                  color="secondary"
-                  type="submit"
-                >
+                <Button variant="outlined" color="secondary" type="submit">
                   Sign in
-                </StyledButton>
+                </Button>
               )}
-            </StyledForm>
-          )}
-        </Formik>
-        <Links>
-          <Link to="/register">Register</Link>
-          <Link to="/forgotPassword">Forgot Password?</Link>
-        </Links>
+            </AuthActions>
+          </AuthForm>
+        )}
+      </Formik>
+      <Links>
+        <Link to="/register">Register</Link>
+        <Link to="/forgotPassword">Forgot Password?</Link>
+      </Links>
 
-        <Snackbar open={!!error} autoHideDuration={3000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error">
-            {error}
-          </Alert>
-        </Snackbar>
-      </Wrapper>
-    </>
+      <Snackbar open={!!error} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
+    </AuthWrapper>
   );
 };
 
