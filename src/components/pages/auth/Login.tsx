@@ -6,13 +6,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { styled } from "../../../config/theme";
-import { RootState } from "../../../store";
-import { setError, signin } from "../../../store/actions/authActions";
-import { flexCenterXY } from "../../../styles/shared-style";
-import Links from "../../elements/Links";
-import { MyField } from "../../elements/MyField";
-import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
+import { styled } from "config/theme";
+import { RootState } from "store";
+import { setError, signin } from "store/actions/authActions";
+import { flexCenterXY } from "styles/shared-style";
+import Links from "components/elements/Links";
+import { MyField } from "components/elements/MyField";
+import {
+  StyledButton,
+  StyledForm,
+} from "components/styledComponents/AuthStyles";
 import { SigninSchema } from "./Schema";
 
 interface SignInFormValues {

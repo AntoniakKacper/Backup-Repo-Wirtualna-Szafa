@@ -1,18 +1,18 @@
 import { Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { FloatingButton } from "../../../shared/FloatingButton";
-import { ReactComponent as ClothImage } from "../../../../images/cloth.svg";
+import { FloatingButton } from "components/shared/FloatingButton";
+import { ReactComponent as ClothImage } from "images/cloth.svg";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { RootState } from "../../../../store";
+import { RootState } from "store";
 import {
   addClothesToDatabase,
   clearClothesList,
   removeClothFromList,
-} from "../../../../store/actions/clothActions";
-import { Cloth } from "../../../../store/types/clothTypes";
+} from "store/actions/clothActions";
+import { Cloth } from "store/types/clothTypes";
 import { AddItemDialog } from "./Dialog/AddItemDialog";
 import AddedClothItem from "./AddedClothItem";
 import {

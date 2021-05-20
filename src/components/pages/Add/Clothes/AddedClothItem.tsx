@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Cloth } from "../../../../store/types/clothTypes";
-import { removeClothFromList } from "../../../../store/actions/clothActions";
+import { Cloth } from "store/types/clothTypes";
+import { removeClothFromList } from "store/actions/clothActions";
 import {
   ClicableIcon,
   ColorCircle,
@@ -10,7 +10,7 @@ import {
   EditButton,
   ItemCard,
   ItemInfo,
-} from "../../../../styles/Card";
+} from "styles/Card";
 
 interface AddedClothItemProps {
   cloth: Cloth;

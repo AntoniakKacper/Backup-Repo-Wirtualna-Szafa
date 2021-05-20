@@ -1,5 +1,5 @@
-import { styled } from "../../styles/themes/StyledComponentsTheme";
-import { flexCenterXY } from "../../styles/shared-style";
+import { styled } from "styles/themes/StyledComponentsTheme";
+import { flexCenterXY } from "styles/shared-style";
 const Links = styled.div`
   ${flexCenterXY}
   flex-direction: column;

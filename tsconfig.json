@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "src",
+    "paths": {
+      "@styled-components/*": ["components/styledComponents"],
+      "@config/*": ["config/*"],
+      "@images/*": ["images/*"],
+      "@models/*": ["models/*"],
+      "@store/*": ["store/*"],
+      "@style/*": ["style/*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,7 +25,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

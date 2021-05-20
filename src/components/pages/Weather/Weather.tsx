@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { RootState } from "store";
 import {
   getOutfitByWeather,
   getUserOutfits,
-} from "../../../store/actions/outfitActions";
-import { Outfit } from "../../../store/types/outfitTypes";
+} from "store/actions/outfitActions";
+import { Outfit } from "store/types/outfitTypes";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import {
   DateInfo,

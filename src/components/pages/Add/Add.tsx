@@ -2,9 +2,9 @@ import React from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as Cloth } from "../../../images/cloth.svg";
-import { ReactComponent as Outfit } from "../../../images/outfit.svg";
-import { flexCenterXY } from "../../../styles/shared-style";
+import { ReactComponent as Cloth } from "images/cloth.svg";
+import { ReactComponent as Outfit } from "images/outfit.svg";
+import { flexCenterXY } from "styles/shared-style";
 
 interface AddProps {}
 

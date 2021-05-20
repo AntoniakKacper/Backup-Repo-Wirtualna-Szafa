@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../store";
-import {
-  deleteCloth,
-  getAddedClothes,
-} from "../../../../store/actions/clothActions";
-import { Cloth } from "../../../../store/types/clothTypes";
+import { RootState } from "store";
+import { deleteCloth, getAddedClothes } from "store/actions/clothActions";
+import { Cloth } from "store/types/clothTypes";
 import {
   ClicableIcon,
   ColorCircle,
@@ -14,9 +11,9 @@ import {
   EditButton,
   ItemCard,
   ItemInfo,
-} from "../../../../styles/Card";
+} from "styles/Card";
 import styled from "styled-components";
-import { flexCenterXY } from "../../../../styles/shared-style";
+import { flexCenterXY } from "styles/shared-style";
 
 interface DisplayClothesProps {}
 

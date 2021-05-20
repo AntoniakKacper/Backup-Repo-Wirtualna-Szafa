@@ -1,5 +1,5 @@
 import { Fab } from "@material-ui/core";
-import { styled } from "../../styles/themes/StyledComponentsTheme";
+import { styled } from "styles/themes/StyledComponentsTheme";
 
 export const FloatingButton = styled(Fab)`
   && {

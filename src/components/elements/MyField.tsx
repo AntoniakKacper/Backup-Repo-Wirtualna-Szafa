@@ -4,7 +4,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { FieldAttributes, useField } from "formik";
 import React, { useState } from "react";
-import { StyledInput } from "../styledComponents/AuthStyles";
+import { StyledInput } from "components/styledComponents/AuthStyles";
 
 interface Props {
   passwordDecoration?: boolean;

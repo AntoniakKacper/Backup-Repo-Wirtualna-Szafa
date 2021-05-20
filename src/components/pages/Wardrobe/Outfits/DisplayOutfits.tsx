@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../store";
-import { getUserOutfits } from "../../../../store/actions/outfitActions";
+import { RootState } from "store";
+import { getUserOutfits } from "store/actions/outfitActions";
 import { Wrapper } from "./styles/OutfitCardStyles";
 import { OutfitCard } from "./OutfitCard";
-import { Outfit } from "../../../../store/types/outfitTypes";
+import { Outfit } from "store/types/outfitTypes";
 
 interface DisplayOutfitsProps {}
 

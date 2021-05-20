@@ -6,27 +6,19 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { ReactComponent as OutfitImage } from "../../../../images/outfit.svg";
-import { RootState } from "../../../../store";
+import { ReactComponent as OutfitImage } from "images/outfit.svg";
+import { RootState } from "store";
 import {
   addUserCloth,
   getAddedClothes,
   removeClothFromUserList,
-} from "../../../../store/actions/clothActions";
+} from "store/actions/clothActions";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import {
-  addOutfit,
-  getOutfitsByDate,
-} from "../../../../store/actions/outfitActions";
-import { Cloth } from "../../../../store/types/clothTypes";
-import { Outfit } from "../../../../store/types/outfitTypes";
-import {
-  ColorCircle,
-  DisplayColor,
-  ItemCard,
-  ItemInfo,
-} from "../../../../styles/Card";
+import { addOutfit, getOutfitsByDate } from "store/actions/outfitActions";
+import { Cloth } from "store/types/clothTypes";
+import { Outfit } from "store/types/outfitTypes";
+import { ColorCircle, DisplayColor, ItemCard, ItemInfo } from "styles/Card";
 import {
   BackArrow,
   Info,

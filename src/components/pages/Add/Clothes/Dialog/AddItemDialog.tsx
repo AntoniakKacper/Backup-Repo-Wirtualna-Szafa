@@ -1,25 +1,20 @@
 import { Dialog } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { FormikInput } from "../../../../shared/FormikInput";
-import { FormikSelect } from "../../../../shared/FormikSelect";
+import { FormikInput } from "components/shared/FormikInput";
+import { FormikSelect } from "components/shared/FormikSelect";
 import { Formik } from "formik";
-import {
-  categories,
-  Cloth,
-  occasions,
-  weather,
-} from "../../../../../models/cloth.model";
+import { categories, Cloth, occasions, weather } from "models/cloth.model";
 import React, { SetStateAction } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
-import { addCloth } from "../../../../../store/actions/clothActions";
+import { RootState } from "store";
+import { addCloth } from "store/actions/clothActions";
 import {
   DialogFormContainer,
   StyledDialogActions,
   StyledDialogContent,
-} from "../../../../../styles/Dialog";
+} from "styles/Dialog";
 import * as Yup from "yup";
 import { ColorPicker } from "./ColorPickerPopper";
 import { DropzoneComponent } from "./DropzoneComponent";

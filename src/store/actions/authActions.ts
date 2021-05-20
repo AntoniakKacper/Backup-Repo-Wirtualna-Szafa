@@ -1,130 +1,167 @@
-import { ThunkAction } from 'redux-thunk';
-import { RootState } from '..';
-import firebase from '../../database/firebase';
-import { AppActions, NEED_VERIFICATION, SET_ERROR, SET_LOADING, SET_SUCCESS, SET_USER, SIGN_OUT } from '../types/actionTypes';
-import { SignInData, SignUpData, User } from '../types/authTypes';
-
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "..";
+import firebase from "database/firebase";
+import {
+  AppActions,
+  NEED_VERIFICATION,
+  SET_ERROR,
+  SET_LOADING,
+  SET_SUCCESS,
+  SET_USER,
+  SIGN_OUT,
+} from "../types/actionTypes";
+import { SignInData, SignUpData, User } from "../types/authTypes";
 
 // Create user
-export const signup = (data: SignUpData, onError: () => void): ThunkAction<void, RootState, null, AppActions> => {
-  return async dispatch => {
+export const signup = (
+  data: SignUpData,
+  onError: () => void
+): ThunkAction<void, RootState, null, AppActions> => {
+  return async (dispatch) => {
     try {
-      const result = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
-      if(result.user) {
+      const result = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(data.email, data.password);
+      if (result.user) {
         const userData: User = {
           username: data.username,
           email: data.email,
           id: result.user.uid,
-          imageUrl: ''
+          imageUrl: "",
         };
-        await firebase.firestore().collection('/Users').doc(result.user.uid).set(userData);
+        await firebase
+          .firestore()
+          .collection("/Users")
+          .doc(result.user.uid)
+          .set(userData);
         await result.user.sendEmailVerification();
         dispatch({
-          type: NEED_VERIFICATION
+          type: NEED_VERIFICATION,
         });
         dispatch({
           type: SET_USER,
-          payload: userData
+          payload: userData,
         });
       }
     } catch (err) {
       onError();
       dispatch({
         type: SET_ERROR,
-        payload: err.message
+        payload: err.message,
       });
     }
-  }
-}
+  };
+};
 
 // Get user by id
-export const getUserById = (id: string): ThunkAction<void, RootState, null, AppActions> => {
-  return async dispatch => {
+export const getUserById = (
+  id: string
+): ThunkAction<void, RootState, null, AppActions> => {
+  return async (dispatch) => {
     try {
-      const user = await firebase.firestore().collection('Users').doc(id).get();
-      if(user.exists) {
+      const user = await firebase.firestore().collection("Users").doc(id).get();
+      if (user.exists) {
         const userData = user.data() as User;
         dispatch({
           type: SET_USER,
-          payload: userData
+          payload: userData,
         });
       }
     } catch (err) {
       console.log(err);
     }
-  }
-}
+  };
+};
 
 // Set loading
-export const setLoading = (value: boolean): ThunkAction<void, RootState, null, AppActions> => {
-  return dispatch => {
+export const setLoading = (
+  value: boolean
+): ThunkAction<void, RootState, null, AppActions> => {
+  return (dispatch) => {
     dispatch({
       type: SET_LOADING,
-      payload: value
+      payload: value,
     });
-  }
-}
+  };
+};
 
 // Log in
-export const signin = (data: SignInData, onError: () => void): ThunkAction<void, RootState, null, AppActions> => {
-  return async dispatch => {
+export const signin = (
+  data: SignInData,
+  onError: () => void
+): ThunkAction<void, RootState, null, AppActions> => {
+  return async (dispatch) => {
     try {
-      await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(data.email, data.password);
     } catch (err) {
       onError();
       dispatch(setError(err.message));
     }
-  }
-}
+  };
+};
 
 // Log out
 export const signout = (): ThunkAction<void, RootState, null, AppActions> => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(setLoading(true));
       await firebase.auth().signOut();
       dispatch({
-        type: SIGN_OUT
+        type: SIGN_OUT,
       });
     } catch (err) {
       console.log(err);
       dispatch(setLoading(false));
     }
-  }
-}
+  };
+};
 
 // Set error
-export const setError = (msg: string | null): ThunkAction<void, RootState, null, AppActions> => {
-  return dispatch => {
+export const setError = (
+  msg: string | null
+): ThunkAction<void, RootState, null, AppActions> => {
+  return (dispatch) => {
     dispatch({
       type: SET_ERROR,
-      payload: msg
+      payload: msg,
     });
-  }
-}
+  };
+};
 
 // Set need verification
-export const setNeedVerification = (): ThunkAction<void, RootState, null, AppActions> => {
-  return dispatch => {
+export const setNeedVerification = (): ThunkAction<
+  void,
+  RootState,
+  null,
+  AppActions
+> => {
+  return (dispatch) => {
     dispatch({
-      type: NEED_VERIFICATION
+      type: NEED_VERIFICATION,
     });
-  }
-}
+  };
+};
 
 // Set success
-export const setSuccess = (msg: string): ThunkAction<void, RootState, null, AppActions> => {
-  return dispatch => {
+export const setSuccess = (
+  msg: string
+): ThunkAction<void, RootState, null, AppActions> => {
+  return (dispatch) => {
     dispatch({
       type: SET_SUCCESS,
-      payload: msg
+      payload: msg,
     });
-  }
-}
+  };
+};
 
 // Send password reset email
-export const sendPasswordResetEmail = (email: string, successMsg: string): ThunkAction<void, RootState, null, AppActions> => {
-  return async dispatch => {
+export const sendPasswordResetEmail = (
+  email: string,
+  successMsg: string
+): ThunkAction<void, RootState, null, AppActions> => {
+  return async (dispatch) => {
     try {
       await firebase.auth().sendPasswordResetEmail(email);
       dispatch(setSuccess(successMsg));
@@ -132,10 +169,5 @@ export const sendPasswordResetEmail = (email: string, successMsg: string): Thunk
       console.log(err);
       dispatch(setError(err.message));
     }
-  }
-}
-
-
-
-
-
+  };
+};

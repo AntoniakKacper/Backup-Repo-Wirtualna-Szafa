@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "../../../store";
-import { getAddedClothes } from "../../../store/actions/clothActions";
+import { RootState } from "store/index";
+import { getAddedClothes } from "store/actions/clothActions";
 import {
   countClothInOutfits,
   getUserOutfits,
-} from "../../../store/actions/outfitActions";
+} from "store/actions/outfitActions";
 
 import { AccordionComponent } from "./AccordionComponent";
 

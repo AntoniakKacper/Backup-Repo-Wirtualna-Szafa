@@ -7,7 +7,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import styled from "styled-components";
-import { ReactComponent as Hanger } from "../../images/hanger.svg";
+import { ReactComponent as Hanger } from "images/hanger.svg";
 import { Calendar } from "@styled-icons/boxicons-regular/Calendar";
 
 interface BottomNavbarProps {}

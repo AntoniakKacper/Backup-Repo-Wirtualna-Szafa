@@ -5,7 +5,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import styled from "styled-components";
-import { MostUsedCloth } from "../../../store/types/outfitTypes";
+import { MostUsedCloth } from "store/types/outfitTypes";
 import AddedClothItem from "../Add/Clothes/AddedClothItem";
 import { Divider } from "@material-ui/core";
 
