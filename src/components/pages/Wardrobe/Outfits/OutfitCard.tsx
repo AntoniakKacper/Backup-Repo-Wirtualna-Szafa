@@ -2,14 +2,14 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { database } from "../../../../database/firebase";
-import { RootState } from "../../../../store";
+import { database } from "database/firebase";
+import { RootState } from "store";
 import {
   deleteOutfit,
   likeOutfit,
   unlikeOutfit,
-} from "../../../../store/actions/outfitActions";
-import { Outfit } from "../../../../store/types/outfitTypes";
+} from "store/actions/outfitActions";
+import { Outfit } from "store/types/outfitTypes";
 import { OutfitDetalis } from "./OutfitDetalis";
 import {
   DottedMenuButton,

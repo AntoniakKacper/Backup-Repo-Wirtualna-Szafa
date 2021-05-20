@@ -7,15 +7,18 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { styled } from "../../../config/theme";
-import { database } from "../../../database/firebase";
-import { SignUpFormValues } from "../../../models/auth.model";
-import { RootState } from "../../../store";
-import { setError, signup } from "../../../store/actions/authActions";
-import { flexCenterXY } from "../../../styles/shared-style";
-import Links from "../../elements/Links";
-import { MyField } from "../../elements/MyField";
-import { StyledButton, StyledForm } from "../../styledComponents/AuthStyles";
+import { styled } from "config/theme";
+import { database } from "database/firebase";
+import { SignUpFormValues } from "models/auth.model";
+import { RootState } from "store";
+import { setError, signup } from "store/actions/authActions";
+import { flexCenterXY } from "styles/shared-style";
+import Links from "components/elements/Links";
+import { MyField } from "components/elements/MyField";
+import {
+  StyledButton,
+  StyledForm,
+} from "components/styledComponents/AuthStyles";
 import { SignupSchema } from "./Schema";
 
 //Styled components

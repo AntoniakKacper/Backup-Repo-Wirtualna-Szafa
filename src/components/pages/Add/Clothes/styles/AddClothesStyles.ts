@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexCenterXY } from "../../../../../styles/shared-style";
+import { flexCenterXY } from "styles/shared-style";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Pencil } from "@styled-icons/boxicons-solid/Pencil";

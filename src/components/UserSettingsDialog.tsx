@@ -10,10 +10,10 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import React, { SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { database, storage } from "../database/firebase";
-import { RootState } from "../store";
-import { signout } from "../store/actions/authActions";
-import { flexCenterXY } from "../styles/shared-style";
+import { database, storage } from "database/firebase";
+import { RootState } from "store";
+import { signout } from "store/actions/authActions";
+import { flexCenterXY } from "styles/shared-style";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Statistics } from "./pages/Statistics/Statistics";

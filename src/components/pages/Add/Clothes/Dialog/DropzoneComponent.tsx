@@ -1,7 +1,7 @@
 import Badge from "@material-ui/core/Badge";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { storage } from "../../../../../database/firebase";
+import { storage } from "database/firebase";
 
 import {
   DropzoneContainer,

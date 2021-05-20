@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "../../../store";
-import { getAllOutfits } from "../../../store/actions/outfitActions";
-import { Outfit } from "../../../store/types/outfitTypes";
+import { RootState } from "store";
+import { getAllOutfits } from "store/actions/outfitActions";
+import { Outfit } from "store/types/outfitTypes";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 
 const Wrapper = styled.div`

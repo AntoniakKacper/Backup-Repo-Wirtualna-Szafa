@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexCenterXY } from "../../../../../styles/shared-style";
+import { flexCenterXY } from "styles/shared-style";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import TextField from "@material-ui/core/TextField";

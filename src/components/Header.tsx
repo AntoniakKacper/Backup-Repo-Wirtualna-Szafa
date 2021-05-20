@@ -3,10 +3,10 @@ import Avatar from "@material-ui/core/Avatar";
 import { useSelector } from "react-redux";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { styled } from "../config/theme";
-import { database } from "../database/firebase";
-import { ReactComponent as LogoSVG } from "../images/Logo.svg";
-import { RootState } from "../store";
+import { styled } from "config/theme";
+import { database } from "database/firebase";
+import { ReactComponent as LogoSVG } from "images/Logo.svg";
+import { RootState } from "store";
 import { UserSettingsDialog } from "./UserSettingsDialog";
 
 const Wrapper = styled.div`

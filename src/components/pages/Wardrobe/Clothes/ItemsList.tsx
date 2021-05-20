@@ -4,8 +4,8 @@ import { RouteComponentProps } from "react-router";
 //eslint-disable-next-line
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import styled from "styled-components";
-import { storage } from "../../../../database/firebase";
-import { flexCenterXY } from "../../../../styles/shared-style";
+import { storage } from "database/firebase";
+import { flexCenterXY } from "styles/shared-style";
 
 interface RouteParams extends RouteComponentProps<{ category: string }> {}
 

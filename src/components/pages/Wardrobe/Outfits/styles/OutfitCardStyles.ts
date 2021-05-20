@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexCenterXY } from "../../../../../styles/shared-style";
+import { flexCenterXY } from "styles/shared-style";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -25,7 +25,6 @@ export const OutfitContainer = styled.div`
   overflow: hidden;
   max-width: 300px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-  
 `;
 
 // export const OutfitImagesContainer = styled.div`
@@ -38,7 +37,7 @@ export const OutfitImagesContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  
+
   grid-template-areas:
     "image1 image2"
     "image1 image3";
@@ -82,8 +81,6 @@ export const Info = styled.div`
   & > p {
     padding-bottom: 5px;
   }
-  
-
 `;
 
 export const UserInfo = styled.div`
@@ -105,24 +102,24 @@ export const StyledAvatar = styled(Avatar)`
 `;
 
 export const LikeContainer = styled.div`
-    display: flex;
+  display: flex;
 `;
 export const Heart = styled(FavoriteBorderIcon)`
   position: absolute;
   right: 25px;
   bottom: 15px;
-    &:hover{
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const FilledHeart = styled(FavoriteIcon)`
-position: absolute;
+  position: absolute;
   right: 25px;
   bottom: 15px;
-    &:hover{
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const DetailsButton = styled.p`
@@ -138,31 +135,30 @@ export const DetailsButton = styled.p`
 `;
 
 export const DottedMenuButton = styled(MoreVertIcon)`
-    margin-bottom: 20px;
-    &:hover{
-        cursor: pointer;
-    }
+  margin-bottom: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const StyledButton = styled.button`
-    all: unset;
-    position: absolute;
-    right: 25px;
-    bottom: 40px;
+  all: unset;
+  position: absolute;
+  right: 25px;
+  bottom: 40px;
 `;
 
 export const StyledEditButton = styled(EditIcon)`
-    color: #757575;
-    margin-right: 10px;
+  color: #757575;
+  margin-right: 10px;
 `;
 
 export const StyledDeleteButton = styled(DeleteIcon)`
-    color: #757575;
-    margin-right: 10px;
-
+  color: #757575;
+  margin-right: 10px;
 `;
 
 export const StyledTypography = styled(Typography)`
-    color: #757575;
-    font-size: 14px;
+  color: #757575;
+  font-size: 14px;
 `;
