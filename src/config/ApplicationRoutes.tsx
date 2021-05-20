@@ -14,7 +14,6 @@ import { Login } from "../components/pages/auth/Login";
 import { Register } from "../components/pages/auth/Register";
 import { CalendarPage } from "../components/pages/Calendar/CalendarPage";
 import { Home } from "../components/pages/Home/Home";
-import { Profile } from "../components/pages/Home/Profile";
 import { DisplayClothes } from "../components/pages/Wardrobe/Clothes/DisplayClothes";
 import { ItemsList } from "../components/pages/Wardrobe/Clothes/ItemsList";
 import { DisplayOutfits } from "../components/pages/Wardrobe/Outfits/DisplayOutfits";
@@ -90,8 +89,6 @@ export const ApplicationRoutes: React.FC = () => {
           <PrivateRoute path="/addOutfits" component={AddOutfits} />
 
           <PrivateRoute path="/calendar" component={CalendarPage} />
-
-          <PrivateRoute path="/profile" component={Profile} />
 
           <PrivateRoute path="/weather" component={Weather} />
         </Switch>

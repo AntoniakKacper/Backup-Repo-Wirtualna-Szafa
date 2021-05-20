@@ -45,7 +45,7 @@ export const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
 
   return (
     <Wrapper>
-      <h2>All clothes</h2>
+      <h2>My clothes</h2>
       {userClothes &&
         userClothes.map((item: Cloth) => (
           <ItemCard key={item.id}>

@@ -18,6 +18,7 @@ export const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
   }, []);
   return (
     <Wrapper>
+      <h2>My outfits</h2>
       {outfits.map((outfit: Outfit) => (
         <OutfitCard outfit={outfit} key={outfit.id} myOutfits={true} />
       ))}

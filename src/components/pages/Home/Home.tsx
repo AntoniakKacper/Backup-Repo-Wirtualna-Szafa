@@ -9,6 +9,8 @@ import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   padding-bottom: 69px;
 `;

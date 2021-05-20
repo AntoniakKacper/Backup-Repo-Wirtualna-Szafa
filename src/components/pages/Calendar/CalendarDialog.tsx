@@ -38,17 +38,16 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
         <DialogContentText id="alert-dialog-description">
           <strong>Choosen date:</strong> {date && format(date, "do MMMM yyyy")}
         </DialogContentText>
-        {outfits.length !== 0 ? (
-          <div>
-            {outfits
-              .filter((outfit) => outfit.userId !== user?.id)
-              .map((outfit) => (
-                <OutfitCard key={outfit.id} outfit={outfit} />
-              ))}
-          </div>
-        ) : (
-          <div>There are no addded outfits for current date</div>
-        )}
+
+        <div>
+          {outfits
+            .filter((outfit) => outfit.userId === user?.id)
+            .map((outfit) => (
+              <OutfitCard key={outfit.id} outfit={outfit} />
+            ))}
+          {outfits.filter((outfit) => outfit.userId === user?.id).length ===
+            0 && <div>There are no outfits added for current day</div>}
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)} color="primary">

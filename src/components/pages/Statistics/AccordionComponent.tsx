@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import styled from "styled-components";
 import { MostUsedCloth } from "../../../store/types/outfitTypes";
+import AddedClothItem from "../Add/Clothes/AddedClothItem";
+import { Divider } from "@material-ui/core";
 
 const StyledAccordion = styled(Accordion)`
   width: 100%;
@@ -30,11 +32,16 @@ export const AccordionComponent: React.FC<AccordionComponentProps> = ({
         <Typography>{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>
-          Number of {name} in your wardrobe is equal to:{" "}
-          <strong>{content}</strong>
-          {mostUsedCloth && <>{mostUsedCloth.cloth?.name}</>}
-        </Typography>
+        {mostUsedCloth ? (
+          // <AddedClothItem cloth={mostUsedCloth.cloth} />
+          <div>XD</div>
+        ) : (
+          // <div>XD</div>
+          <Typography>
+            Number of {name} in your wardrobe is equal to:{" "}
+            <strong>{content}</strong>
+          </Typography>
+        )}
       </AccordionDetails>
     </StyledAccordion>
   );
