@@ -204,21 +204,21 @@ export const unlikeOutfit = (outfitID: string, userID: string): ThunkAction<void
     }
 }
 
-export const getOutfitsByDate = (date: Date): ThunkAction<void, RootState, null, AppActions> => {
+export const getOutfitsByDate = (date: Date | undefined, uId: string): ThunkAction<void, RootState, null, AppActions> => {
     return async dispatch => {
         try{
-
-            const formattedDate: string = format(parseISO(date.toISOString()), "MM/d/yyyy");
-            await database.collection("Outfits").where("calendarDate", "==", formattedDate).get().then(snapshot => {
-                const listOfOutfits: Outfit[] = [];
-                snapshot.forEach((doc) => listOfOutfits.push(doc.data() as Outfit))
-                dispatch({
-                    type: GET_OUTFITS_BY_DATE,
-                    payload: listOfOutfits,
-                })
-            });
-            
-            
+            if(date){
+                const formattedDate: string = format(parseISO(date.toISOString()), "MM/d/yyyy");
+                await database.collection("Outfits").where("calendarDate", "==", formattedDate).get().then(snapshot => {
+                    let listOfOutfits: Outfit[] = [];
+                    snapshot.forEach((doc) => listOfOutfits.push(doc.data() as Outfit))
+                    listOfOutfits = listOfOutfits.filter(outfit => outfit.userId === uId);
+                    dispatch({
+                        type: GET_OUTFITS_BY_DATE,
+                        payload: listOfOutfits,
+                    })
+                });
+            }
         }
         catch (error){
             console.log(error)
