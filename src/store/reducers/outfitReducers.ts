@@ -4,7 +4,8 @@ import { OutfitState } from '../types/outfitTypes';
 const initialState: OutfitState = {
   outfits: [],
   mostUsedCloth: null,
-  calendarOutfits: []
+  calendarOutfits: [],
+userOutfits: []
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -19,16 +20,20 @@ export default (state = initialState, action: AppActions) => {
     
     case GET_ALL_OUTFITS:
     case GET_OUTFITS_BY_WEATHER:
-    case GET_USER_OUTFITS:
         return {
             ...state,
             outfits: action.payload
         }
-        case GET_OUTFITS_BY_DATE:
-            return {
-                ...state,
-                calendarOutfits: action.payload
-            }
+    case GET_USER_OUTFITS:
+        return {
+            ...state,
+            userOutfits: action.payload
+        }
+    case GET_OUTFITS_BY_DATE:
+        return {
+            ...state,
+            calendarOutfits: action.payload
+        }
     case DELETE_OUTFIT:
         return {
             ...state,

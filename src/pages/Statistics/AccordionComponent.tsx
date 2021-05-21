@@ -6,11 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import styled from "styled-components";
 import { MostUsedCloth } from "store/types/outfitTypes";
-import AddedClothItem from "../Add/Clothes/AddedClothItem";
-import { Divider } from "@material-ui/core";
 
 const StyledAccordion = styled(Accordion)`
   width: 100%;
+`;
+
+const Image = styled.img`
+  padding-top: 25px;
 `;
 
 interface AccordionComponentProps {
@@ -33,10 +35,18 @@ export const AccordionComponent: React.FC<AccordionComponentProps> = ({
       </AccordionSummary>
       <AccordionDetails>
         {mostUsedCloth ? (
-          // <AddedClothItem cloth={mostUsedCloth.cloth} />
-          <div>XD</div>
+          <div>
+            <p>
+              <strong>Name: </strong>
+              {mostUsedCloth.cloth!.name}
+            </p>
+            <p>
+              <strong>Category: </strong>
+              {mostUsedCloth.cloth!.category}
+            </p>
+            <Image src={mostUsedCloth.cloth!.imageUrl} alt="" />
+          </div>
         ) : (
-          // <div>XD</div>
           <Typography>
             Number of {name} in your wardrobe is equal to:{" "}
             <strong>{content}</strong>
