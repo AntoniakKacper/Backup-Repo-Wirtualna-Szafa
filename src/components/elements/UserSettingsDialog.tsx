@@ -107,6 +107,11 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
     e.target.files && handleUpload(e.target.files[0]);
   };
 
+  const handleClose = () => {
+    action(signout());
+    setOpenDialog(false);
+  };
+
   return (
     <Dialog
       open={openDialog}
@@ -160,7 +165,7 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
           </Button> */}
 
           <Button
-            onClick={() => action(signout())}
+            onClick={handleClose}
             color="secondary"
             variant="contained"
             endIcon={<ExitToAppIcon></ExitToAppIcon>}
