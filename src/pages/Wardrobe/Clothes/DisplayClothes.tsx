@@ -14,6 +14,11 @@ import {
 } from "styles/Card";
 import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
+import {
+  BackArrow,
+  NavigationBar,
+} from "pages/Add/Clothes/styles/AddClothesStyles";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 interface DisplayClothesProps {}
 
@@ -27,7 +32,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
+const DisplayClothes: React.FC<DisplayClothesProps> = () => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
@@ -42,6 +47,13 @@ const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
 
   return (
     <Wrapper>
+      <NavigationBar>
+        <BackArrow to="/wardrobe">
+          <ArrowBackIosIcon fontSize="large" />
+        </BackArrow>
+
+        <></>
+      </NavigationBar>
       <h2>My clothes</h2>
       {userClothes &&
         userClothes.map((item: Cloth) => (

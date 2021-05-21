@@ -1,3 +1,7 @@
+import {
+  BackArrow,
+  NavigationBar,
+} from "pages/Add/Clothes/styles/AddClothesStyles";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
@@ -19,6 +23,7 @@ import {
   RainIcon,
   StyledPragraph,
 } from "./styles/WeatherStyles";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 interface WeatherProps {}
 
@@ -165,6 +170,13 @@ const Weather: React.FC<WeatherProps> = () => {
 
   return (
     <Wrapper>
+      <NavigationBar>
+        <BackArrow to="/wardrobe">
+          <ArrowBackIosIcon fontSize="large" />
+        </BackArrow>
+
+        <></>
+      </NavigationBar>
       {weather && (
         <WeatherContianer>
           <h2>
@@ -182,7 +194,7 @@ const Weather: React.FC<WeatherProps> = () => {
       <StyledPragraph>Outfits that you might wear</StyledPragraph>
 
       {outfits?.map((outfit: Outfit) => (
-        <OutfitCard outfit={outfit} key={outfit.id} />
+        <OutfitCard outfit={outfit} key={outfit.id} withLike={true} />
       ))}
     </Wrapper>
   );

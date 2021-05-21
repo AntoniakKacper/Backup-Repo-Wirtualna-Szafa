@@ -5,26 +5,62 @@ import { getAllOutfits } from "store/actions/outfitActions";
 import { Wrapper } from "./styles/OutfitCardStyles";
 import { OutfitCard } from "./OutfitCard";
 import { Outfit } from "store/types/outfitTypes";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import {
+  BackArrow,
+  Info,
+  NavigationBar,
+  NoItemsAdded,
+} from "pages/Add/Clothes/styles/AddClothesStyles";
+import { ReactComponent as OutfitImage } from "images/outfit.svg";
+import { NoOutfitsInfo, StyledButton } from "./styles/DisplayOutfitsStyles";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 interface DisplayOutfitsProps {}
 
 const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const { outfits } = useSelector((state: RootState) => state.outfit);
   const action = useDispatch();
 
+  const { outfits } = useSelector((state: RootState) => state.outfit);
   useEffect(() => {
-    //user && action(getUserOutfits(user.id));
     action(getAllOutfits());
   }, []);
+
+  const userOutfits = outfits.filter((outfit) => outfit.userId === user?.id);
+
   return (
     <Wrapper>
-      <h2>My outfits</h2>
-      {outfits
-        .filter((outfit) => outfit.userId === user?.id)
-        .map((outfit: Outfit) => (
-          <OutfitCard outfit={outfit} key={outfit.id} myOutfits={true} />
-        ))}
+      <NavigationBar>
+        <BackArrow to="/wardrobe">
+          <ArrowBackIosIcon fontSize="large" />
+        </BackArrow>
+
+        <></>
+      </NavigationBar>
+      {userOutfits.length !== 0 ? (
+        <>
+          <h2>My outfits</h2>
+          {userOutfits.map((outfit: Outfit) => (
+            <OutfitCard
+              outfit={outfit}
+              key={outfit.id}
+              myOutfits={true}
+              withLike={true}
+            />
+          ))}
+        </>
+      ) : (
+        <NoOutfitsInfo>
+          <OutfitImage width="70px" height="70px" />
+          <Info>{`There are no outfits added`}</Info>
+          <Link to="/addOutfits">
+            <StyledButton color="secondary">Add outfits</StyledButton>
+          </Link>
+        </NoOutfitsInfo>
+      )}
     </Wrapper>
   );
 };

@@ -13,6 +13,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
 import { TopLinearProgress } from "styles/LinearProgress";
+import Header from "components/elements/Header";
 
 const BottomNavbar = lazy(() => import("components/elements/BottomNavbar"));
 const Add = lazy(() => import("pages/Add/AddMenu"));
@@ -67,6 +68,7 @@ const ApplicationRoutes: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Suspense fallback={<TopLinearProgress color="secondary" />}>
         <Router>
+          <Header />
           <Switch>
             <PublicRoute path="/" exact component={Login} />
             <PublicRoute path="/login" component={Login} />

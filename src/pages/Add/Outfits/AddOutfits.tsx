@@ -50,6 +50,7 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const [addedClothes, setAddedClothes] = useState<Cloth[]>([]);
   const [name, setName] = useState("");
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
+  const [count, setCount] = useState(3);
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
@@ -79,15 +80,30 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const AddClothToOutfit = (cloth: Cloth) => {
     setAddedClothes([...addedClothes, cloth]);
     action(removeClothFromUserList(cloth));
+    setCount(count - 1);
   };
 
   const RemoveClothFromOutfit = (cloth: Cloth) => {
     setAddedClothes(addedClothes.filter((item) => item.id !== cloth.id));
     action(addUserCloth(cloth));
+    setCount(count + 1);
   };
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
+  };
+
+  const ClothCount = () => {
+    switch (true) {
+      case count <= 0 && count > -4:
+        return <Info>You can save your outfit</Info>;
+      case count === 1:
+        return <Info>You need to add {count} more item</Info>;
+      case count <= -4:
+        return <Info>Outfit can contain maximum 6 items</Info>;
+      default:
+        return <Info>You need to add {count} more items</Info>;
+    }
   };
 
   return (
@@ -159,10 +175,10 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
           ))
         ) : (
           <NoItemsAdded>
-            <OutfitImage width="70px" height="70px" />
-            <Info>{`There are no outfits added`}</Info>
+            {/* <OutfitImage width="70px" height="70px" /> */}
           </NoItemsAdded>
         )}
+        <ClothCount />
       </AddedClothesContainer>
 
       <Line />

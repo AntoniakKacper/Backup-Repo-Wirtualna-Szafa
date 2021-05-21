@@ -35,11 +35,13 @@ import {
 interface OutfitCardProps {
   outfit: Outfit;
   myOutfits?: boolean;
+  withLike: boolean;
 }
 
 export const OutfitCard: React.FC<OutfitCardProps> = ({
   outfit,
   myOutfits,
+  withLike,
 }) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -144,22 +146,26 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               <DottedMenuButton />
             </StyledButton>
           )}
-          {isOutfitLiked() ? (
-            <FilledHeart
-              color="secondary"
-              onClick={() => {
-                user && action(unlikeOutfit(outfit.id, user.id));
-                outfit.likesCount = outfit.likesCount - 1;
-              }}
-            />
-          ) : (
-            <Heart
-              color="secondary"
-              onClick={() => {
-                user && action(likeOutfit(outfit.id, user.id));
-                outfit.likesCount = outfit.likesCount + 1;
-              }}
-            />
+          {withLike && (
+            <>
+              {isOutfitLiked() ? (
+                <FilledHeart
+                  color="secondary"
+                  onClick={() => {
+                    user && action(unlikeOutfit(outfit.id, user.id));
+                    outfit.likesCount = outfit.likesCount - 1;
+                  }}
+                />
+              ) : (
+                <Heart
+                  color="secondary"
+                  onClick={() => {
+                    user && action(likeOutfit(outfit.id, user.id));
+                    outfit.likesCount = outfit.likesCount + 1;
+                  }}
+                />
+              )}
+            </>
           )}
         </OutfitBottomBar>
         <DetailsButton onClick={() => setOpenDialog(true)}>

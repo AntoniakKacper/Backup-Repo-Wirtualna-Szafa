@@ -42,7 +42,7 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
 
         <div>
           {calendarOutfits.map((outfit) => (
-            <OutfitCard key={outfit.id} outfit={outfit} />
+            <OutfitCard key={outfit.id} outfit={outfit} withLike={false} />
           ))}
           {calendarOutfits.filter((outfit) => outfit.userId === user?.id)
             .length === 0 && (
