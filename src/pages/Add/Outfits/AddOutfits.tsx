@@ -1,24 +1,26 @@
+import DateFnsUtils from "@date-io/date-fns";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import { format, parseISO } from "date-fns";
+import { ReactComponent as OutfitImage } from "images/outfit.svg";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { ReactComponent as OutfitImage } from "images/outfit.svg";
 import { RootState } from "store";
+//eslint-disable-next-line
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import {
   addUserCloth,
   getAddedClothes,
   removeClothFromUserList,
 } from "store/actions/clothActions";
-//eslint-disable-next-line
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { addOutfit, getOutfitsByDate } from "store/actions/outfitActions";
+import { addOutfit } from "store/actions/outfitActions";
 import { Cloth } from "store/types/clothTypes";
 import { Outfit } from "store/types/outfitTypes";
-import { ColorCircle, DisplayColor, ItemCard, ItemInfo } from "styles/Card";
+import AddedClothItem from "../Clothes/AddedClothItem";
 import {
   BackArrow,
   Info,
@@ -29,16 +31,11 @@ import {
 } from "../Clothes/styles/AddClothesStyles";
 import {
   AddedClothesContainer,
-  ClickableIcon,
   Line,
   OutfitForm,
   OwnedClothesContainer,
-  StyledAddIcon,
-  StyledDeleteIcon,
   StyledInput,
 } from "./styles/AddOutfitsStyles";
-import DateFnsUtils from "@date-io/date-fns";
-import { format, parseISO } from "date-fns";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
 
@@ -147,35 +144,17 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
           </OutfitForm>
         )}
         {addedClothes.length > 0 ? (
-          addedClothes.map((item: Cloth, index: number) => (
-            <ItemCard key={index}>
-              <img src={item.imageUrl} alt={item.name} />
-              <ItemInfo>
-                <p>
-                  <span>Name:</span> {item.name}
-                </p>
-                <p>
-                  <span>Catergory:</span> {item.category}
-                </p>
-                <p>
-                  <span>Weather:</span> {item.weather}
-                </p>
-                <p>
-                  <span>Ocassion:</span> {item.occasion}
-                </p>
-                <DisplayColor>
-                  <span>Color:</span>
-                  <ColorCircle color={item.color}></ColorCircle>
-                </DisplayColor>
-              </ItemInfo>
-              <ClickableIcon>
-                <StyledDeleteIcon onClick={() => RemoveClothFromOutfit(item)} />
-              </ClickableIcon>
-            </ItemCard>
+          addedClothes.map((item: Cloth) => (
+            <AddedClothItem
+              key={item.id}
+              cloth={item}
+              handleDelete={RemoveClothFromOutfit}
+              xButton={true}
+            />
           ))
         ) : (
           <NoItemsAdded>
-            {/* <OutfitImage width="70px" height="70px" /> */}
+            <OutfitImage width="70px" height="70px" />
           </NoItemsAdded>
         )}
         <ClothCount />
@@ -185,31 +164,13 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
       <OwnedClothesContainer>
         <h2>Owned clothes</h2>
-        {userClothes.map((item: Cloth, index: number) => (
-          <ItemCard key={index}>
-            <img src={item.imageUrl} alt={item.name} />
-            <ItemInfo>
-              <p>
-                <span>Name:</span> {item.name}
-              </p>
-              <p>
-                <span>Catergory:</span> {item.category}
-              </p>
-              <p>
-                <span>Weather:</span> {item.weather}
-              </p>
-              <p>
-                <span>Ocassion:</span> {item.occasion}
-              </p>
-              <DisplayColor>
-                <span>Color:</span>
-                <ColorCircle color={item.color}></ColorCircle>
-              </DisplayColor>
-            </ItemInfo>
-            <ClickableIcon>
-              <StyledAddIcon onClick={() => AddClothToOutfit(item)} />
-            </ClickableIcon>
-          </ItemCard>
+        {userClothes.map((item: Cloth) => (
+          <AddedClothItem
+            cloth={item}
+            handleDelete={AddClothToOutfit}
+            addButton={true}
+            key={item.id}
+          />
         ))}
       </OwnedClothesContainer>
     </Wrapper>

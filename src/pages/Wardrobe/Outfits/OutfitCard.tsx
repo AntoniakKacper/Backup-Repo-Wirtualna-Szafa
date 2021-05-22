@@ -179,10 +179,10 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <StyledEditButton fontSize="small" />
           <StyledTypography variant="inherit">Edit outfit</StyledTypography>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleDelete}>
           <StyledDeleteButton fontSize="small" />
           <StyledTypography variant="inherit">Delete outfit</StyledTypography>

@@ -1,29 +1,34 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Cloth } from "store/types/clothTypes";
-import { removeClothFromList } from "store/actions/clothActions";
 import {
   ClicableIcon,
   ColorCircle,
   DeleteButton,
   DisplayColor,
-  EditButton,
   ItemCard,
   ItemInfo,
 } from "styles/Card";
+import {
+  ClickableIcon,
+  StyledAddIcon,
+  StyledDeleteIcon,
+} from "../Outfits/styles/AddOutfitsStyles";
 
 interface AddedClothItemProps {
   cloth: Cloth;
-  buttons?: boolean;
+  deleteButton?: boolean;
+  addButton?: boolean;
+  xButton?: boolean;
   handleDelete?: (cloth: Cloth) => void;
 }
 
 const AddedClothItem: React.FC<AddedClothItemProps> = ({
   cloth,
-  buttons,
+  deleteButton,
+  addButton,
+  xButton,
   handleDelete,
 }) => {
-  const action = useDispatch();
   return (
     <ItemCard>
       <img src={cloth.imageUrl} alt={cloth.name} />
@@ -46,15 +51,24 @@ const AddedClothItem: React.FC<AddedClothItemProps> = ({
         </DisplayColor>
       </ItemInfo>
 
-      {buttons && (
+      {deleteButton && (
         <>
-          <ClicableIcon>
-            <EditButton />
-          </ClicableIcon>
-          <ClicableIcon onClick={() => action(removeClothFromList(cloth))}>
+          <ClicableIcon onClick={() => handleDelete && handleDelete(cloth)}>
             <DeleteButton />
           </ClicableIcon>
         </>
+      )}
+      {addButton && (
+        <ClickableIcon>
+          <StyledAddIcon onClick={() => handleDelete && handleDelete(cloth)} />
+        </ClickableIcon>
+      )}
+      {xButton && (
+        <ClickableIcon>
+          <StyledDeleteIcon
+            onClick={() => handleDelete && handleDelete(cloth)}
+          />
+        </ClickableIcon>
       )}
     </ItemCard>
   );

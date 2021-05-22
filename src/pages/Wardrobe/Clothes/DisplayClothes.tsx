@@ -19,6 +19,7 @@ import {
   NavigationBar,
 } from "pages/Add/Clothes/styles/AddClothesStyles";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
 
 interface DisplayClothesProps {}
 
@@ -57,33 +58,11 @@ const DisplayClothes: React.FC<DisplayClothesProps> = () => {
       <h2>My clothes</h2>
       {userClothes &&
         userClothes.map((item: Cloth) => (
-          <ItemCard key={item.id}>
-            <img src={item.imageUrl} alt={item.name} />
-            <ItemInfo>
-              <p>
-                <strong>Name:</strong> {item.name}
-              </p>
-              <p>
-                <strong>Catergory:</strong> {item.category}
-              </p>
-              <p>
-                <strong>Weather:</strong> {item.weather}
-              </p>
-              <p>
-                <strong>Ocassion:</strong> {item.occasion}
-              </p>
-              <DisplayColor>
-                <strong>Color:</strong>
-                <ColorCircle color={item.color}></ColorCircle>
-              </DisplayColor>
-            </ItemInfo>
-            <ClicableIcon>
-              <EditButton />
-            </ClicableIcon>
-            <ClicableIcon>
-              <DeleteButton onClick={() => handleDelete(item)} />
-            </ClicableIcon>
-          </ItemCard>
+          <AddedClothItem
+            cloth={item}
+            handleDelete={handleDelete}
+            deleteButton={true}
+          />
         ))}
     </Wrapper>
   );

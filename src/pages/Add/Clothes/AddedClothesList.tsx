@@ -58,7 +58,7 @@ const AddedClothesList: React.FC<AddedClothesProps> = () => {
             <AddedClothItem
               cloth={cloth}
               key={index}
-              buttons={true}
+              deleteButton={true}
               handleDelete={handleDelete}
             ></AddedClothItem>
           ))}
