@@ -20,6 +20,8 @@ export const WeatherContianer = styled.div`
   flex-direction: column;
   width: 320px;
   border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   & > h2 {

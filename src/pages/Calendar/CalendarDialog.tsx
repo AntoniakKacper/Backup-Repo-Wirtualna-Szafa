@@ -12,6 +12,7 @@ import { RootState } from "store";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import { format } from "date-fns";
 import { Outfit } from "store/types/outfitTypes";
+import { StyledDialogContent } from "styles/Dialog";
 
 interface CalendarDialogProps {
   openDialog: boolean;
@@ -35,21 +36,19 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
   return (
     <Dialog open={openDialog}>
       <DialogTitle>Outfits for current day</DialogTitle>
-      <DialogContent>
+      <StyledDialogContent>
         <DialogContentText>
           <strong>Choosen date:</strong> {date && format(date, "do MMMM yyyy")}
         </DialogContentText>
 
-        <div>
-          {calendarOutfits.map((outfit) => (
-            <OutfitCard key={outfit.id} outfit={outfit} withLike={false} />
-          ))}
-          {calendarOutfits.filter((outfit) => outfit.userId === user?.id)
-            .length === 0 && (
-            <div>There are no outfits added for current day</div>
-          )}
-        </div>
-      </DialogContent>
+        {calendarOutfits.map((outfit) => (
+          <OutfitCard key={outfit.id} outfit={outfit} withLike={false} />
+        ))}
+        {calendarOutfits.filter((outfit) => outfit.userId === user?.id)
+          .length === 0 && (
+          <div>There are no outfits added for current day</div>
+        )}
+      </StyledDialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)} color="primary">
           Close

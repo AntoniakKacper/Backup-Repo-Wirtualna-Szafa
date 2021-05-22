@@ -52,15 +52,17 @@ const CalendarPage: React.FC<CalendarPageProps> = () => {
   };
 
   return (
-    <Wrapper>
+    <>
       <Navbar path="/home" />
-      <Calendar onClickDay={handleClick} tileContent={tileContent} />
-      <CalendarDialog
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-        date={date}
-      />
-    </Wrapper>
+      <Wrapper>
+        <Calendar onClickDay={handleClick} tileContent={tileContent} />
+        <CalendarDialog
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+          date={date}
+        />
+      </Wrapper>
+    </>
   );
 };
 

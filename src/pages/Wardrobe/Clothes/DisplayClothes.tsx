@@ -48,19 +48,21 @@ const DisplayClothes: React.FC<DisplayClothesProps> = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <>
       <Navbar path="/wardrobe" />
-      <h2>My clothes</h2>
-      {userClothes &&
-        userClothes.map((item: Cloth) => (
-          <AddedClothItem
-            key={item.id}
-            cloth={item}
-            handleDelete={handleDelete}
-            deleteButton={true}
-          />
-        ))}
-    </Wrapper>
+      <Wrapper>
+        <h2>My clothes</h2>
+        {userClothes &&
+          userClothes.map((item: Cloth) => (
+            <AddedClothItem
+              key={item.id}
+              cloth={item}
+              handleDelete={handleDelete}
+              deleteButton={true}
+            />
+          ))}
+      </Wrapper>
+    </>
   );
 };
 

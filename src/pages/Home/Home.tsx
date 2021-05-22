@@ -13,6 +13,8 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 69px;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
 
 interface HomePageState {}

@@ -19,7 +19,8 @@ export const OutfitContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 20px 50px 30px 50px;
+  margin-bottom: 40px;
+  margin-top: 20px;
   color: #757575;
   border-radius: 20px;
   overflow: hidden;

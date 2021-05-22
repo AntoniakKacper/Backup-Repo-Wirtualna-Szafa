@@ -47,22 +47,24 @@ const ButtonDescription = styled.p`
 
 const Add: React.FC<AddProps> = () => {
   return (
-    <Wrapper>
+    <>
       <Navbar path="/home" />
-      <Link to="/addOutfits">
-        <CategoryTile>
-          <Outfit width="100px" height="100px" data-item="Outfits" />
-          <ButtonDescription>ADD OUTFITS</ButtonDescription>
-        </CategoryTile>
-      </Link>
+      <Wrapper>
+        <Link to="/addOutfits">
+          <CategoryTile>
+            <Outfit width="100px" height="100px" data-item="Outfits" />
+            <ButtonDescription>ADD OUTFITS</ButtonDescription>
+          </CategoryTile>
+        </Link>
 
-      <Link to="/addClothes">
-        <CategoryTile>
-          <Cloth width="100px" height="100px" data-item="Outfits" />
-          <ButtonDescription>ADD CLOTHES</ButtonDescription>
-        </CategoryTile>
-      </Link>
-    </Wrapper>
+        <Link to="/addClothes">
+          <CategoryTile>
+            <Cloth width="100px" height="100px" data-item="Outfits" />
+            <ButtonDescription>ADD CLOTHES</ButtonDescription>
+          </CategoryTile>
+        </Link>
+      </Wrapper>
+    </>
   );
 };
 

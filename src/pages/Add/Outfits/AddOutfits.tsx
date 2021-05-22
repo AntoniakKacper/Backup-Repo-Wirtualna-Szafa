@@ -101,44 +101,49 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
   };
 
   return (
-    <Wrapper>
+    <>
       <Navbar addedClothes={addedClothes} path="/add" handleSave={handleSave} />
-      <AddedClothesContainer>
-        <h2>Add Outfit</h2>
-        <StyledInput
-          label="Name"
-          variant="outlined"
-          onChange={(event) => setName(event.target.value)}
-        />
-        {addedClothes.length > 2 && addedClothes.length <= 6 && (
-          <AddOutfitForm
-            handleDateChange={handleDateChange}
-            selectedDate={selectedDate}
-            handleChange={handleChange}
-            weather={weather}
+      <Wrapper>
+        <AddedClothesContainer>
+          <h2>Add Outfit</h2>
+          <StyledInput
+            label="Name"
+            variant="outlined"
+            onChange={(event) => setName(event.target.value)}
           />
-        )}
-        {addedClothes.length > 0 ? (
-          addedClothes.map((item: Cloth) => (
-            <AddedClothItem
-              key={item.id}
-              cloth={item}
-              handleDelete={removeClothFromOutfit}
-              xButton={true}
+          {addedClothes.length > 2 && addedClothes.length <= 6 && (
+            <AddOutfitForm
+              handleDateChange={handleDateChange}
+              selectedDate={selectedDate}
+              handleChange={handleChange}
+              weather={weather}
             />
-          ))
-        ) : (
-          <NoItemsAdded>
-            <OutfitImage width="70px" height="70px" />
-          </NoItemsAdded>
-        )}
-        <ClothCount />
-      </AddedClothesContainer>
+          )}
+          {addedClothes.length > 0 ? (
+            addedClothes.map((item: Cloth) => (
+              <AddedClothItem
+                key={item.id}
+                cloth={item}
+                handleDelete={removeClothFromOutfit}
+                xButton={true}
+              />
+            ))
+          ) : (
+            <NoItemsAdded>
+              <OutfitImage width="70px" height="70px" />
+            </NoItemsAdded>
+          )}
+          <ClothCount />
+        </AddedClothesContainer>
 
-      <Line />
+        <Line />
 
-      <OwnedClothes addClothToOutfit={addClothToOutfit} clothes={userClothes} />
-    </Wrapper>
+        <OwnedClothes
+          addClothToOutfit={addClothToOutfit}
+          clothes={userClothes}
+        />
+      </Wrapper>
+    </>
   );
 };
 

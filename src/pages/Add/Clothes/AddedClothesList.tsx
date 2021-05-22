@@ -43,38 +43,43 @@ const AddedClothesList: React.FC<AddedClothesProps> = () => {
   };
 
   return (
-    <Wrapper>
+    <>
       <Navbar path="/add" clothesList={clothesList} handleSave={handleSave} />
-      {clothesList.length !== 0 ? (
-        <AddedClothes>
-          {clothesList.map((cloth: Cloth, index: number) => (
-            <AddedClothItem
-              cloth={cloth}
-              key={index}
-              deleteButton={true}
-              handleDelete={handleDelete}
-            ></AddedClothItem>
-          ))}
-          <Button color="secondary" onClick={() => action(clearClothesList())}>
-            Clear all
-          </Button>
-        </AddedClothes>
-      ) : (
-        <NoItemsAdded>
-          <ClothImage width="70px" height="70px" />
-          <Info>There are no items added</Info>
-        </NoItemsAdded>
-      )}
+      <Wrapper>
+        {clothesList.length !== 0 ? (
+          <AddedClothes>
+            {clothesList.map((cloth: Cloth, index: number) => (
+              <AddedClothItem
+                cloth={cloth}
+                key={index}
+                deleteButton={true}
+                handleDelete={handleDelete}
+              ></AddedClothItem>
+            ))}
+            <Button
+              color="secondary"
+              onClick={() => action(clearClothesList())}
+            >
+              Clear all
+            </Button>
+          </AddedClothes>
+        ) : (
+          <NoItemsAdded>
+            <ClothImage width="70px" height="70px" />
+            <Info>There are no items added</Info>
+          </NoItemsAdded>
+        )}
 
-      <FloatingButton
-        color="secondary"
-        aria-label="add"
-        onClick={() => setOpenDialog(true)}
-      >
-        <AddIcon />
-      </FloatingButton>
-      <AddItemDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
-    </Wrapper>
+        <FloatingButton
+          color="secondary"
+          aria-label="add"
+          onClick={() => setOpenDialog(true)}
+        >
+          <AddIcon />
+        </FloatingButton>
+        <AddItemDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+      </Wrapper>
+    </>
   );
 };
 
