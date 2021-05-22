@@ -1,17 +1,10 @@
-import DateFnsUtils from "@date-io/date-fns";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { Navbar } from "components/elements/Navbar";
 import { format, parseISO } from "date-fns";
 import { ReactComponent as OutfitImage } from "images/outfit.svg";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { RootState } from "store";
-//eslint-disable-next-line
-import { BrowserRouter as Router, Link } from "react-router-dom";
 import {
   addUserCloth,
   getAddedClothes,
@@ -22,18 +15,15 @@ import { Cloth } from "store/types/clothTypes";
 import { Outfit } from "store/types/outfitTypes";
 import AddedClothItem from "../Clothes/AddedClothItem";
 import {
-  BackArrow,
   Info,
-  NavigationBar,
   NoItemsAdded,
-  SaveChangesButton,
   Wrapper,
 } from "../Clothes/styles/AddClothesStyles";
+import { AddOutfitForm } from "./AddOutfitForm";
+import { OwnedClothes } from "./OwnedClothes";
 import {
   AddedClothesContainer,
   Line,
-  OutfitForm,
-  OwnedClothesContainer,
   StyledInput,
 } from "./styles/AddOutfitsStyles";
 
@@ -48,6 +38,11 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const [name, setName] = useState("");
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
   const [count, setCount] = useState(3);
+  const [weather, setWeather] = React.useState("");
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setWeather(event.target.value as string);
+  };
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
@@ -55,10 +50,11 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
     return () => {
       setAddedClothes([]);
       setName("");
+      setWeather("");
     };
   }, []);
 
-  const HandleSave = () => {
+  const handleSave = () => {
     const initialState: Outfit = {
       id: "",
       clothesList: addedClothes,
@@ -69,18 +65,19 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
       calendarDate: selectedDate
         ? format(parseISO(selectedDate!.toISOString()), "MM/d/yyyy")
         : "",
+      weather: weather,
     };
 
     action(addOutfit(initialState));
   };
 
-  const AddClothToOutfit = (cloth: Cloth) => {
+  const addClothToOutfit = (cloth: Cloth) => {
     setAddedClothes([...addedClothes, cloth]);
     action(removeClothFromUserList(cloth));
     setCount(count - 1);
   };
 
-  const RemoveClothFromOutfit = (cloth: Cloth) => {
+  const removeClothFromOutfit = (cloth: Cloth) => {
     setAddedClothes(addedClothes.filter((item) => item.id !== cloth.id));
     action(addUserCloth(cloth));
     setCount(count + 1);
@@ -105,50 +102,28 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
   return (
     <Wrapper>
-      <NavigationBar>
-        <BackArrow to="/add">
-          <ArrowBackIosIcon fontSize="large" />
-        </BackArrow>
-
-        {addedClothes.length > 2 && addedClothes.length <= 6 && (
-          <Link to="/myOutfits">
-            <SaveChangesButton onClick={() => HandleSave()}>
-              Save
-            </SaveChangesButton>
-          </Link>
-        )}
-      </NavigationBar>
+      <Navbar addedClothes={addedClothes} path="/add" handleSave={handleSave} />
       <AddedClothesContainer>
         <h2>Add Outfit</h2>
+        <StyledInput
+          label="Name"
+          variant="outlined"
+          onChange={(event) => setName(event.target.value)}
+        />
         {addedClothes.length > 2 && addedClothes.length <= 6 && (
-          <OutfitForm>
-            <StyledInput
-              label="Name"
-              variant="outlined"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                label="Add this outfit to calendar"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </OutfitForm>
+          <AddOutfitForm
+            handleDateChange={handleDateChange}
+            selectedDate={selectedDate}
+            handleChange={handleChange}
+            weather={weather}
+          />
         )}
         {addedClothes.length > 0 ? (
           addedClothes.map((item: Cloth) => (
             <AddedClothItem
               key={item.id}
               cloth={item}
-              handleDelete={RemoveClothFromOutfit}
+              handleDelete={removeClothFromOutfit}
               xButton={true}
             />
           ))
@@ -162,17 +137,7 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
       <Line />
 
-      <OwnedClothesContainer>
-        <h2>Owned clothes</h2>
-        {userClothes.map((item: Cloth) => (
-          <AddedClothItem
-            cloth={item}
-            handleDelete={AddClothToOutfit}
-            addButton={true}
-            key={item.id}
-          />
-        ))}
-      </OwnedClothesContainer>
+      <OwnedClothes addClothToOutfit={addClothToOutfit} clothes={userClothes} />
     </Wrapper>
   );
 };

@@ -17,6 +17,7 @@ import {
 import { ReactComponent as OutfitImage } from "images/outfit.svg";
 import { NoOutfitsInfo, StyledButton } from "./styles/DisplayOutfitsStyles";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { Navbar } from "components/elements/Navbar";
 
 interface DisplayOutfitsProps {}
 
@@ -33,13 +34,7 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
 
   return (
     <Wrapper>
-      <NavigationBar>
-        <BackArrow to="/wardrobe">
-          <ArrowBackIosIcon fontSize="large" />
-        </BackArrow>
-
-        <></>
-      </NavigationBar>
+      <Navbar path="/wardrobe" />
       {userOutfits.length !== 0 ? (
         <>
           <h2>My outfits</h2>

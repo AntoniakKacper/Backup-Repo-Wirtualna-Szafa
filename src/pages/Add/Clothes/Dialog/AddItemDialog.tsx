@@ -22,7 +22,7 @@ import { DropzoneComponent } from "./DropzoneComponent";
 const validationSchema = Yup.object({
   name: Yup.string().required().max(40),
   category: Yup.string().required(),
-  weather: Yup.string().required(),
+
   occasion: Yup.string().required(),
   imageUrl: Yup.string().required(),
   color: Yup.string().required(),
@@ -44,7 +44,6 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
     id: "",
     name: "",
     imageUrl: "",
-    weather: "",
     userId: user!.id,
     category: "",
     color: "",
@@ -75,12 +74,12 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
                 options={categories}
                 required
               />
-              <FormikSelect
+              {/* <FormikSelect
                 name="weather"
                 label="Weather"
                 options={weather}
                 required
-              />
+              /> */}
               <FormikSelect
                 name="occasion"
                 label="Occasion"

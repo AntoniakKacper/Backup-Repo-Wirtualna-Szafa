@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ReactComponent as Cloth } from "images/cloth.svg";
 import { ReactComponent as Outfit } from "images/outfit.svg";
 import { flexCenterXY } from "styles/shared-style";
+import { Navbar } from "components/elements/Navbar";
 
 interface AddProps {}
 
@@ -47,6 +48,7 @@ const ButtonDescription = styled.p`
 const Add: React.FC<AddProps> = () => {
   return (
     <Wrapper>
+      <Navbar path="/home" />
       <Link to="/addOutfits">
         <CategoryTile>
           <Outfit width="100px" height="100px" data-item="Outfits" />

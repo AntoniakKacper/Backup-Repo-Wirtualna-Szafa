@@ -5,13 +5,17 @@ import Button from "@material-ui/core/Button";
 
 import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
 import {
-  Content,
+  Container,
+  UserInfo,
   Heart,
-  LikesContainer,
   Tittle,
+  BottomContainter,
   Wrapper,
+  DisplayContainer,
 } from "./styles/OutfitDetailsStyles";
-import { StyledAvatar, UserInfo } from "./styles/OutfitCardStyles";
+import { StyledAvatar } from "./styles/OutfitCardStyles";
+import { GetWeatherIcon } from "utils/WeatherIcon";
+import { StyledDialogContent } from "styles/Dialog";
 
 interface OutfitDetalisProps {
   openDialog: boolean;
@@ -33,22 +37,33 @@ export const OutfitDetalis: React.FC<OutfitDetalisProps> = ({
   return (
     <Wrapper open={openDialog}>
       <Tittle>{outfit.name}</Tittle>
-      <Content>
-        {outfit.clothesList.map((cloth) => (
-          <AddedClothItem key={cloth.id} cloth={cloth} />
-        ))}
+      <StyledDialogContent>
+        <BottomContainter>
+          <Container>
+            <h2>Likes</h2>
+            <DisplayContainer>
+              <Heart color="secondary" />
+              <h3>{likes}</h3>
+            </DisplayContainer>
+          </Container>
+          <Container>
+            <h2>Weather</h2>
+            <DisplayContainer>
+              <GetWeatherIcon weather={outfit.weather} />
+              <h4>{outfit.weather}</h4>
+            </DisplayContainer>
+          </Container>
+        </BottomContainter>
         <UserInfo>
           <StyledAvatar alt={username} src={userAvatar} />
           <p>
             <strong>#{username}</strong>
           </p>
         </UserInfo>
-        <h2>Likes</h2>
-        <LikesContainer>
-          <Heart color="secondary" />
-          <h3>{likes}</h3>
-        </LikesContainer>
-      </Content>
+        {outfit.clothesList.map((cloth) => (
+          <AddedClothItem key={cloth.id} cloth={cloth} />
+        ))}
+      </StyledDialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)} color="secondary">
           Close

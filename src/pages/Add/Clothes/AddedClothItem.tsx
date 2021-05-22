@@ -39,9 +39,7 @@ const AddedClothItem: React.FC<AddedClothItemProps> = ({
         <p>
           <strong>Catergory:</strong> {cloth.category}
         </p>
-        <p>
-          <strong>Weather:</strong> {cloth.weather}
-        </p>
+
         <p>
           <strong>Ocassion:</strong> {cloth.occasion}
         </p>

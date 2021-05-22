@@ -20,6 +20,7 @@ import {
 } from "pages/Add/Clothes/styles/AddClothesStyles";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
+import { Navbar } from "components/elements/Navbar";
 
 interface DisplayClothesProps {}
 
@@ -48,17 +49,12 @@ const DisplayClothes: React.FC<DisplayClothesProps> = () => {
 
   return (
     <Wrapper>
-      <NavigationBar>
-        <BackArrow to="/wardrobe">
-          <ArrowBackIosIcon fontSize="large" />
-        </BackArrow>
-
-        <></>
-      </NavigationBar>
+      <Navbar path="/wardrobe" />
       <h2>My clothes</h2>
       {userClothes &&
         userClothes.map((item: Cloth) => (
           <AddedClothItem
+            key={item.id}
             cloth={item}
             handleDelete={handleDelete}
             deleteButton={true}

@@ -24,6 +24,7 @@ import {
   SaveChangesButton,
   Wrapper,
 } from "./styles/AddClothesStyles";
+import { Navbar } from "components/elements/Navbar";
 
 interface AddedClothesProps extends RouteComponentProps<{ category: string }> {}
 
@@ -43,15 +44,7 @@ const AddedClothesList: React.FC<AddedClothesProps> = () => {
 
   return (
     <Wrapper>
-      <NavigationBar>
-        <BackArrow to="/add">
-          <ArrowBackIosIcon />
-        </BackArrow>
-
-        {clothesList.length !== 0 && (
-          <SaveChangesButton onClick={handleSave}>Save</SaveChangesButton>
-        )}
-      </NavigationBar>
+      <Navbar path="/add" clothesList={clothesList} handleSave={handleSave} />
       {clothesList.length !== 0 ? (
         <AddedClothes>
           {clothesList.map((cloth: Cloth, index: number) => (

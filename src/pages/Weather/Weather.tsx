@@ -1,29 +1,19 @@
-import {
-  BackArrow,
-  NavigationBar,
-} from "pages/Add/Clothes/styles/AddClothesStyles";
+import { Navbar } from "components/elements/Navbar";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import {
-  getOutfitByWeather,
-  getUserOutfits,
-} from "store/actions/outfitActions";
+import { getOutfitByWeather } from "store/actions/outfitActions";
 import { Outfit } from "store/types/outfitTypes";
+import { GetWeatherIcon } from "utils/WeatherIcon";
 import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import {
+  CloudContainer,
   DateInfo,
+  Degrees,
+  StyledPragraph,
   WeatherContianer,
   Wrapper,
-  Degrees,
-  CloudContainer,
-  WarmIcon,
-  SunnyIcon,
-  ColdIcon,
-  RainIcon,
-  StyledPragraph,
 } from "./styles/WeatherStyles";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 interface WeatherProps {}
 
@@ -153,30 +143,9 @@ const Weather: React.FC<WeatherProps> = () => {
     }
   };
 
-  const GetWeatherIcon = (weather: any) => {
-    switch (weather.weather) {
-      case "Hot":
-        return <SunnyIcon />;
-      case "Warm":
-        return <WarmIcon />;
-      case "Cold":
-        return <ColdIcon />;
-      case "Rain":
-        return <RainIcon />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <Wrapper>
-      <NavigationBar>
-        <BackArrow to="/wardrobe">
-          <ArrowBackIosIcon fontSize="large" />
-        </BackArrow>
-
-        <></>
-      </NavigationBar>
+      <Navbar path="/wardrobe" />
       {weather && (
         <WeatherContianer>
           <h2>
