@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import styled from "styled-components";

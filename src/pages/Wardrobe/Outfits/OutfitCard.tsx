@@ -22,7 +22,6 @@ import {
   StyledAvatar,
   StyledButton,
   StyledDeleteButton,
-  StyledEditButton,
   StyledTypography,
   UserInfo,
   FilledHeart,

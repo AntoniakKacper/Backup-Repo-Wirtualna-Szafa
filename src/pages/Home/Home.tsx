@@ -24,7 +24,7 @@ const Home: React.FC<HomePageState> = () => {
 
   useEffect(() => {
     action(getAllOutfits());
-  }, []);
+  }, [action]);
   return (
     <Wrapper>
       {outfits?.map((outfit: Outfit) => (

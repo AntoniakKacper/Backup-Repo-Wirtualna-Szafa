@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
 interface StatisticsProps {}
 
-export const Statistics: React.FC<StatisticsProps> = ({}) => {
+export const Statistics: React.FC<StatisticsProps> = () => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
@@ -33,7 +33,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
       action(countClothInOutfits(user.id));
       action(getUserOutfits(user.id));
     }
-  }, []);
+  }, [action, user]);
 
   return (
     <Wrapper>

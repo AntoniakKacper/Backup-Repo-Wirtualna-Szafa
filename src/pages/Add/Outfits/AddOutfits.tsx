@@ -40,7 +40,7 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
     return () => {
       setAddedClothes([]);
     };
-  }, []);
+  }, [user, action]);
 
   const addClothToOutfit = (cloth: Cloth) => {
     setAddedClothes([...addedClothes, cloth]);
@@ -56,11 +56,11 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
   const ClothCount = () => {
     switch (true) {
-      case count <= 0 && count > -4:
+      case count <= 0 && count > -3:
         return <Info>You can save your outfit</Info>;
       case count === 1:
         return <Info>You need to add {count} more item</Info>;
-      case count <= -4:
+      case count === -3:
         return <Info>Outfit can contain maximum 6 items</Info>;
       default:
         return <Info>You need to add {count} more items</Info>;
@@ -95,6 +95,7 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
         <OwnedClothes
           addClothToOutfit={addClothToOutfit}
           clothes={userClothes}
+          addedClothes={addedClothes}
         />
       </Wrapper>
     </>

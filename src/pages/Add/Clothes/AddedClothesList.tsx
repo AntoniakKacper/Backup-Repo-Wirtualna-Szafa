@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { Navbar } from "components/elements/Navbar";
 import { FloatingButton } from "components/shared/FloatingButton";
 import { ReactComponent as ClothImage } from "images/cloth.svg";
 import React, { useState } from "react";
@@ -13,18 +13,14 @@ import {
   removeClothFromList,
 } from "store/actions/clothActions";
 import { Cloth } from "store/types/clothTypes";
-import { AddItemDialog } from "./Dialog/AddItemDialog";
 import AddedClothItem from "./AddedClothItem";
+import { AddItemDialog } from "./Dialog/AddItemDialog";
 import {
   AddedClothes,
-  BackArrow,
   Info,
-  NavigationBar,
   NoItemsAdded,
-  SaveChangesButton,
   Wrapper,
 } from "./styles/AddClothesStyles";
-import { Navbar } from "components/elements/Navbar";
 
 interface AddedClothesProps extends RouteComponentProps<{ category: string }> {}
 

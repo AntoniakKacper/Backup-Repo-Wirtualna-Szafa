@@ -1,34 +1,30 @@
+import { Navbar } from "components/elements/Navbar";
+import { ReactComponent as OutfitImage } from "images/outfit.svg";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Info } from "pages/Add/Clothes/styles/AddClothesStyles";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { getAllOutfits } from "store/actions/outfitActions";
-import { Wrapper } from "./styles/DisplayOutfitsStyles";
-import { OutfitCard } from "./OutfitCard";
 import { Outfit } from "store/types/outfitTypes";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { OutfitCard } from "./OutfitCard";
 import {
-  BackArrow,
-  Info,
-  NavigationBar,
-  NoItemsAdded,
-} from "pages/Add/Clothes/styles/AddClothesStyles";
-import { ReactComponent as OutfitImage } from "images/outfit.svg";
-import { NoOutfitsInfo, StyledButton } from "./styles/DisplayOutfitsStyles";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Navbar } from "components/elements/Navbar";
+  NoOutfitsInfo,
+  StyledButton,
+  Wrapper,
+} from "./styles/DisplayOutfitsStyles";
 
 interface DisplayOutfitsProps {}
 
-const DisplayOutfits: React.FC<DisplayOutfitsProps> = ({}) => {
+const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const action = useDispatch();
 
   const { outfits } = useSelector((state: RootState) => state.outfit);
   useEffect(() => {
     action(getAllOutfits());
-  }, []);
+  }, [action]);
 
   const userOutfits = outfits.filter((outfit) => outfit.userId === user?.id);
 

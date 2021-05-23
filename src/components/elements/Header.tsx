@@ -44,7 +44,7 @@ const Header: React.FC = () => {
     return () => {
       unsubscribe();
     };
-  }, [imageUrl]);
+  }, [imageUrl, user]);
 
   return (
     <Wrapper>

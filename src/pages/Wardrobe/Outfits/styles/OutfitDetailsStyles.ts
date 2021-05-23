@@ -1,10 +1,8 @@
-import styled from "styled-components";
 import Dialog from "@material-ui/core/Dialog";
-import { flexCenterXY } from "styles/shared-style";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { GetWeatherIcon } from "utils/WeatherIcon";
+import styled from "styled-components";
+import { flexCenterXY } from "styles/shared-style";
 import "typeface-roboto";
 
 export const Wrapper = styled(Dialog)`

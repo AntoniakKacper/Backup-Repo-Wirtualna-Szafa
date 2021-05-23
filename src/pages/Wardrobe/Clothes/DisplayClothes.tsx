@@ -1,26 +1,12 @@
+import { Navbar } from "components/elements/Navbar";
+import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { deleteCloth, getAddedClothes } from "store/actions/clothActions";
 import { Cloth } from "store/types/clothTypes";
-import {
-  ClicableIcon,
-  ColorCircle,
-  DeleteButton,
-  DisplayColor,
-  EditButton,
-  ItemCard,
-  ItemInfo,
-} from "styles/Card";
 import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
-import {
-  BackArrow,
-  NavigationBar,
-} from "pages/Add/Clothes/styles/AddClothesStyles";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
-import { Navbar } from "components/elements/Navbar";
 
 interface DisplayClothesProps {}
 
@@ -45,7 +31,7 @@ const DisplayClothes: React.FC<DisplayClothesProps> = () => {
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
-  }, []);
+  }, [user, action]);
 
   return (
     <>

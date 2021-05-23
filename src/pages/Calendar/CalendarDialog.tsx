@@ -1,18 +1,16 @@
-import React, { SetStateAction, useEffect } from "react";
-import "react-dropzone-uploader/dist/styles.css";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { getOutfitsByDate, getUserOutfits } from "store/actions/outfitActions";
-import { RootState } from "store";
-import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 import { format } from "date-fns";
-import { Outfit } from "store/types/outfitTypes";
+import React, { SetStateAction, useEffect } from "react";
+import "react-dropzone-uploader/dist/styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { getOutfitsByDate } from "store/actions/outfitActions";
 import { StyledDialogContent } from "styles/Dialog";
+import { OutfitCard } from "../Wardrobe/Outfits/OutfitCard";
 
 interface CalendarDialogProps {
   openDialog: boolean;
@@ -31,7 +29,7 @@ export const CalendarDialog: React.FC<CalendarDialogProps> = ({
 
   useEffect(() => {
     user && action(getOutfitsByDate(date, user.id));
-  }, [date]);
+  }, [date, user, action]);
 
   return (
     <Dialog open={openDialog}>
