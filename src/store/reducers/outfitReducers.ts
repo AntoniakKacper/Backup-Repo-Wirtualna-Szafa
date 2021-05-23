@@ -15,7 +15,7 @@ export default (state = initialState, action: AppActions) => {
     case ADD_OUTFIT:
         return {
             ...state,
-            outfits: [...state.outfits, action.payload]
+            outfits: [action.payload, ...state.outfits]
         }
     
     case GET_ALL_OUTFITS:

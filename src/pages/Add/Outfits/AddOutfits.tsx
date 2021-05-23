@@ -1,6 +1,4 @@
 import { Navbar } from "components/elements/Navbar";
-import { format, parseISO } from "date-fns";
-import { ReactComponent as OutfitImage } from "images/outfit.svg";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
@@ -10,21 +8,19 @@ import {
   getAddedClothes,
   removeClothFromUserList,
 } from "store/actions/clothActions";
-import { addOutfit } from "store/actions/outfitActions";
 import { Cloth } from "store/types/clothTypes";
-import { Outfit } from "store/types/outfitTypes";
-import AddedClothItem from "../Clothes/AddedClothItem";
+import { Info, Wrapper } from "../Clothes/styles/AddClothesStyles";
 import {
-  Info,
-  NoItemsAdded,
-  Wrapper,
-} from "../Clothes/styles/AddClothesStyles";
+  ClickableIcon,
+  DeleteButton,
+} from "../Outfits/styles/AddOutfitsStyles";
 import { AddOutfitForm } from "./AddOutfitForm";
 import { OwnedClothes } from "./OwnedClothes";
 import {
-  AddedClothesContainer,
+  ClothImage,
+  GridContainer,
+  GridItem,
   Line,
-  StyledInput,
 } from "./styles/AddOutfitsStyles";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
@@ -35,41 +31,16 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const action = useDispatch();
   const { userClothes } = useSelector((state: RootState) => state.cloth);
   const [addedClothes, setAddedClothes] = useState<Cloth[]>([]);
-  const [name, setName] = useState("");
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
   const [count, setCount] = useState(3);
-  const [weather, setWeather] = React.useState("");
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setWeather(event.target.value as string);
-  };
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
 
     return () => {
       setAddedClothes([]);
-      setName("");
-      setWeather("");
     };
   }, []);
-
-  const handleSave = () => {
-    const initialState: Outfit = {
-      id: "",
-      clothesList: addedClothes,
-      name: name,
-      userId: user!.id,
-      likesCount: 0,
-      likes: [],
-      calendarDate: selectedDate
-        ? format(parseISO(selectedDate!.toISOString()), "MM/d/yyyy")
-        : "",
-      weather: weather,
-    };
-
-    action(addOutfit(initialState));
-  };
 
   const addClothToOutfit = (cloth: Cloth) => {
     setAddedClothes([...addedClothes, cloth]);
@@ -81,10 +52,6 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
     setAddedClothes(addedClothes.filter((item) => item.id !== cloth.id));
     action(addUserCloth(cloth));
     setCount(count + 1);
-  };
-
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
   };
 
   const ClothCount = () => {
@@ -102,40 +69,27 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
 
   return (
     <>
-      <Navbar addedClothes={addedClothes} path="/add" handleSave={handleSave} />
+      <Navbar path="/add" />
       <Wrapper>
-        <AddedClothesContainer>
-          <h2>Add Outfit</h2>
-          <StyledInput
-            label="Name"
-            variant="outlined"
-            onChange={(event) => setName(event.target.value)}
-          />
-          {addedClothes.length > 2 && addedClothes.length <= 6 && (
-            <AddOutfitForm
-              handleDateChange={handleDateChange}
-              selectedDate={selectedDate}
-              handleChange={handleChange}
-              weather={weather}
-            />
-          )}
-          {addedClothes.length > 0 ? (
-            addedClothes.map((item: Cloth) => (
-              <AddedClothItem
-                key={item.id}
-                cloth={item}
-                handleDelete={removeClothFromOutfit}
-                xButton={true}
-              />
-            ))
-          ) : (
-            <NoItemsAdded>
-              <OutfitImage width="70px" height="70px" />
-            </NoItemsAdded>
-          )}
-          <ClothCount />
-        </AddedClothesContainer>
+        <h2>Add Outfit</h2>
+        <AddOutfitForm
+          selectedDate={selectedDate}
+          addedClothes={addedClothes}
+          setSelectedDate={setSelectedDate}
+        />
 
+        <GridContainer>
+          {addedClothes.length > 0 &&
+            addedClothes.map((cloth) => (
+              <GridItem key={cloth.id}>
+                <ClothImage src={cloth.imageUrl} alt={cloth.name} />
+                <ClickableIcon>
+                  <DeleteButton onClick={() => removeClothFromOutfit(cloth)} />
+                </ClickableIcon>
+              </GridItem>
+            ))}
+        </GridContainer>
+        <ClothCount />
         <Line />
 
         <OwnedClothes

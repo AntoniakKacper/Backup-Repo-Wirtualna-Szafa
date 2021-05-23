@@ -1,57 +1,103 @@
 import DateFnsUtils from "@date-io/date-fns";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import React from "react";
-import { OutfitForm } from "./styles/AddOutfitsStyles";
+import * as Yup from "yup";
+import { Formik } from "formik";
+import { Outfit } from "store/types/outfitTypes";
+import { FormikInput } from "components/shared/FormikInput";
+import { FormikSelect } from "components/shared/FormikSelect";
+import { weather, Cloth } from "models/cloth.model";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { format, parseISO } from "date-fns";
+import { addOutfit } from "store/actions/outfitActions";
+//eslint-disable-next-line
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { SubmitButton, OutfitForm } from "./styles/AddOutfitFormStyles";
 
 interface AddOutfitFormProps {
-  weather: string;
   selectedDate: Date | null;
-  handleDateChange: (date: Date | null) => void;
-  handleChange: (
-    event: React.ChangeEvent<{
-      value: unknown;
-    }>
-  ) => void;
+  addedClothes: Cloth[];
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date | null>>;
 }
+
+const validationSchema = Yup.object({
+  name: Yup.string().required().max(40),
+  weather: Yup.string().required(),
+});
 
 export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
   selectedDate,
-  handleDateChange,
-  handleChange,
-  weather,
+  setSelectedDate,
+  addedClothes,
 }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const action = useDispatch();
+  const history = useHistory();
+  const initialState: Outfit = {
+    id: "",
+    clothesList: [],
+    name: "",
+    userId: user!.id,
+    likesCount: 0,
+    likes: [],
+    calendarDate: "",
+    weather: "",
+  };
   return (
-    <OutfitForm>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="dd/MM/yyyy"
-          margin="normal"
-          label="Add this outfit to calendar"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            "aria-label": "change date",
-          }}
-        />
-      </MuiPickersUtilsProvider>
-      <FormControl variant="outlined">
-        <InputLabel>Weather</InputLabel>
-        <Select value={weather} onChange={handleChange} label="Weather">
-          <MenuItem value="Hot">Hot</MenuItem>
-          <MenuItem value="Warm">Warm</MenuItem>
-          <MenuItem value="Cold">Cold</MenuItem>
-          <MenuItem value="Rain">Rain</MenuItem>
-        </Select>
-      </FormControl>
-    </OutfitForm>
+    <Formik
+      initialValues={initialState}
+      validateOnChange={true}
+      validationSchema={validationSchema}
+      onSubmit={(data, { resetForm }) => {
+        action(addOutfit({ ...data, clothesList: addedClothes }));
+        resetForm();
+        history.push("/myOutfits");
+      }}
+    >
+      {({ handleSubmit, isValid, setFieldValue }) => (
+        <OutfitForm onSubmit={handleSubmit}>
+          <FormikInput name="name" label="Name" required />
+          <FormikSelect
+            name="weather"
+            label="Weather"
+            options={weather}
+            required
+          />
+
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              name="calendarDate"
+              disableToolbar
+              inputVariant="outlined"
+              format="dd/MM/yyyy"
+              margin="normal"
+              label="Add this outfit to calendar"
+              value={selectedDate}
+              onChange={(value) => {
+                value &&
+                  setFieldValue(
+                    "calendarDate",
+                    format(parseISO(value!.toISOString()), "MM/d/yyyy")
+                  );
+                setSelectedDate(value);
+              }}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+          {addedClothes.length > 2 && addedClothes.length < 7 && (
+            <SubmitButton color="secondary" type="submit" disabled={!isValid}>
+              Save
+            </SubmitButton>
+          )}
+        </OutfitForm>
+      )}
+    </Formik>
   );
 };
