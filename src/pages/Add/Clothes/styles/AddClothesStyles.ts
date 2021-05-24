@@ -43,7 +43,7 @@ export const AddedClothes = styled.div`
   min-width: 330px;
 `;
 // Items Card styles
-export const ItemCard = styled.div`
+export const CardContainer = styled.div`
   position: relative;
   display: flex;
   width: 100%;
@@ -64,7 +64,7 @@ export const ItemCard = styled.div`
   }
 `;
 
-export const ItemInfo = styled.div`
+export const CardInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;

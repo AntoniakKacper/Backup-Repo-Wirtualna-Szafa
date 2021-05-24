@@ -3,18 +3,19 @@ import { Pencil } from "@styled-icons/boxicons-solid/Pencil";
 import { Trash } from "@styled-icons/boxicons-regular/Trash";
 import Button from "@material-ui/core/Button";
 
-export const ItemCard = styled.div`
+export const CardContainer = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-
+  /* background-color: #f8f8f7; */
   min-height: 100px;
   max-height: 140px;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border-radius: 25px;
+  margin-bottom: 25px;
   margin-left: 10px;
   margin-right: 10px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: 4px solid white;
+  transition: border 0.2s ease-in-out;
 
   & > img {
     max-height: 140px;
@@ -22,18 +23,33 @@ export const ItemCard = styled.div`
     border-radius: 20px;
     object-fit: cover;
   }
+
+  &:hover {
+    transition: border 0.2s ease-in-out;
+    border: 4px solid #f50057;
+    cursor: pointer;
+  }
 `;
 
-export const ItemInfo = styled.div`
+export const CardInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 12px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  color: #757575;
+  margin: 10px 12px 10px 24px;
+  width: 50%;
 
+  /* color: #757575; */
+`;
+
+export const CardTitle = styled.h2`
+  color: #000;
+`;
+
+export const CardDetailsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const DisplayColor = styled.div`
@@ -46,7 +62,6 @@ export const ColorCircle = styled.div`
   border: 1px solid #757575;
   background-color: ${(props) => props.color};
   border-radius: 50%;
-  margin-left: 5px;
 `;
 
 export const EditButton = styled(Pencil)`
