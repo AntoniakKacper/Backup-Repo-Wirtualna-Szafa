@@ -25,7 +25,7 @@ export const OutfitContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   max-width: 300px;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1); */
 `;
 
 // export const OutfitImagesContainer = styled.div`

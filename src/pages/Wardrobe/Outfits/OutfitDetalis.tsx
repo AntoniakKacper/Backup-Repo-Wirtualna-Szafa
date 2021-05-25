@@ -35,7 +35,7 @@ export const OutfitDetalis: React.FC<OutfitDetalisProps> = ({
   likes,
 }) => {
   return (
-    <Wrapper open={openDialog}>
+    <Wrapper open={openDialog} fullWidth>
       <Tittle>{outfit.name}</Tittle>
       <StyledDialogContent>
         <BottomContainter>

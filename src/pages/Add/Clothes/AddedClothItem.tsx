@@ -23,6 +23,7 @@ const Column = styled.div`
   align-items: center;
   height: 100%;
   justify-content: flex-end;
+  margin-right: 30px;
 `;
 
 const Icon = styled.div`

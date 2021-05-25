@@ -6,28 +6,25 @@ import Button from "@material-ui/core/Button";
 export const CardContainer = styled.div`
   position: relative;
   display: flex;
-  width: 100%;
-  /* background-color: #f8f8f7; */
-  min-height: 100px;
-  max-height: 140px;
+  height: 120px;
+  background-color: #f8f8f8;
   border-radius: 25px;
-  margin-bottom: 25px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border: 4px solid white;
-  transition: border 0.2s ease-in-out;
+  margin: 50px 0;
+  border: 3px solid white;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 
   & > img {
-    max-height: 140px;
-    width: 30%;
+    width: 120px;
     border-radius: 20px;
     object-fit: cover;
+    transform: scale(1.1);
   }
 
-  &:hover {
-    transition: border 0.2s ease-in-out;
-    border: 4px solid #f50057;
-    cursor: pointer;
+  &:hover img {
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: scale(1.12);
   }
 `;
 
@@ -36,10 +33,7 @@ export const CardInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   font-size: 12px;
-  margin: 10px 12px 10px 24px;
-  width: 50%;
-
-  /* color: #757575; */
+  margin: 10px 12px 10px 40px;
 `;
 
 export const CardTitle = styled.h2`
@@ -48,7 +42,7 @@ export const CardTitle = styled.h2`
 
 export const CardDetailsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-around; */
   align-items: center;
 `;
 

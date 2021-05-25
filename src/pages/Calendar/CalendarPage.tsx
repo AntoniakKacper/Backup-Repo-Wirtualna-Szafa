@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { format, parseISO } from "date-fns";
 import { Navbar } from "components/elements/Navbar";
+import "styles/css/calendar.css";
 
 interface CalendarPageProps {}
 
