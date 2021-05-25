@@ -11,7 +11,6 @@ export const AuthForm = styled(Form)`
   ${flexCenterXY}
   width: 250px;
   flex-direction: column;
-
   padding-top: 100px;
   padding-bottom: 100px;
 `;

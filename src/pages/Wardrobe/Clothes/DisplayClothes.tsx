@@ -1,17 +1,10 @@
+import { Navbar } from "components/elements/Navbar";
+import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { deleteCloth, getAddedClothes } from "store/actions/clothActions";
 import { Cloth } from "store/types/clothTypes";
-import {
-  ClicableIcon,
-  ColorCircle,
-  DeleteButton,
-  DisplayColor,
-  EditButton,
-  ItemCard,
-  ItemInfo,
-} from "styles/Card";
 import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
 
@@ -27,7 +20,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
+const DisplayClothes: React.FC<DisplayClothesProps> = () => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
@@ -38,42 +31,24 @@ const DisplayClothes: React.FC<DisplayClothesProps> = ({}) => {
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
-  }, []);
+  }, [user, action]);
 
   return (
-    <Wrapper>
-      <h2>My clothes</h2>
-      {userClothes &&
-        userClothes.map((item: Cloth) => (
-          <ItemCard key={item.id}>
-            <img src={item.imageUrl} alt={item.name} />
-            <ItemInfo>
-              <p>
-                <strong>Name:</strong> {item.name}
-              </p>
-              <p>
-                <strong>Catergory:</strong> {item.category}
-              </p>
-              <p>
-                <strong>Weather:</strong> {item.weather}
-              </p>
-              <p>
-                <strong>Ocassion:</strong> {item.occasion}
-              </p>
-              <DisplayColor>
-                <strong>Color:</strong>
-                <ColorCircle color={item.color}></ColorCircle>
-              </DisplayColor>
-            </ItemInfo>
-            <ClicableIcon>
-              <EditButton />
-            </ClicableIcon>
-            <ClicableIcon>
-              <DeleteButton onClick={() => handleDelete(item)} />
-            </ClicableIcon>
-          </ItemCard>
-        ))}
-    </Wrapper>
+    <>
+      <Navbar path="/wardrobe" />
+      <Wrapper>
+        <h2>My clothes</h2>
+        {userClothes &&
+          userClothes.map((item: Cloth) => (
+            <AddedClothItem
+              key={item.id}
+              cloth={item}
+              handleDelete={handleDelete}
+              deleteButton={true}
+            />
+          ))}
+      </Wrapper>
+    </>
   );
 };
 

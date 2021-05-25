@@ -42,42 +42,6 @@ export const AddedClothes = styled.div`
   max-width: 700px;
   min-width: 330px;
 `;
-// Items Card styles
-export const ItemCard = styled.div`
-  position: relative;
-  display: flex;
-  width: 100%;
-
-  min-height: 100px;
-  max-height: 140px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
-  & > img {
-    max-height: 140px;
-    width: 30%;
-    border-radius: 20px;
-    object-fit: cover;
-  }
-`;
-
-export const ItemInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  font-size: 12px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  color: #757575;
-
-  & span {
-    color: black;
-  }
-`;
 
 export const DisplayColor = styled.div`
   display: flex;

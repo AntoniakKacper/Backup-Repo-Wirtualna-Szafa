@@ -33,23 +33,29 @@ const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
-  const getAvatarUrl = () => {
-    database
+  useEffect(() => {
+    const unsubscribe = database
       .collection("Users")
       .doc(user?.id)
       .onSnapshot((snapshot) => {
         const result = snapshot.data();
         setImageUrl(result?.imageUrl);
       });
-  };
-
-  useEffect(() => {
-    getAvatarUrl();
-  });
+    return () => {
+      unsubscribe();
+    };
+  }, [imageUrl, user]);
 
   return (
     <Wrapper>
-      <LogoSVG height="30px" width="30px" />
+      {authenticated ? (
+        <Link to="/home">
+          <LogoSVG height="30px" width="30px" />
+        </Link>
+      ) : (
+        <LogoSVG height="30px" width="30px" />
+      )}
+
       {authenticated ? (
         <ClickableAvatar src={imageUrl} onClick={() => setOpen(true)} />
       ) : (

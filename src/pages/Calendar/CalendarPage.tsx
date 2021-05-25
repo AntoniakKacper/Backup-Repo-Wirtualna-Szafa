@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import styled from "styled-components";
@@ -6,6 +6,8 @@ import { CalendarDialog } from "./CalendarDialog";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { format, parseISO } from "date-fns";
+import { Navbar } from "components/elements/Navbar";
+import "styles/css/calendar.css";
 
 interface CalendarPageProps {}
 
@@ -14,6 +16,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 20px;
+  flex-direction: column;
 `;
 
 const Dot = styled.div`
@@ -50,14 +53,17 @@ const CalendarPage: React.FC<CalendarPageProps> = () => {
   };
 
   return (
-    <Wrapper>
-      <Calendar onClickDay={handleClick} tileContent={tileContent} />
-      <CalendarDialog
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-        date={date}
-      />
-    </Wrapper>
+    <>
+      <Navbar path="/home" />
+      <Wrapper>
+        <Calendar onClickDay={handleClick} tileContent={tileContent} />
+        <CalendarDialog
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+          date={date}
+        />
+      </Wrapper>
+    </>
   );
 };
 

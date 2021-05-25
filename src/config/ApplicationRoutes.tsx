@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+//eslint-disable-next-line
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import firebase from "database/firebase";
@@ -13,6 +14,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
 import { TopLinearProgress } from "styles/LinearProgress";
+import Header from "components/elements/Header";
 
 const BottomNavbar = lazy(() => import("components/elements/BottomNavbar"));
 const Add = lazy(() => import("pages/Add/AddMenu"));
@@ -29,7 +31,7 @@ const Home = lazy(() => import("pages/Home/Home"));
 const DisplayClothes = lazy(
   () => import("pages/Wardrobe/Clothes/DisplayClothes")
 );
-const ItemsList = lazy(() => import("pages/Wardrobe/Clothes/ItemsList"));
+
 const DisplayOutfits = lazy(
   () => import("pages/Wardrobe/Outfits/DisplayOutfits")
 );
@@ -67,6 +69,7 @@ const ApplicationRoutes: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Suspense fallback={<TopLinearProgress color="secondary" />}>
         <Router>
+          <Header />
           <Switch>
             <PublicRoute path="/" exact component={Login} />
             <PublicRoute path="/login" component={Login} />
@@ -76,7 +79,7 @@ const ApplicationRoutes: React.FC = () => {
             <PrivateRoute path="/wardrobe" component={Wardrobe} />
             <PrivateRoute path="/myClothes" component={DisplayClothes} />
             <PrivateRoute path="/myOutfits" component={DisplayOutfits} />
-            <PrivateRoute path="/itemsList/:category" component={ItemsList} />
+
             <PrivateRoute path="/add" component={Add} />
             <PrivateRoute path="/addClothes" component={AddedClothesList} />
             <PrivateRoute path="/addItem" component={AddedClothItem} />

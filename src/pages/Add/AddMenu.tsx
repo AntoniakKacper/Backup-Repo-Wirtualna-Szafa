@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ReactComponent as Cloth } from "images/cloth.svg";
 import { ReactComponent as Outfit } from "images/outfit.svg";
 import { flexCenterXY } from "styles/shared-style";
+import { Navbar } from "components/elements/Navbar";
 
 interface AddProps {}
 
@@ -46,21 +47,24 @@ const ButtonDescription = styled.p`
 
 const Add: React.FC<AddProps> = () => {
   return (
-    <Wrapper>
-      <Link to="/addOutfits">
-        <CategoryTile>
-          <Outfit width="100px" height="100px" data-item="Outfits" />
-          <ButtonDescription>ADD OUTFITS</ButtonDescription>
-        </CategoryTile>
-      </Link>
+    <>
+      <Navbar path="/home" />
+      <Wrapper>
+        <Link to="/addOutfits">
+          <CategoryTile>
+            <Outfit width="100px" height="100px" data-item="Outfits" />
+            <ButtonDescription>ADD OUTFITS</ButtonDescription>
+          </CategoryTile>
+        </Link>
 
-      <Link to="/addClothes">
-        <CategoryTile>
-          <Cloth width="100px" height="100px" data-item="Outfits" />
-          <ButtonDescription>ADD CLOTHES</ButtonDescription>
-        </CategoryTile>
-      </Link>
-    </Wrapper>
+        <Link to="/addClothes">
+          <CategoryTile>
+            <Cloth width="100px" height="100px" data-item="Outfits" />
+            <ButtonDescription>ADD CLOTHES</ButtonDescription>
+          </CategoryTile>
+        </Link>
+      </Wrapper>
+    </>
   );
 };
 

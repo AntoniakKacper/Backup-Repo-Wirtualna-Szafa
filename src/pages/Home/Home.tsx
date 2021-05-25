@@ -13,6 +13,8 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 69px;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
 
 interface HomePageState {}
@@ -22,11 +24,11 @@ const Home: React.FC<HomePageState> = () => {
 
   useEffect(() => {
     action(getAllOutfits());
-  }, []);
+  }, [action]);
   return (
     <Wrapper>
       {outfits?.map((outfit: Outfit) => (
-        <OutfitCard outfit={outfit} key={outfit.id} />
+        <OutfitCard outfit={outfit} key={outfit.id} withLike={true} />
       ))}
     </Wrapper>
   );

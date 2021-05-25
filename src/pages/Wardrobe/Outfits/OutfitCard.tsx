@@ -22,7 +22,6 @@ import {
   StyledAvatar,
   StyledButton,
   StyledDeleteButton,
-  StyledEditButton,
   StyledTypography,
   UserInfo,
   FilledHeart,
@@ -31,15 +30,18 @@ import {
   Image3,
   DetailsButton,
 } from "./styles/OutfitCardStyles";
+import LazyLoad from "react-lazyload";
 
 interface OutfitCardProps {
   outfit: Outfit;
   myOutfits?: boolean;
+  withLike: boolean;
 }
 
 export const OutfitCard: React.FC<OutfitCardProps> = ({
   outfit,
   myOutfits,
+  withLike,
 }) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -103,21 +105,27 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
       <OutfitContainer key={outfit.id}>
         {
           <OutfitImagesContainer>
-            <HorizontalImage
-              key={outfit.clothesList[0].id}
-              src={outfit.clothesList[0].imageUrl}
-              alt={outfit.clothesList[0].name}
-            />
-            <Image2
-              key={outfit.clothesList[1].id}
-              src={outfit.clothesList[1].imageUrl}
-              alt={outfit.clothesList[1].name}
-            />
-            <Image3
-              key={outfit.clothesList[2].id}
-              src={outfit.clothesList[2].imageUrl}
-              alt={outfit.clothesList[2].name}
-            />
+            <LazyLoad style={{ height: "100%", gridArea: "image1" }}>
+              <HorizontalImage
+                key={outfit.clothesList[0].id}
+                src={outfit.clothesList[0].imageUrl}
+                alt={outfit.clothesList[0].name}
+              />
+            </LazyLoad>
+            <LazyLoad>
+              <Image2
+                key={outfit.clothesList[1].id}
+                src={outfit.clothesList[1].imageUrl}
+                alt={outfit.clothesList[1].name}
+              />
+            </LazyLoad>
+            <LazyLoad>
+              <Image3
+                key={outfit.clothesList[2].id}
+                src={outfit.clothesList[2].imageUrl}
+                alt={outfit.clothesList[2].name}
+              />
+            </LazyLoad>
           </OutfitImagesContainer>
         }
 
@@ -144,22 +152,26 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
               <DottedMenuButton />
             </StyledButton>
           )}
-          {isOutfitLiked() ? (
-            <FilledHeart
-              color="secondary"
-              onClick={() => {
-                user && action(unlikeOutfit(outfit.id, user.id));
-                outfit.likesCount = outfit.likesCount - 1;
-              }}
-            />
-          ) : (
-            <Heart
-              color="secondary"
-              onClick={() => {
-                user && action(likeOutfit(outfit.id, user.id));
-                outfit.likesCount = outfit.likesCount + 1;
-              }}
-            />
+          {withLike && (
+            <>
+              {isOutfitLiked() ? (
+                <FilledHeart
+                  color="secondary"
+                  onClick={() => {
+                    user && action(unlikeOutfit(outfit.id, user.id));
+                    outfit.likesCount = outfit.likesCount - 1;
+                  }}
+                />
+              ) : (
+                <Heart
+                  color="secondary"
+                  onClick={() => {
+                    user && action(likeOutfit(outfit.id, user.id));
+                    outfit.likesCount = outfit.likesCount + 1;
+                  }}
+                />
+              )}
+            </>
           )}
         </OutfitBottomBar>
         <DetailsButton onClick={() => setOpenDialog(true)}>
@@ -173,10 +185,10 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <StyledEditButton fontSize="small" />
           <StyledTypography variant="inherit">Edit outfit</StyledTypography>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleDelete}>
           <StyledDeleteButton fontSize="small" />
           <StyledTypography variant="inherit">Delete outfit</StyledTypography>

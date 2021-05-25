@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
 import CloudQueueIcon from "@material-ui/icons/CloudQueue";
@@ -19,6 +20,8 @@ export const WeatherContianer = styled.div`
   flex-direction: column;
   width: 320px;
   border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   & > h2 {
@@ -61,32 +64,34 @@ export const StyledPragraph = styled.p`
   font-weight: bold;
 `;
 
+
 export const SunnyIcon = styled(WbSunnyIcon)`
+  
   color: #ffe100;
-  && {
-    width: 50px;
-    height: 50px;
+  &&{
+    width: 35px;
+    height: 35px;
   }
 `;
 
 export const WarmIcon = styled(CloudQueueIcon)`
   color: #757575;
-  && {
-    width: 50px;
-    height: 50px;
+  &&{
+    width: 35px;
+    height: 35px;
   }
 `;
 export const ColdIcon = styled(AcUnitIcon)`
   color: #00bbff;
-  && {
-    width: 50px;
-    height: 50px;
+  &&{
+    width: 35px;
+    height: 35px;
   }
 `;
 export const RainIcon = styled(GrainIcon)`
   color: #00bbff;
-  && {
-    width: 50px;
-    height: 50px;
+  &&{
+    width: 35px;
+    height: 35px;
   }
 `;

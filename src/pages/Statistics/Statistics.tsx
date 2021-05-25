@@ -19,12 +19,13 @@ const Wrapper = styled.div`
 
 interface StatisticsProps {}
 
-export const Statistics: React.FC<StatisticsProps> = ({}) => {
+export const Statistics: React.FC<StatisticsProps> = () => {
   const action = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
-  const { outfits } = useSelector((state: RootState) => state.outfit);
-  const { mostUsedCloth } = useSelector((state: RootState) => state.outfit);
+  const { userOutfits, mostUsedCloth } = useSelector(
+    (state: RootState) => state.outfit
+  );
 
   useEffect(() => {
     if (user) {
@@ -32,7 +33,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
       action(countClothInOutfits(user.id));
       action(getUserOutfits(user.id));
     }
-  }, []);
+  }, [action, user]);
 
   return (
     <Wrapper>
@@ -43,7 +44,7 @@ export const Statistics: React.FC<StatisticsProps> = ({}) => {
       />
       <AccordionComponent
         title="Outfit Count"
-        content={outfits.length}
+        content={userOutfits.length}
         name="Outfit"
       />
       <AccordionComponent

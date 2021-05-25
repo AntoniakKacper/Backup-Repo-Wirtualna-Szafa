@@ -1,44 +1,27 @@
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { Navbar } from "components/elements/Navbar";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { ReactComponent as OutfitImage } from "images/outfit.svg";
 import { RootState } from "store";
 import {
   addUserCloth,
   getAddedClothes,
   removeClothFromUserList,
 } from "store/actions/clothActions";
-//eslint-disable-next-line
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { addOutfit, getOutfitsByDate } from "store/actions/outfitActions";
 import { Cloth } from "store/types/clothTypes";
-import { Outfit } from "store/types/outfitTypes";
-import { ColorCircle, DisplayColor, ItemCard, ItemInfo } from "styles/Card";
+import { Info, Wrapper } from "../Clothes/styles/AddClothesStyles";
 import {
-  BackArrow,
-  Info,
-  NavigationBar,
-  NoItemsAdded,
-  SaveChangesButton,
-  Wrapper,
-} from "../Clothes/styles/AddClothesStyles";
-import {
-  AddedClothesContainer,
   ClickableIcon,
+  DeleteButton,
+} from "../Outfits/styles/AddOutfitsStyles";
+import { AddOutfitForm } from "./AddOutfitForm";
+import { OwnedClothes } from "./OwnedClothes";
+import {
+  ClothImage,
+  GridContainer,
+  GridItem,
   Line,
-  OutfitForm,
-  OwnedClothesContainer,
-  StyledAddIcon,
-  StyledDeleteIcon,
-  StyledInput,
 } from "./styles/AddOutfitsStyles";
-import DateFnsUtils from "@date-io/date-fns";
-import { format, parseISO } from "date-fns";
 
 interface AddOutfitsProps extends RouteComponentProps<{ category: string }> {}
 
@@ -48,155 +31,74 @@ const AddOutfits: React.FC<AddOutfitsProps> = () => {
   const action = useDispatch();
   const { userClothes } = useSelector((state: RootState) => state.cloth);
   const [addedClothes, setAddedClothes] = useState<Cloth[]>([]);
-  const [name, setName] = useState("");
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
+  const [count, setCount] = useState(3);
 
   useEffect(() => {
     user && action(getAddedClothes(user.id));
 
     return () => {
       setAddedClothes([]);
-      setName("");
     };
-  }, []);
+  }, [user, action]);
 
-  const HandleSave = () => {
-    const initialState: Outfit = {
-      id: "",
-      clothesList: addedClothes,
-      name: name,
-      userId: user!.id,
-      likesCount: 0,
-      likes: [],
-      calendarDate: selectedDate
-        ? format(parseISO(selectedDate!.toISOString()), "MM/d/yyyy")
-        : "",
-    };
-
-    action(addOutfit(initialState));
-  };
-
-  const AddClothToOutfit = (cloth: Cloth) => {
+  const addClothToOutfit = (cloth: Cloth) => {
     setAddedClothes([...addedClothes, cloth]);
     action(removeClothFromUserList(cloth));
+    setCount(count - 1);
   };
 
-  const RemoveClothFromOutfit = (cloth: Cloth) => {
+  const removeClothFromOutfit = (cloth: Cloth) => {
     setAddedClothes(addedClothes.filter((item) => item.id !== cloth.id));
     action(addUserCloth(cloth));
+    setCount(count + 1);
   };
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
+  const ClothCount = () => {
+    switch (true) {
+      case count <= 0 && count > -3:
+        return <Info>You can save your outfit</Info>;
+      case count === 1:
+        return <Info>You need to add {count} more item</Info>;
+      case count === -3:
+        return <Info>Outfit can contain maximum 6 items</Info>;
+      default:
+        return <Info>You need to add {count} more items</Info>;
+    }
   };
 
   return (
-    <Wrapper>
-      <NavigationBar>
-        <BackArrow to="/add">
-          <ArrowBackIosIcon fontSize="large" />
-        </BackArrow>
-
-        {addedClothes.length > 2 && addedClothes.length <= 6 && (
-          <Link to="/myOutfits">
-            <SaveChangesButton onClick={() => HandleSave()}>
-              Save
-            </SaveChangesButton>
-          </Link>
-        )}
-      </NavigationBar>
-      <AddedClothesContainer>
+    <>
+      <Navbar path="/add" />
+      <Wrapper>
         <h2>Add Outfit</h2>
-        {addedClothes.length > 2 && addedClothes.length <= 6 && (
-          <OutfitForm>
-            <StyledInput
-              label="Name"
-              variant="outlined"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                label="Add this outfit to calendar"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </OutfitForm>
-        )}
-        {addedClothes.length > 0 ? (
-          addedClothes.map((item: Cloth, index: number) => (
-            <ItemCard key={index}>
-              <img src={item.imageUrl} alt={item.name} />
-              <ItemInfo>
-                <p>
-                  <span>Name:</span> {item.name}
-                </p>
-                <p>
-                  <span>Catergory:</span> {item.category}
-                </p>
-                <p>
-                  <span>Weather:</span> {item.weather}
-                </p>
-                <p>
-                  <span>Ocassion:</span> {item.occasion}
-                </p>
-                <DisplayColor>
-                  <span>Color:</span>
-                  <ColorCircle color={item.color}></ColorCircle>
-                </DisplayColor>
-              </ItemInfo>
-              <ClickableIcon>
-                <StyledDeleteIcon onClick={() => RemoveClothFromOutfit(item)} />
-              </ClickableIcon>
-            </ItemCard>
-          ))
-        ) : (
-          <NoItemsAdded>
-            <OutfitImage width="70px" height="70px" />
-            <Info>{`There are no outfits added`}</Info>
-          </NoItemsAdded>
-        )}
-      </AddedClothesContainer>
+        <AddOutfitForm
+          selectedDate={selectedDate}
+          addedClothes={addedClothes}
+          setSelectedDate={setSelectedDate}
+        />
 
-      <Line />
+        <GridContainer>
+          {addedClothes.length > 0 &&
+            addedClothes.map((cloth) => (
+              <GridItem key={cloth.id}>
+                <ClothImage src={cloth.imageUrl} alt={cloth.name} />
+                <ClickableIcon>
+                  <DeleteButton onClick={() => removeClothFromOutfit(cloth)} />
+                </ClickableIcon>
+              </GridItem>
+            ))}
+        </GridContainer>
+        <ClothCount />
+        <Line />
 
-      <OwnedClothesContainer>
-        <h2>Owned clothes</h2>
-        {userClothes.map((item: Cloth, index: number) => (
-          <ItemCard key={index}>
-            <img src={item.imageUrl} alt={item.name} />
-            <ItemInfo>
-              <p>
-                <span>Name:</span> {item.name}
-              </p>
-              <p>
-                <span>Catergory:</span> {item.category}
-              </p>
-              <p>
-                <span>Weather:</span> {item.weather}
-              </p>
-              <p>
-                <span>Ocassion:</span> {item.occasion}
-              </p>
-              <DisplayColor>
-                <span>Color:</span>
-                <ColorCircle color={item.color}></ColorCircle>
-              </DisplayColor>
-            </ItemInfo>
-            <ClickableIcon>
-              <StyledAddIcon onClick={() => AddClothToOutfit(item)} />
-            </ClickableIcon>
-          </ItemCard>
-        ))}
-      </OwnedClothesContainer>
-    </Wrapper>
+        <OwnedClothes
+          addClothToOutfit={addClothToOutfit}
+          clothes={userClothes}
+          addedClothes={addedClothes}
+        />
+      </Wrapper>
+    </>
   );
 };
 

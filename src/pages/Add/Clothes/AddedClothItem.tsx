@@ -1,62 +1,98 @@
+import { ReactComponent as Hanger } from "images/hanger-light.svg";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Cloth } from "store/types/clothTypes";
-import { removeClothFromList } from "store/actions/clothActions";
+import styled from "styled-components";
 import {
+  CardContainer,
+  CardDetailsContainer,
+  CardInfoContainer,
+  CardTitle,
   ClicableIcon,
   ColorCircle,
   DeleteButton,
-  DisplayColor,
-  EditButton,
-  ItemCard,
-  ItemInfo,
 } from "styles/Card";
+import {
+  ClickableIcon,
+  StyledAddIcon,
+  StyledDeleteIcon,
+} from "../Outfits/styles/AddOutfitsStyles";
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  margin-right: 30px;
+`;
+
+const Icon = styled.div`
+  font-size: 1.2rem;
+  color: #e0e0e0;
+`;
+
+const Text = styled.div`
+  margin-top: 8px;
+`;
 
 interface AddedClothItemProps {
   cloth: Cloth;
-  buttons?: boolean;
+  deleteButton?: boolean;
+  addButton?: boolean;
+  xButton?: boolean;
   handleDelete?: (cloth: Cloth) => void;
 }
 
 const AddedClothItem: React.FC<AddedClothItemProps> = ({
   cloth,
-  buttons,
+  deleteButton,
+  addButton,
+  xButton,
   handleDelete,
 }) => {
-  const action = useDispatch();
   return (
-    <ItemCard>
+    <CardContainer>
       <img src={cloth.imageUrl} alt={cloth.name} />
-      <ItemInfo>
-        <p>
-          <strong>Name:</strong> {cloth.name}
-        </p>
-        <p>
-          <strong>Catergory:</strong> {cloth.category}
-        </p>
-        <p>
-          <strong>Weather:</strong> {cloth.weather}
-        </p>
-        <p>
-          <strong>Ocassion:</strong> {cloth.occasion}
-        </p>
-        <DisplayColor>
-          <strong>Color:</strong>
-          <ColorCircle color={cloth.color}></ColorCircle>
-        </DisplayColor>
-      </ItemInfo>
+      <CardInfoContainer>
+        <CardTitle>{cloth.name}</CardTitle>
+        <CardDetailsContainer>
+          <Column>
+            <Hanger />
+            <Text>{cloth.category}</Text>
+          </Column>
+          <Column>
+            <Icon>
+              <i className="fas fa-star" />
+            </Icon>
+            <Text>{cloth.occasion}</Text>
+          </Column>
+          <Column>
+            <ColorCircle color={cloth.color} />
+            <Text>Color</Text>
+          </Column>
+        </CardDetailsContainer>
+      </CardInfoContainer>
 
-      {buttons && (
+      {deleteButton && (
         <>
-          <ClicableIcon>
-            <EditButton />
-          </ClicableIcon>
-          <ClicableIcon onClick={() => action(removeClothFromList(cloth))}>
+          <ClicableIcon onClick={() => handleDelete && handleDelete(cloth)}>
             <DeleteButton />
           </ClicableIcon>
         </>
       )}
-    </ItemCard>
+      {addButton && (
+        <ClickableIcon>
+          <StyledAddIcon onClick={() => handleDelete && handleDelete(cloth)} />
+        </ClickableIcon>
+      )}
+      {xButton && (
+        <ClickableIcon>
+          <StyledDeleteIcon
+            onClick={() => handleDelete && handleDelete(cloth)}
+          />
+        </ClickableIcon>
+      )}
+    </CardContainer>
   );
 };
 

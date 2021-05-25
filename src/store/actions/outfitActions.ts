@@ -167,26 +167,16 @@ export const getOutfitByWeather = (
 ): ThunkAction<void, RootState, null, AppActions> => {
   return async (dispatch) => {
     try {
-      database
-        .collection("Outfits")
-        .where("userId", "==", userId)
-        .get()
-        .then((snapshot) => {
-          const listOfOutfits: Outfit[] = [];
-          snapshot.forEach((doc) => {
-            doc
-              .data()
-              ["clothesList"].find(
-                (listItem: Cloth) =>
-                  listItem.weather === weather &&
-                  listOfOutfits.push(doc.data() as Outfit)
-              );
-          });
-          dispatch({
-            type: GET_OUTFITS_BY_WEATHER,
-            payload: listOfOutfits,
-          });
-        });
+      database.collection("Outfits").where("weather", "==", weather).where("userId", "==", userId).get().then((snapshot) => {
+        let listOfOutfits: Outfit[] = [];
+        snapshot.forEach((doc) => {
+          listOfOutfits.push(doc.data() as Outfit);
+        })
+        dispatch({
+          type: GET_OUTFITS_BY_WEATHER,
+          payload: listOfOutfits
+        })
+      })
     } catch (error) {
       console.log(error);
     }
