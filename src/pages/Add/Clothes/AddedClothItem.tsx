@@ -1,5 +1,5 @@
 import { ReactComponent as Hanger } from "images/hanger-light.svg";
-import React from "react";
+import React, { SetStateAction } from "react";
 import { Cloth } from "store/types/clothTypes";
 import styled from "styled-components";
 import {
@@ -41,6 +41,7 @@ interface AddedClothItemProps {
   addButton?: boolean;
   xButton?: boolean;
   handleDelete?: (cloth: Cloth) => void;
+  setOpen?: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const AddedClothItem: React.FC<AddedClothItemProps> = ({
@@ -49,6 +50,7 @@ const AddedClothItem: React.FC<AddedClothItemProps> = ({
   addButton,
   xButton,
   handleDelete,
+  setOpen,
 }) => {
   return (
     <CardContainer>
@@ -64,6 +66,7 @@ const AddedClothItem: React.FC<AddedClothItemProps> = ({
             <Icon>
               <i className="fas fa-star" />
             </Icon>
+
             <Text>{cloth.occasion}</Text>
           </Column>
           <Column>
@@ -75,7 +78,12 @@ const AddedClothItem: React.FC<AddedClothItemProps> = ({
 
       {deleteButton && (
         <>
-          <ClicableIcon onClick={() => handleDelete && handleDelete(cloth)}>
+          <ClicableIcon
+            onClick={() => {
+              handleDelete && handleDelete(cloth);
+              setOpen && setOpen(true);
+            }}
+          >
             <DeleteButton />
           </ClicableIcon>
         </>

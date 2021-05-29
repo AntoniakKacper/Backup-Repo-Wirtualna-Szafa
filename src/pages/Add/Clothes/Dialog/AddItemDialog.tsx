@@ -1,11 +1,12 @@
 import { Dialog } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 import { FormikInput } from "components/shared/FormikInput";
 import { FormikSelect } from "components/shared/FormikSelect";
 import { Formik } from "formik";
 import { categories, Cloth, occasions } from "models/cloth.model";
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
@@ -50,59 +51,61 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
   };
 
   return (
-    <Formik
-      initialValues={initialState}
-      validateOnChange={true}
-      validationSchema={validationSchema}
-      onSubmit={(data, { resetForm }) => {
-        action(addCloth(data));
-        setOpenDialog(false);
-        resetForm();
-      }}
-    >
-      {({ handleSubmit, isValid, setFieldValue, resetForm }) => (
-        <Dialog open={openDialog}>
-          <DialogTitle>Add item</DialogTitle>
-          <DialogFormContainer onSubmit={handleSubmit}>
-            <StyledDialogContent>
-              <DropzoneComponent setFieldValue={setFieldValue} />
-              <FormikInput name="name" label="Name" required />
-              <FormikSelect
-                name="category"
-                label="Category"
-                options={categories}
-                required
-              />
-              <FormikSelect
-                name="occasion"
-                label="Occasion"
-                options={occasions}
-                required
-              />
-              <ColorPicker setFieldValue={setFieldValue} />
-            </StyledDialogContent>
-            <StyledDialogActions>
-              <Button
-                color="secondary"
-                onClick={() => {
-                  setOpenDialog(false);
-                  resetForm();
-                }}
-              >
-                Close
-              </Button>
-              <Button
-                color="secondary"
-                variant="contained"
-                type="submit"
-                disabled={!isValid}
-              >
-                Add item
-              </Button>
-            </StyledDialogActions>
-          </DialogFormContainer>
-        </Dialog>
-      )}
-    </Formik>
+    <>
+      <Formik
+        initialValues={initialState}
+        validateOnChange={true}
+        validationSchema={validationSchema}
+        onSubmit={(data, { resetForm }) => {
+          action(addCloth(data));
+          setOpenDialog(false);
+          resetForm();
+        }}
+      >
+        {({ handleSubmit, isValid, setFieldValue, resetForm }) => (
+          <Dialog open={openDialog}>
+            <DialogTitle>Add item</DialogTitle>
+            <DialogFormContainer onSubmit={handleSubmit}>
+              <StyledDialogContent>
+                <DropzoneComponent setFieldValue={setFieldValue} />
+                <FormikInput name="name" label="Name" required />
+                <FormikSelect
+                  name="category"
+                  label="Category"
+                  options={categories}
+                  required
+                />
+                <FormikSelect
+                  name="occasion"
+                  label="Occasion"
+                  options={occasions}
+                  required
+                />
+                <ColorPicker setFieldValue={setFieldValue} />
+              </StyledDialogContent>
+              <StyledDialogActions>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    setOpenDialog(false);
+                    resetForm();
+                  }}
+                >
+                  Close
+                </Button>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  type="submit"
+                  disabled={!isValid}
+                >
+                  Add item
+                </Button>
+              </StyledDialogActions>
+            </DialogFormContainer>
+          </Dialog>
+        )}
+      </Formik>
+    </>
   );
 };

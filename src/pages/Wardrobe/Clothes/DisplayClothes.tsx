@@ -1,6 +1,7 @@
 import { Navbar } from "components/elements/Navbar";
+import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 import AddedClothItem from "pages/Add/Clothes/AddedClothItem";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { deleteCloth, getAddedClothes } from "store/actions/clothActions";
@@ -22,6 +23,7 @@ export const Wrapper = styled.div`
 
 const DisplayClothes: React.FC<DisplayClothesProps> = () => {
   const action = useDispatch();
+  const [open, setOpen] = useState(false);
   const { user } = useSelector((state: RootState) => state.auth);
   const { userClothes } = useSelector((state: RootState) => state.cloth);
 
@@ -45,9 +47,15 @@ const DisplayClothes: React.FC<DisplayClothesProps> = () => {
               cloth={item}
               handleDelete={handleDelete}
               deleteButton={true}
+              setOpen={setOpen}
             />
           ))}
       </Wrapper>
+      <SuccessSnackbar
+        open={open}
+        setOpen={setOpen}
+        message="Cloth has been successfully deleted"
+      />
     </>
   );
 };

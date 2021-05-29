@@ -17,7 +17,7 @@ const Image = styled.img`
 
 interface AccordionComponentProps {
   title: string;
-  content: number;
+  content?: number;
   name?: string;
   mostUsedCloth?: MostUsedCloth | null;
 }
@@ -46,6 +46,8 @@ export const AccordionComponent: React.FC<AccordionComponentProps> = ({
             </p>
             <Image src={mostUsedCloth.cloth!.imageUrl} alt="" />
           </div>
+        ) : mostUsedCloth === null ? (
+          <Typography>There are no outfits added</Typography>
         ) : (
           <Typography>
             Number of {name} in your wardrobe is equal to:{" "}

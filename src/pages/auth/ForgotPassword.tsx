@@ -3,7 +3,7 @@ import React from "react";
 const ForgotPassword: React.FC = () => {
   return (
     <div>
-      <h1>Forgot Password?</h1>
+      <h1>To masz problem</h1>
     </div>
   );
 };

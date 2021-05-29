@@ -9,7 +9,7 @@ export const CardContainer = styled.div`
   height: 120px;
   background-color: #f8f8f8;
   border-radius: 25px;
-  margin: 50px 0;
+  margin-top: 30px;
   border: 3px solid white;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -73,7 +73,7 @@ export const DeleteButton = styled(Trash)`
   width: 20px;
   height: 20px;
   right: 0;
-  bottom: 0%;
+  top: 10px;
   margin-bottom: 15px;
   margin-right: 15px;
   color: #757575;

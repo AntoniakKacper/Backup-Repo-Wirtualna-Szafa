@@ -3,7 +3,7 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Outfit } from "store/types/outfitTypes";
@@ -36,6 +36,7 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
   addedClothes,
 }) => {
   const { user } = useSelector((state: RootState) => state.auth);
+
   const action = useDispatch();
   const history = useHistory();
   const initialState: Outfit = {
@@ -49,55 +50,57 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
     weather: "",
   };
   return (
-    <Formik
-      initialValues={initialState}
-      validateOnChange={true}
-      validationSchema={validationSchema}
-      onSubmit={(data, { resetForm }) => {
-        action(addOutfit({ ...data, clothesList: addedClothes }));
-        resetForm();
-        history.push("/myOutfits");
-      }}
-    >
-      {({ handleSubmit, isValid, setFieldValue }) => (
-        <OutfitForm onSubmit={handleSubmit}>
-          <FormikInput name="name" label="Name" required />
-          <FormikSelect
-            name="weather"
-            label="Weather"
-            options={weather}
-            required
-          />
-
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              name="calendarDate"
-              disableToolbar
-              inputVariant="outlined"
-              format="dd/MM/yyyy"
-              margin="normal"
-              label="Add this outfit to calendar"
-              value={selectedDate}
-              onChange={(value) => {
-                value &&
-                  setFieldValue(
-                    "calendarDate",
-                    format(parseISO(value!.toISOString()), "MM/d/yyyy")
-                  );
-                setSelectedDate(value);
-              }}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
+    <>
+      <Formik
+        initialValues={initialState}
+        validateOnChange={true}
+        validationSchema={validationSchema}
+        onSubmit={(data, { resetForm }) => {
+          action(addOutfit({ ...data, clothesList: addedClothes }));
+          resetForm();
+          history.push("/myOutfits");
+        }}
+      >
+        {({ handleSubmit, isValid, setFieldValue }) => (
+          <OutfitForm onSubmit={handleSubmit}>
+            <FormikInput name="name" label="Name" required />
+            <FormikSelect
+              name="weather"
+              label="Weather"
+              options={weather}
+              required
             />
-          </MuiPickersUtilsProvider>
-          {addedClothes.length > 2 && addedClothes.length < 7 && (
-            <SubmitButton color="secondary" type="submit" disabled={!isValid}>
-              Save
-            </SubmitButton>
-          )}
-        </OutfitForm>
-      )}
-    </Formik>
+
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                name="calendarDate"
+                disableToolbar
+                inputVariant="outlined"
+                format="dd/MM/yyyy"
+                margin="normal"
+                label="Add this outfit to calendar"
+                value={selectedDate}
+                onChange={(value) => {
+                  value &&
+                    setFieldValue(
+                      "calendarDate",
+                      format(parseISO(value!.toISOString()), "MM/d/yyyy")
+                    );
+                  setSelectedDate(value);
+                }}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </MuiPickersUtilsProvider>
+            {addedClothes.length > 2 && addedClothes.length < 7 && (
+              <SubmitButton color="secondary" type="submit" disabled={!isValid}>
+                Save
+              </SubmitButton>
+            )}
+          </OutfitForm>
+        )}
+      </Formik>
+    </>
   );
 };

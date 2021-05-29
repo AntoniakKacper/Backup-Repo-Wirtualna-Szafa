@@ -25,7 +25,7 @@ const StyledBottomNavigation = styled(BottomNavigation)`
 `;
 
 const BottomNavbar: React.FC<BottomNavbarProps> = () => {
-  const [value, setValue] = React.useState("recents");
+  const [value, setValue] = React.useState("home");
   const ListOfButtons: ListOfButtonTypes[] = [
     {
       value: "home",

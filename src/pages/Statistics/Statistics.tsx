@@ -49,8 +49,7 @@ export const Statistics: React.FC<StatisticsProps> = () => {
       />
       <AccordionComponent
         title="Most used cloth"
-        content={mostUsedCloth ? mostUsedCloth.count : 0}
-        mostUsedCloth={mostUsedCloth}
+        mostUsedCloth={userClothes.length !== 0 ? mostUsedCloth : null}
       />
     </Wrapper>
   );

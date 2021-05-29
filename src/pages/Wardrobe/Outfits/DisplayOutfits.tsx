@@ -3,7 +3,7 @@ import { ReactComponent as OutfitImage } from "images/outfit.svg";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { Info } from "pages/Add/Clothes/styles/AddClothesStyles";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { getAllOutfits } from "store/actions/outfitActions";
@@ -14,11 +14,13 @@ import {
   StyledButton,
   Wrapper,
 } from "./styles/DisplayOutfitsStyles";
+import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 
 interface DisplayOutfitsProps {}
 
 const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
   const { user } = useSelector((state: RootState) => state.auth);
+  const [open, setOpen] = useState(false);
   const action = useDispatch();
 
   const { outfits } = useSelector((state: RootState) => state.outfit);
@@ -37,6 +39,7 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
             <h2>My outfits</h2>
             {userOutfits.map((outfit: Outfit) => (
               <OutfitCard
+                setOpen={setOpen}
                 outfit={outfit}
                 key={outfit.id}
                 myOutfits={true}
@@ -54,6 +57,11 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
           </NoOutfitsInfo>
         )}
       </Wrapper>
+      <SuccessSnackbar
+        open={open}
+        setOpen={setOpen}
+        message="Outfit has been successfully deleted"
+      />
     </>
   );
 };

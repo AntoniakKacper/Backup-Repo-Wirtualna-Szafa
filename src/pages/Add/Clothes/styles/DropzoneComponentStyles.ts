@@ -52,7 +52,7 @@ export const PreviewImage = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 20px;
-
+  object-fit: cover;
   background: #e0e0e0;
   box-shadow: 12px 12px 24px #d7d7d7, -12px -12px 24px #e9e9e9;
   margin-bottom: 20px;

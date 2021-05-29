@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { Navbar } from "components/elements/Navbar";
+import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 import { FloatingButton } from "components/shared/FloatingButton";
 import { ReactComponent as ClothImage } from "images/cloth.svg";
 import React, { useState } from "react";
@@ -27,10 +28,12 @@ interface AddedClothesProps extends RouteComponentProps<{ category: string }> {}
 const AddedClothesList: React.FC<AddedClothesProps> = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const { clothesList } = useSelector((state: RootState) => state.cloth);
+  const [open, setOpen] = useState(false);
   const action = useDispatch();
 
   const handleSave = () => {
     action(addClothesToDatabase(clothesList));
+    setOpen(true);
     action(clearClothesList());
   };
 
@@ -74,6 +77,15 @@ const AddedClothesList: React.FC<AddedClothesProps> = () => {
           <AddIcon />
         </FloatingButton>
         <AddItemDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+        <SuccessSnackbar
+          open={open}
+          setOpen={setOpen}
+          message={
+            clothesList.length > 1
+              ? "Cloth has been successfully added"
+              : "Clothes have been succsessfully added"
+          }
+        />
       </Wrapper>
     </>
   );

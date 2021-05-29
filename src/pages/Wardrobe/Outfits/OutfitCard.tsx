@@ -1,6 +1,6 @@
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { database } from "database/firebase";
 import { RootState } from "store";
@@ -36,12 +36,14 @@ interface OutfitCardProps {
   outfit: Outfit;
   myOutfits?: boolean;
   withLike: boolean;
+  setOpen?: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export const OutfitCard: React.FC<OutfitCardProps> = ({
   outfit,
   myOutfits,
   withLike,
+  setOpen,
 }) => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -60,6 +62,7 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
   };
 
   const handleDelete = () => {
+    setOpen && setOpen(true);
     action(deleteOutfit(outfit));
     setAnchorEl(null);
   };
