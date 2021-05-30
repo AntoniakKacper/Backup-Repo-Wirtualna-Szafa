@@ -38,13 +38,13 @@ export const AccordionComponent: React.FC<AccordionComponentProps> = ({
           <div>
             <p>
               <strong>Name: </strong>
-              {mostUsedCloth.cloth!.name}
+              {mostUsedCloth && mostUsedCloth.cloth!.name}
             </p>
             <p>
               <strong>Category: </strong>
-              {mostUsedCloth.cloth!.category}
+              {mostUsedCloth!.cloth!.category}
             </p>
-            <Image src={mostUsedCloth.cloth!.imageUrl} alt="" />
+            <Image src={mostUsedCloth!.cloth!.imageUrl} alt="" />
           </div>
         ) : mostUsedCloth === null ? (
           <Typography>There are no outfits added</Typography>
