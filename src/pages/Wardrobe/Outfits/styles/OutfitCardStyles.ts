@@ -25,14 +25,12 @@ export const OutfitContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   max-width: 300px;
+  background-color: #f8f8f8;
   /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1); */
+  min-width: 240px;
+  min-height: 370px;
 `;
 
-// export const OutfitImagesContainer = styled.div`
-//   padding-bottom: 10px;
-//   display: grid;
-//   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-// `;
 
 export const OutfitImagesContainer = styled.div`
   display: grid;

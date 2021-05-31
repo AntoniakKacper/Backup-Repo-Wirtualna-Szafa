@@ -15,6 +15,7 @@ import { PublicRoute } from "./PublicRoute";
 import { theme } from "./theme";
 import { TopLinearProgress } from "styles/LinearProgress";
 import Header from "components/elements/Header";
+import Weather from "pages/Weather/Weather";
 
 const BottomNavbar = lazy(() => import("components/elements/BottomNavbar"));
 const Add = lazy(() => import("pages/Add/AddMenu"));
@@ -36,7 +37,7 @@ const DisplayOutfits = lazy(
   () => import("pages/Wardrobe/Outfits/DisplayOutfits")
 );
 const Wardrobe = lazy(() => import("pages/Wardrobe/Wardrobe"));
-const Weather = lazy(() => import("pages/Weather/Weather"));
+//const Weather = lazy(() => import("pages/Weather/Weather"));
 
 const ApplicationRoutes: React.FC = () => {
   const dispatch = useDispatch();

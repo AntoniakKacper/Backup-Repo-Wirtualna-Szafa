@@ -108,27 +108,21 @@ export const OutfitCard: React.FC<OutfitCardProps> = ({
       <OutfitContainer key={outfit.id}>
         {
           <OutfitImagesContainer>
-            <LazyLoad style={{ height: "100%", gridArea: "image1" }}>
-              <HorizontalImage
-                key={outfit.clothesList[0].id}
-                src={outfit.clothesList[0].imageUrl}
-                alt={outfit.clothesList[0].name}
-              />
-            </LazyLoad>
-            <LazyLoad>
-              <Image2
-                key={outfit.clothesList[1].id}
-                src={outfit.clothesList[1].imageUrl}
-                alt={outfit.clothesList[1].name}
-              />
-            </LazyLoad>
-            <LazyLoad>
-              <Image3
-                key={outfit.clothesList[2].id}
-                src={outfit.clothesList[2].imageUrl}
-                alt={outfit.clothesList[2].name}
-              />
-            </LazyLoad>
+            <HorizontalImage
+              key={outfit.clothesList[0].id}
+              src={outfit.clothesList[0].imageUrl}
+              alt={outfit.clothesList[0].name}
+            />
+            <Image2
+              key={outfit.clothesList[1].id}
+              src={outfit.clothesList[1].imageUrl}
+              alt={outfit.clothesList[1].name}
+            />
+            <Image3
+              key={outfit.clothesList[2].id}
+              src={outfit.clothesList[2].imageUrl}
+              alt={outfit.clothesList[2].name}
+            />
           </OutfitImagesContainer>
         }
 

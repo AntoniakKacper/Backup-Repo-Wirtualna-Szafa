@@ -86,7 +86,7 @@ const Login: React.FC<MyFormProps> = () => {
       </Formik>
       <Links>
         <Link to="/register">Register</Link>
-        <Link to="/forgotPassword">Forgot Password?</Link>
+        {/* <Link to="/forgotPassword">Forgot Password?</Link> */}
       </Links>
 
       <Snackbar open={!!error} autoHideDuration={3000} onClose={handleClose}>
