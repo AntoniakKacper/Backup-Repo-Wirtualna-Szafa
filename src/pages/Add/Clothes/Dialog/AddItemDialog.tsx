@@ -21,7 +21,7 @@ import { ColorPicker } from "./ColorPickerPopper";
 import { DropzoneComponent } from "./DropzoneComponent";
 
 const validationSchema = Yup.object({
-  name: Yup.string().required().max(40),
+  name: Yup.string().required().max(20),
   category: Yup.string().required(),
   occasion: Yup.string().required(),
   imageUrl: Yup.string().required(),

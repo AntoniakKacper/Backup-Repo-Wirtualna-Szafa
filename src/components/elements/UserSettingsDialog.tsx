@@ -71,7 +71,6 @@ export const UserSettingsDialog: React.FC<UserSettingsDialogProps> = ({
   const [progress, setProgress] = useState(0);
 
   const updateUserAvatar = (image: File) => {
-    console.log("setAvatarUrl");
     storage
       .ref("AvatarImages")
       .child(image.name)
