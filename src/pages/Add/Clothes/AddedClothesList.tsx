@@ -65,7 +65,9 @@ const AddedClothesList: React.FC<AddedClothesProps> = () => {
         ) : (
           <NoItemsAdded>
             <ClothImage width="70px" height="70px" />
-            <Info>There are no items added</Info>
+            <Info>
+              Add at least one cloth and press save to add them to your wardrobe
+            </Info>
           </NoItemsAdded>
         )}
 

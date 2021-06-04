@@ -15,6 +15,12 @@ import {
   Wrapper,
 } from "./styles/DisplayOutfitsStyles";
 import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { weather } from "models/cloth.model";
+import { MenuItem } from "@material-ui/core";
+import { StyledInput } from "./styles/OutfitCardStyles";
 
 interface DisplayOutfitsProps {}
 
@@ -22,6 +28,11 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [open, setOpen] = useState(false);
   const action = useDispatch();
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event: any) => {
+    setAge(event.target.value);
+  };
 
   const { outfits } = useSelector((state: RootState) => state.outfit);
   useEffect(() => {
@@ -34,6 +45,16 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
     <>
       <Navbar path="/wardrobe" />
       <Wrapper>
+        {/* <StyledInput variant="outlined">
+          <InputLabel>Weather</InputLabel>
+          <Select value={age} onChange={handleChange} label="Weather">
+            {weather.map((item: string, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </StyledInput> */}
         {userOutfits.length !== 0 ? (
           <>
             <h2>My outfits</h2>

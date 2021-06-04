@@ -94,7 +94,12 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
               />
             </MuiPickersUtilsProvider>
             {addedClothes.length > 2 && addedClothes.length < 7 && (
-              <SubmitButton color="secondary" type="submit" disabled={!isValid}>
+              <SubmitButton
+                color="primary"
+                type="submit"
+                disabled={!isValid}
+                variant="contained"
+              >
                 Save
               </SubmitButton>
             )}

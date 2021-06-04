@@ -23,7 +23,7 @@ const Dot = styled.div`
   width: 7px;
   height: 7px;
   border-radius: 50px;
-  background-color: #f61f6b;
+  background-color: #1f95f6;
 `;
 
 const CalendarPage: React.FC<CalendarPageProps> = () => {

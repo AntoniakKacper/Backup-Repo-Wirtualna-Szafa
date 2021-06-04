@@ -28,8 +28,10 @@ export const BackArrow = styled(Link)`
 `;
 
 export const Info = styled.p`
+  text-align: center;
   padding-top: 20px;
   color: #757575;
+  width: 300px;
 `;
 
 export const AddedClothes = styled.div`
@@ -89,10 +91,11 @@ export const ClearButton = styled(Button)`
 
 export const SaveChangesButton = styled(Button)`
   && {
-    color: #757575;
+    
     font-weight: bold;
     text-transform: none;
     font-size: 15px;
+    margin-right: 20px;
   }
 `;
 

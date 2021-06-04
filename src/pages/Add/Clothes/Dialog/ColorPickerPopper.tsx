@@ -12,7 +12,7 @@ const StyledCirclePicker = styled(CirclePicker)`
 
 const Popper = styled("div")<{ bottom: boolean }>`
   position: absolute;
-  background-color: white;
+  background-color: #dadada;
   left: 0px;
   top: ${(props) => props.bottom && "42px"};
   bottom: ${(props) => !props.bottom && "42px"};
@@ -67,6 +67,27 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                 circleSpacing={12}
                 onChangeComplete={handleColorChange}
                 onChange={() => setOpen(false)}
+                colors={[
+                  "#000000",
+                  "#ffffff",
+                  "	#E0FFFF",
+                  "	#F5F5DC",
+                  "#C0C0C0",
+                  "#808080",
+                  "#000080",
+                  "#0000FF",
+                  "#800080",
+                  "#FF00FF",
+                  "#800000",
+                  "	#FF0000",
+                  "#00FF00",
+                  "#00FFFF",
+                  "#FFFF00",
+                  "#808000",
+                  "#008000",
+
+                  "#008080",
+                ]}
               />
             </Popper>
           )}

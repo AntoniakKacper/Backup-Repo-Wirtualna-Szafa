@@ -1,11 +1,12 @@
-import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_OUTFITS_BY_DATE, GET_OUTFITS_BY_WEATHER, GET_USER_OUTFITS, LIKE_OUTFIT, UNLIKE_OUTFIT } from '../types/actionTypes';
+import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_MOST_LIKABLE_OUTFIT, GET_OUTFITS_BY_DATE, GET_OUTFITS_BY_WEATHER, GET_USER_OUTFITS, LIKE_OUTFIT, UNLIKE_OUTFIT } from '../types/actionTypes';
 import { OutfitState } from '../types/outfitTypes';
 
 const initialState: OutfitState = {
   outfits: [],
   mostUsedCloth: null,
   calendarOutfits: [],
-userOutfits: []
+  userOutfits: [],
+  mostLikableOutfit: null,
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -50,6 +51,11 @@ export default (state = initialState, action: AppActions) => {
         state.outfits[index].likes = action.payload.likes;
         return{
             ...state,     
+        }
+    case GET_MOST_LIKABLE_OUTFIT:
+        return{
+            ...state,
+            mostLikableOutfit: action.payload
         }
     default: 
         return state;

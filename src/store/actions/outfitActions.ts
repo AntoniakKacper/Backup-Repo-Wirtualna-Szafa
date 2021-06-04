@@ -13,6 +13,7 @@ import {
   LIKE_OUTFIT,
   UNLIKE_OUTFIT,
   GET_OUTFITS_BY_DATE,
+  GET_MOST_LIKABLE_OUTFIT,
 } from "../types/actionTypes";
 import { Cloth } from "../types/clothTypes";
 import { MostUsedCloth, Outfit } from "../types/outfitTypes";
@@ -267,6 +268,23 @@ export const getOutfitsByDate = (
             });
           });
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+export const getMostLikableOutfit = (userId: string
+): ThunkAction<void, RootState, null, AppActions> => {
+  return async (dispatch) => {
+    try {
+      database.collection("Outfits").orderBy("likesCount", "desc").where("userId", "==", userId).limit(1).get().then(snapshot => snapshot.forEach((doc) => dispatch({
+        type: GET_MOST_LIKABLE_OUTFIT,
+        payload: doc.data() as Outfit,
+      })));
+
+      
     } catch (error) {
       console.log(error);
     }

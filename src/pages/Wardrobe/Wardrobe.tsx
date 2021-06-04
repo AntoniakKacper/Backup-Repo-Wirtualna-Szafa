@@ -38,9 +38,9 @@ const Wardrobe: React.FC<WardrobeProps> = () => {
             My clothes
           </Fab>
         </Link>
-        <Link to="/weather">
+        <Link to="/suggestions">
           <Fab variant="extended" color="secondary">
-            Weather
+            Suggestions
           </Fab>
         </Link>
       </Buttons>

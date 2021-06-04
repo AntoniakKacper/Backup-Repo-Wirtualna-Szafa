@@ -22,5 +22,6 @@ export interface OutfitState {
   outfits: Outfit[];
   mostUsedCloth: MostUsedCloth | null;
   calendarOutfits: Outfit[];
-  userOutfits: Outfit[]
+  userOutfits: Outfit[];
+  mostLikableOutfit: Outfit | null;
 }

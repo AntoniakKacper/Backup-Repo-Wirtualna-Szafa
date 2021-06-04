@@ -145,7 +145,7 @@ const Weather: React.FC<WeatherProps> = () => {
 
   return (
     <Wrapper>
-      <Navbar path="/wardrobe" />
+      <Navbar path="/suggestions" />
       {weather && (
         <WeatherContianer>
           <h2>

@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FormControl from "@material-ui/core/FormControl";
 
 export const Wrapper = styled.div`
   ${flexCenterXY}
@@ -160,4 +161,10 @@ export const StyledDeleteButton = styled(DeleteIcon)`
 export const StyledTypography = styled(Typography)`
   color: #757575;
   font-size: 14px;
+`;
+
+export const StyledInput = styled(FormControl)`
+  &&{
+    min-width: 120px;
+  }
 `;

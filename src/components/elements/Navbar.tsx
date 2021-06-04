@@ -33,7 +33,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         </Link>
       )}
       {clothesList && clothesList.length !== 0 && (
-        <SaveChangesButton onClick={handleSave}>Save</SaveChangesButton>
+        <SaveChangesButton
+          onClick={handleSave}
+          variant="contained"
+          color="primary"
+        >
+          Save
+        </SaveChangesButton>
       )}
     </NavigationBar>
   );

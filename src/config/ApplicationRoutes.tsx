@@ -37,7 +37,11 @@ const DisplayOutfits = lazy(
   () => import("pages/Wardrobe/Outfits/DisplayOutfits")
 );
 const Wardrobe = lazy(() => import("pages/Wardrobe/Wardrobe"));
-//const Weather = lazy(() => import("pages/Weather/Weather"));
+const Suggestions = lazy(
+  () => import("pages/Wardrobe/Suggestions/Suggestions")
+);
+const Occassions = lazy(() => import("pages/Wardrobe/Suggestions/Occassions"));
+const Likes = lazy(() => import("pages/Wardrobe/Suggestions/Likes"));
 
 const ApplicationRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -87,6 +91,9 @@ const ApplicationRoutes: React.FC = () => {
             <PrivateRoute path="/addOutfits" component={AddOutfits} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
             <PrivateRoute path="/weather" component={Weather} />
+            <PrivateRoute path="/suggestions" component={Suggestions} />
+            <PrivateRoute path="/occassions" component={Occassions} />
+            <PrivateRoute path="/likes" component={Likes} />
           </Switch>
           {authenticated && <BottomNavbar />}
         </Router>
