@@ -1,4 +1,4 @@
-import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, GET_ALL_OUTFITS, GET_MOST_LIKABLE_OUTFIT, GET_OUTFITS_BY_DATE, GET_OUTFITS_BY_WEATHER, GET_USER_OUTFITS, LIKE_OUTFIT, UNLIKE_OUTFIT } from '../types/actionTypes';
+import { ADD_OUTFIT, AppActions, COUNT_CLOTHES_IN_OUTFIT, DELETE_OUTFIT, FILTER_OUTFITS, GET_ALL_OUTFITS, GET_MOST_LIKABLE_OUTFIT, GET_OUTFITS_BY_DATE, GET_OUTFITS_BY_WEATHER, GET_USER_OUTFITS, LIKE_OUTFIT, UNLIKE_OUTFIT } from '../types/actionTypes';
 import { OutfitState } from '../types/outfitTypes';
 
 const initialState: OutfitState = {
@@ -21,6 +21,7 @@ export default (state = initialState, action: AppActions) => {
     
     case GET_ALL_OUTFITS:
     case GET_OUTFITS_BY_WEATHER:
+    case FILTER_OUTFITS:
         return {
             ...state,
             outfits: action.payload

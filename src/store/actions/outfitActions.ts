@@ -14,6 +14,7 @@ import {
   UNLIKE_OUTFIT,
   GET_OUTFITS_BY_DATE,
   GET_MOST_LIKABLE_OUTFIT,
+  FILTER_OUTFITS,
 } from "../types/actionTypes";
 import { Cloth } from "../types/clothTypes";
 import { MostUsedCloth, Outfit } from "../types/outfitTypes";
@@ -290,3 +291,26 @@ export const getMostLikableOutfit = (userId: string
     }
   };
 };
+
+export const filterOutfits = (sortValue: string, value: string, userId: string
+  ): ThunkAction<void, RootState, null, AppActions> => {
+    return async (dispatch) => {
+      try {
+
+        const ref = database.collection("Outfits").where("userId", "==", userId);
+        ref.where(sortValue, "==", value).get().then((snapshot) => 
+          {
+            let listOfOutfits: Outfit[] = [];
+            snapshot.forEach((doc) => listOfOutfits.push(doc.data() as Outfit));
+            dispatch({
+              type: FILTER_OUTFITS,
+              payload: listOfOutfits,
+            })
+          }
+        );
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };

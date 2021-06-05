@@ -30,6 +30,7 @@ export const LIKE_OUTFIT = "LIKE_OUTFIT";
 export const UNLIKE_OUTFIT = "UNLIKE_OUTFIT";
 export const GET_OUTFITS_BY_DATE = "GET_OUTFITS_BY_DATE";
 export const GET_MOST_LIKABLE_OUTFIT = "GET_MOST_LIKABLE_OUTFIT";
+export const FILTER_OUTFITS = "FILTER_OUTFITS";
 
 
 
@@ -154,7 +155,12 @@ interface SetUserAction {
   interface GetMostLikableOutfit{
     type: typeof GET_MOST_LIKABLE_OUTFIT;
     payload: Outfit;
+  }
+
+  interface FilterOutfits{
+    type: typeof FILTER_OUTFITS;
     //payload: string;
+    payload: Outfit[];
   }
 
   
@@ -163,6 +169,6 @@ interface SetUserAction {
 
   export type ClothActionTypes = AddClothAction | ClearClothesListAction | RemoveClothFromListAction | AddClothesToDatabaseAction | GetAddedClothesAction | RemoveClothFromUserListAction | AddUserClothesAction | DeleteClothAction;
 
-  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction | GetAllOutfitsAction | CountClothesInOutfitsAction | GetOutfitByWeather | LikeOutfitAction | UnlikeOutfitAction | GetOutfitsByDateAction | GetMostLikableOutfit;
+  export type OutfitActionTypes = AddOutfitAction | GetUserOutfitsAction | DeleteOutfitAction | GetAllOutfitsAction | CountClothesInOutfitsAction | GetOutfitByWeather | LikeOutfitAction | UnlikeOutfitAction | GetOutfitsByDateAction | GetMostLikableOutfit | FilterOutfits;
 
 export type AppActions = AuthActionsTypes | ClothActionTypes | OutfitActionTypes;

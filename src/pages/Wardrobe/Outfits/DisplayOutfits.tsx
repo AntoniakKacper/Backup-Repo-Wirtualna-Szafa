@@ -6,7 +6,7 @@ import { Info } from "pages/Add/Clothes/styles/AddClothesStyles";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import { getAllOutfits } from "store/actions/outfitActions";
+import { filterOutfits, getAllOutfits } from "store/actions/outfitActions";
 import { Outfit } from "store/types/outfitTypes";
 import { OutfitCard } from "./OutfitCard";
 import {
@@ -16,7 +16,6 @@ import {
 } from "./styles/DisplayOutfitsStyles";
 import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { weather } from "models/cloth.model";
 import { MenuItem } from "@material-ui/core";
@@ -28,33 +27,41 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [open, setOpen] = useState(false);
   const action = useDispatch();
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event: any) => {
-    setAge(event.target.value);
-  };
-
+  const [selectValue, setSelectValue] = React.useState("");
   const { outfits } = useSelector((state: RootState) => state.outfit);
-  useEffect(() => {
-    action(getAllOutfits());
-  }, [action]);
 
   const userOutfits = outfits.filter((outfit) => outfit.userId === user?.id);
+
+  const handleChange = (event: any) => {
+    setSelectValue(event.target.value);
+    if (event.target.value !== "all") {
+      user && action(filterOutfits("weather", event.target.value, user.id));
+    } else {
+      action(getAllOutfits());
+    }
+  };
+
+  useEffect(() => {
+    action(getAllOutfits());
+
+    return () => setSelectValue("");
+  }, [action]);
 
   return (
     <>
       <Navbar path="/wardrobe" />
       <Wrapper>
-        {/* <StyledInput variant="outlined">
+        <StyledInput variant="outlined">
           <InputLabel>Weather</InputLabel>
-          <Select value={age} onChange={handleChange} label="Weather">
+          <Select value={selectValue} onChange={handleChange} label="Weather">
             {weather.map((item: string, index) => (
               <MenuItem key={index} value={item}>
                 {item}
               </MenuItem>
             ))}
+            <MenuItem value="all">Show All</MenuItem>
           </Select>
-        </StyledInput> */}
+        </StyledInput>
         {userOutfits.length !== 0 ? (
           <>
             <h2>My outfits</h2>
