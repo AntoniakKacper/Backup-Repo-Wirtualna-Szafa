@@ -13,6 +13,7 @@ export const CardContainer = styled.div`
   border: 3px solid white;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  width: 350px;
 
   & > img {
     width: 120px;

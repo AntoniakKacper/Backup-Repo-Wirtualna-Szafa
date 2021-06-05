@@ -5,7 +5,7 @@ import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 import { FormikInput } from "components/shared/FormikInput";
 import { FormikSelect } from "components/shared/FormikSelect";
 import { Formik } from "formik";
-import { categories, Cloth, occasions } from "models/cloth.model";
+import { categories, Cloth } from "models/cloth.model";
 import React, { SetStateAction, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +23,6 @@ import { DropzoneComponent } from "./DropzoneComponent";
 const validationSchema = Yup.object({
   name: Yup.string().required().max(20),
   category: Yup.string().required(),
-  occasion: Yup.string().required(),
   imageUrl: Yup.string().required(),
   color: Yup.string().required(),
 });
@@ -47,7 +46,6 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
     userId: user!.id,
     category: "",
     color: "",
-    occasion: "",
   };
 
   return (
@@ -75,12 +73,7 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({
                   options={categories}
                   required
                 />
-                <FormikSelect
-                  name="occasion"
-                  label="Occasion"
-                  options={occasions}
-                  required
-                />
+
                 <ColorPicker setFieldValue={setFieldValue} />
               </StyledDialogContent>
               <StyledDialogActions>

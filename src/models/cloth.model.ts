@@ -5,7 +5,6 @@ export interface Cloth {
   imageUrl: string;
   userId: string;
   color: string;
-  occasion: string;
 }
 
 export const weather = ["Cold", "Hot", "Warm", "Rain"];

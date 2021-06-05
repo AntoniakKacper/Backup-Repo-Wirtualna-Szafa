@@ -9,7 +9,7 @@ import { Formik } from "formik";
 import { Outfit } from "store/types/outfitTypes";
 import { FormikInput } from "components/shared/FormikInput";
 import { FormikSelect } from "components/shared/FormikSelect";
-import { weather, Cloth } from "models/cloth.model";
+import { weather, Cloth, occasions } from "models/cloth.model";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { format, parseISO } from "date-fns";
@@ -28,6 +28,7 @@ interface AddOutfitFormProps {
 const validationSchema = Yup.object({
   name: Yup.string().required().max(40),
   weather: Yup.string().required(),
+  occassion: Yup.string().required(),
 });
 
 export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
@@ -48,6 +49,7 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
     likes: [],
     calendarDate: "",
     weather: "",
+    occassion: "",
   };
   return (
     <>
@@ -68,6 +70,12 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
               name="weather"
               label="Weather"
               options={weather}
+              required
+            />
+            <FormikSelect
+              name="occassion"
+              label="Occassion"
+              options={occasions}
               required
             />
 

@@ -12,6 +12,8 @@ import {
   BottomContainter,
   Wrapper,
   DisplayContainer,
+  ClothesWrapper,
+  Star,
 } from "./styles/OutfitDetailsStyles";
 import { StyledAvatar } from "./styles/OutfitCardStyles";
 import { GetWeatherIcon } from "utils/WeatherIcon";
@@ -40,17 +42,24 @@ export const OutfitDetalis: React.FC<OutfitDetalisProps> = ({
       <StyledDialogContent>
         <BottomContainter>
           <Container>
-            <h2>Likes</h2>
+            <h3>Likes</h3>
             <DisplayContainer>
               <Heart color="secondary" />
-              <h3>{likes}</h3>
+              <h5>{likes}</h5>
             </DisplayContainer>
           </Container>
           <Container>
-            <h2>Weather</h2>
+            <h3>Weather</h3>
             <DisplayContainer>
               <GetWeatherIcon weather={outfit.weather} />
-              <h4>{outfit.weather}</h4>
+              <h5>{outfit.weather}</h5>
+            </DisplayContainer>
+          </Container>
+          <Container>
+            <h3>Occassion</h3>
+            <DisplayContainer>
+              <Star />
+              <h5>{outfit.occassion}</h5>
             </DisplayContainer>
           </Container>
         </BottomContainter>
@@ -60,9 +69,11 @@ export const OutfitDetalis: React.FC<OutfitDetalisProps> = ({
             <strong>#{username}</strong>
           </p>
         </UserInfo>
-        {outfit.clothesList.map((cloth) => (
-          <AddedClothItem key={cloth.id} cloth={cloth} />
-        ))}
+        <ClothesWrapper>
+          {outfit.clothesList.map((cloth) => (
+            <AddedClothItem key={cloth.id} cloth={cloth} />
+          ))}
+        </ClothesWrapper>
       </StyledDialogContent>
       <DialogActions>
         <Button onClick={() => setOpenDialog(false)} color="secondary">

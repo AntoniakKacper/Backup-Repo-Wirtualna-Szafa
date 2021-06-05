@@ -30,7 +30,6 @@ import {
   Image3,
   DetailsButton,
 } from "./styles/OutfitCardStyles";
-import LazyLoad from "react-lazyload";
 
 interface OutfitCardProps {
   outfit: Outfit;

@@ -1,4 +1,3 @@
-import Fab from "@material-ui/core/Fab";
 import { Navbar } from "components/elements/Navbar";
 import React from "react";
 //eslint-disable-next-line
@@ -87,7 +86,7 @@ const Suggestions: React.FC<WardrobeProps> = () => {
             <p>Likes</p>
           </ButtonTile>
         </Link>
-        <Link to="/ocassions">
+        <Link to="/occassions">
           <ButtonTile>
             <Star width="100px" height="100px" />
             <p>Occassion</p>

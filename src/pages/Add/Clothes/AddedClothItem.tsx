@@ -62,13 +62,7 @@ const AddedClothItem: React.FC<AddedClothItemProps> = ({
             <Hanger />
             <Text>{cloth.category}</Text>
           </Column>
-          <Column>
-            <Icon>
-              <i className="fas fa-star" />
-            </Icon>
 
-            <Text>{cloth.occasion}</Text>
-          </Column>
           <Column>
             <ColorCircle color={cloth.color} />
             <Text>Color</Text>

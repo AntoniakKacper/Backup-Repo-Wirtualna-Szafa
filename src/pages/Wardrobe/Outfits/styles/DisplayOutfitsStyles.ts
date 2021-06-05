@@ -26,3 +26,4 @@ export const StyledButton = styled(Button)`
         margin-top: 20px;
     }
 `;
+

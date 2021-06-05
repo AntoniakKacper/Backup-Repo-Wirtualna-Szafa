@@ -296,7 +296,6 @@ export const filterOutfits = (sortValue: string, value: string, userId: string
   ): ThunkAction<void, RootState, null, AppActions> => {
     return async (dispatch) => {
       try {
-
         const ref = database.collection("Outfits").where("userId", "==", userId);
         ref.where(sortValue, "==", value).get().then((snapshot) => 
           {
