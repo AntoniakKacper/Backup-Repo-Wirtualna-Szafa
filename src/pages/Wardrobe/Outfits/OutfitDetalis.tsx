@@ -56,10 +56,10 @@ export const OutfitDetalis: React.FC<OutfitDetalisProps> = ({
             </DisplayContainer>
           </Container>
           <Container>
-            <h3>Occassion</h3>
+            <h3>Occasion</h3>
             <DisplayContainer>
               <Star />
-              <h5>{outfit.occassion}</h5>
+              <h5>{outfit.occasion}</h5>
             </DisplayContainer>
           </Container>
         </BottomContainter>

@@ -17,7 +17,7 @@ import {
 import { SuccessSnackbar } from "components/elements/SuccessSnackbar";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import { weather } from "models/cloth.model";
+import { weather, occasions } from "models/cloth.model";
 import { MenuItem } from "@material-ui/core";
 import { StyledInput } from "./styles/OutfitCardStyles";
 
@@ -32,10 +32,10 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
 
   const userOutfits = outfits.filter((outfit) => outfit.userId === user?.id);
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any, field: string) => {
     setSelectValue(event.target.value);
     if (event.target.value !== "all") {
-      user && action(filterOutfits("weather", event.target.value, user.id));
+      user && action(filterOutfits(field, event.target.value, user.id));
     } else {
       action(getAllOutfits());
     }
@@ -51,19 +51,36 @@ const DisplayOutfits: React.FC<DisplayOutfitsProps> = () => {
     <>
       <Navbar path="/wardrobe" />
       <Wrapper>
-        <StyledInput variant="outlined">
-          <InputLabel>Weather</InputLabel>
-          <Select value={selectValue} onChange={handleChange} label="Weather">
-            {weather.map((item: string, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
-            <MenuItem value="all">Show All</MenuItem>
-          </Select>
-        </StyledInput>
         {userOutfits.length !== 0 ? (
           <>
+            <StyledInput variant="outlined">
+              <InputLabel>Weather</InputLabel>
+              <Select
+                value={selectValue}
+                onChange={(e) => handleChange(e, "weather")}
+                label="Weather"
+              >
+                {weather.map((item: string, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </StyledInput>
+            {/* <StyledInput variant="outlined">
+              <InputLabel>Occasion</InputLabel>
+              <Select
+                value={selectValue}
+                onChange={(e) => handleChange(e, "occasion")}
+                label="Occasion"
+              >
+                {occasions.map((item: string, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </StyledInput> */}
             <h2>My outfits</h2>
             {userOutfits.map((outfit: Outfit) => (
               <OutfitCard

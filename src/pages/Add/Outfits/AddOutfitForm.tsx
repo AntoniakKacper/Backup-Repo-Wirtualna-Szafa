@@ -28,7 +28,7 @@ interface AddOutfitFormProps {
 const validationSchema = Yup.object({
   name: Yup.string().required().max(40),
   weather: Yup.string().required(),
-  occassion: Yup.string().required(),
+  occasion: Yup.string().required(),
 });
 
 export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
@@ -49,7 +49,7 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
     likes: [],
     calendarDate: "",
     weather: "",
-    occassion: "",
+    occasion: "",
   };
   return (
     <>
@@ -73,8 +73,8 @@ export const AddOutfitForm: React.FC<AddOutfitFormProps> = ({
               required
             />
             <FormikSelect
-              name="occassion"
-              label="Occassion"
+              name="occasion"
+              label="Occasion"
               options={occasions}
               required
             />

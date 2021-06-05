@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
 import { occasions } from "models/cloth.model";
 
-interface OccassionsProps {}
+interface OccasionsProps {}
 
 const Wrapper = styled.div`
   ${flexCenterXY}
@@ -24,7 +24,7 @@ const StyledForm = styled(FormControl)`
   }
 `;
 
-export const Occassions: React.FC<OccassionsProps> = () => {
+export const Occasions: React.FC<OccasionsProps> = () => {
   const [selectValue, setSelectValue] = React.useState("");
   const { user } = useSelector((state: RootState) => state.auth);
   const action = useDispatch();
@@ -32,18 +32,18 @@ export const Occassions: React.FC<OccassionsProps> = () => {
 
   const handleChange = (event: any) => {
     setSelectValue(event.target.value);
-    user && action(filterOutfits("occassion", event.target.value, user.id));
+    user && action(filterOutfits("occasion", event.target.value, user.id));
   };
 
   useEffect(() => {
-    user && action(filterOutfits("occassion", "Casual", user.id));
+    user && action(filterOutfits("occasion", "Casual", user.id));
 
     return () => setSelectValue("");
   }, []);
 
   return (
     <Wrapper>
-      <h1>Occassions</h1>
+      <h1>Occasions</h1>
       <StyledForm variant="outlined">
         <InputLabel>Occasions</InputLabel>
         <Select value={selectValue} onChange={handleChange} label="Occasions">
@@ -58,10 +58,10 @@ export const Occassions: React.FC<OccassionsProps> = () => {
       {outfits.length !== 0 ? (
         <OutfitCard outfit={outfits[0]} withLike={false} />
       ) : (
-        <p>There are no outfits added</p>
+        <p>There are no outfits added on current occasion</p>
       )}
     </Wrapper>
   );
 };
 
-export default Occassions;
+export default Occasions;

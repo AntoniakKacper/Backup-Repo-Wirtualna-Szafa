@@ -40,7 +40,7 @@ const Wardrobe = lazy(() => import("pages/Wardrobe/Wardrobe"));
 const Suggestions = lazy(
   () => import("pages/Wardrobe/Suggestions/Suggestions")
 );
-const Occassions = lazy(() => import("pages/Wardrobe/Suggestions/Occassions"));
+const Occasions = lazy(() => import("pages/Wardrobe/Suggestions/Occasions"));
 const Likes = lazy(() => import("pages/Wardrobe/Suggestions/Likes"));
 
 const ApplicationRoutes: React.FC = () => {
@@ -92,7 +92,7 @@ const ApplicationRoutes: React.FC = () => {
             <PrivateRoute path="/calendar" component={CalendarPage} />
             <PrivateRoute path="/weather" component={Weather} />
             <PrivateRoute path="/suggestions" component={Suggestions} />
-            <PrivateRoute path="/occassions" component={Occassions} />
+            <PrivateRoute path="/occasions" component={Occasions} />
             <PrivateRoute path="/likes" component={Likes} />
           </Switch>
           {authenticated && <BottomNavbar />}

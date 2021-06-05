@@ -12,7 +12,7 @@ export interface Outfit {
   likes: LikesArray[];
   calendarDate: string;
   weather: string;
-  occassion: string;
+  occasion: string;
 }
 export interface MostUsedCloth {
   cloth: Cloth | null;

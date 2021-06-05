@@ -86,10 +86,10 @@ const Suggestions: React.FC<WardrobeProps> = () => {
             <p>Likes</p>
           </ButtonTile>
         </Link>
-        <Link to="/occassions">
+        <Link to="/occasions">
           <ButtonTile>
             <Star width="100px" height="100px" />
-            <p>Occassion</p>
+            <p>Occasion</p>
           </ButtonTile>
         </Link>
       </Buttons>
