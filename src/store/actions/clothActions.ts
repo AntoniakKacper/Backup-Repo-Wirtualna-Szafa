@@ -8,6 +8,7 @@ import {
   AppActions,
   CLEAR_CLOTHES,
   DELETE_CLOTH,
+  FILTER_CLOTHES,
   GET_ADDED_CLOTHES,
   REMOVE_CLOTH_FROM_LIST,
   REMOVE_CLOTH_FROM_USER_LIST,
@@ -160,6 +161,28 @@ export const deleteCloth = (
         type: DELETE_CLOTH,
         payload: cloth,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const filterClothes = (
+  sortValue: string, value: string, userId: string
+): ThunkAction<void, RootState, null, AppActions> => {
+  return async (dispatch) => {
+    try {
+      const ref = database.collection("Clothes").where("userId", "==", userId);
+        ref.where(sortValue, "==", value).get().then((snapshot) => 
+          {
+            let listOfClothes: Cloth[] = [];
+            snapshot.forEach((doc) => listOfClothes.push(doc.data() as Cloth));
+            dispatch({
+              type: FILTER_CLOTHES,
+              payload: listOfClothes,
+            })
+          }
+        );
     } catch (error) {
       console.log(error);
     }

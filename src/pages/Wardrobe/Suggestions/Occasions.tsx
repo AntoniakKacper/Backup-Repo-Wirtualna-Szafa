@@ -10,6 +10,7 @@ import { filterOutfits } from "store/actions/outfitActions";
 import styled from "styled-components";
 import { flexCenterXY } from "styles/shared-style";
 import { occasions } from "models/cloth.model";
+import { Navbar } from "components/elements/Navbar";
 
 interface OccasionsProps {}
 
@@ -18,10 +19,19 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const Tittle = styled.h1`
+  margin-bottom: 40px;
+`;
+
 const StyledForm = styled(FormControl)`
   && {
     min-width: 200px;
   }
+`;
+
+const NoOutfitInfo = styled.p`
+  padding-top: 250px;
+  color: #757575;
 `;
 
 export const Occasions: React.FC<OccasionsProps> = () => {
@@ -42,25 +52,30 @@ export const Occasions: React.FC<OccasionsProps> = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <h1>Occasions</h1>
-      <StyledForm variant="outlined">
-        <InputLabel>Occasions</InputLabel>
-        <Select value={selectValue} onChange={handleChange} label="Occasions">
-          {occasions.map((item: string, index) => (
-            <MenuItem key={index} value={item}>
-              {item}
-            </MenuItem>
-          ))}
-        </Select>
-      </StyledForm>
+    <>
+      <Navbar path="/suggestions" />
+      <Wrapper>
+        <Tittle>Occasions</Tittle>
+        <StyledForm variant="outlined">
+          <InputLabel>Occasions</InputLabel>
+          <Select value={selectValue} onChange={handleChange} label="Occasions">
+            {occasions.map((item: string, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </StyledForm>
 
-      {outfits.length !== 0 ? (
-        <OutfitCard outfit={outfits[0]} withLike={false} />
-      ) : (
-        <p>There are no outfits added on current occasion</p>
-      )}
-    </Wrapper>
+        {outfits.length !== 0 ? (
+          <OutfitCard outfit={outfits[0]} withLike={false} />
+        ) : (
+          <NoOutfitInfo>
+            There are no outfits added on current occasion
+          </NoOutfitInfo>
+        )}
+      </Wrapper>
+    </>
   );
 };
 

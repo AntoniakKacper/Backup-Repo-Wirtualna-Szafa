@@ -33,23 +33,26 @@ const ColorPickerAction = styled.div`
 
 interface ColorPickerProps {
   placement?: "bottom" | "top";
-  setFieldValue: (
+  setFieldValue?: (
     field: string,
     value: any,
     shouldValidate?: boolean | undefined
   ) => void;
+  setFilter?: (value: string) => void;
 }
 
 export const ColorPicker: React.FC<ColorPickerProps> = ({
   setFieldValue,
   placement,
+  setFilter,
 }) => {
   const [open, setOpen] = useState(false);
   const [color, setColor] = useState("");
 
   const handleColorChange = (color: any) => {
     setColor(color.hex);
-    setFieldValue("color", color.hex);
+    setFieldValue !== undefined && setFieldValue("color", color.hex);
+    setFilter !== undefined && setFilter(color.hex);
   };
 
   return (

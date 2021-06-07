@@ -165,6 +165,6 @@ export const StyledTypography = styled(Typography)`
 
 export const StyledInput = styled(FormControl)`
   &&{
-    min-width: 120px;
+    width: 100%;
   }
 `;

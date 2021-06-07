@@ -1,3 +1,4 @@
+import { Navbar } from "components/elements/Navbar";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
@@ -16,15 +17,18 @@ export const Likes: React.FC<LikesProps> = ({}) => {
     user && action(getMostLikableOutfit(user.id));
   }, []);
   return (
-    <Wrapper>
-      <h1>Most likable outfit</h1>
+    <>
+      <Navbar path="/suggestions" />
+      <Wrapper>
+        <h1>Most likable outfit</h1>
 
-      {mostLikableOutfit !== null ? (
-        <OutfitCard outfit={mostLikableOutfit} withLike={false} />
-      ) : (
-        <p>There are no outfits added</p>
-      )}
-    </Wrapper>
+        {mostLikableOutfit !== null ? (
+          <OutfitCard outfit={mostLikableOutfit} withLike={false} />
+        ) : (
+          <p>There are no outfits added</p>
+        )}
+      </Wrapper>
+    </>
   );
 };
 
